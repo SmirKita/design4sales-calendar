@@ -188,7 +188,7 @@ export const calendarData = [
           "tracked"
         ],
         "sourceSection": "optional",
-        "folderId": "14_Post_Найди_курсор_в_визуальном_шуме",
+        "folderId": "09_Post_Разбор постеров Durex и Xbox",
         "folderSource": "excel"
       },
       {
@@ -236,7 +236,7 @@ export const calendarData = [
           "tracked"
         ],
         "sourceSection": "archive",
-        "folderId": "14_Post_Найди_курсор_в_визуальном_шуме",
+        "folderId": "09_Post_Разбор постеров Durex и Xbox",
         "folderSource": "excel"
       }
     ],

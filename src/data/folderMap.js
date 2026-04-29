@@ -170,7 +170,7 @@ export const taskFolderMap = {
     "source": "generated"
   },
   "2026-04-30__2026-04-30_dzen_banner_bez_vizualnogo_shuma": {
-    "folderId": "14_Post_Найди_курсор_в_визуальном_шуме",
+    "folderId": "09_Post_Разбор постеров Durex и Xbox",
     "source": "excel"
   },
   "2026-04-30__2026-04-30_setka_prof_zametka_pochemu_reklamnyy_banner_dolzhen_by": {
@@ -182,7 +182,7 @@ export const taskFolderMap = {
     "source": "generated"
   },
   "2026-04-30__2026-04-30_vc_ru_statya_banner_bez_vizualnogo_shuma_statya_pochem": {
-    "folderId": "14_Post_Найди_курсор_в_визуальном_шуме",
+    "folderId": "09_Post_Разбор постеров Durex и Xbox",
     "source": "excel"
   },
   "2026-05-02__2026-05-02_telegram_vk_storis_chek_list_mayskie_no_brend_otdyhat_ne_dol": {
