@@ -154,8 +154,8 @@ export const taskFolderMap = {
     "source": "generated"
   },
   "2026-04-28__2026-04-28_setka_chto_vazhno_v_tz_zadacha_auditoriya_ogranicheniy": {
-    "folderId": "02_Post_Как_объяснить_дизайнеру_задачу",
-    "source": "excel"
+    "folderId": "28_Post_Найди_Лину",
+    "source": "generated"
   },
   "2026-04-30__2026-04-30_telegram_vk_kak_sdelat_banner_k_mayskim_akciyam_bez_vizualno": {
     "folderId": "30_Post_Баннеры_без_визуального_шума",
@@ -178,8 +178,8 @@ export const taskFolderMap = {
     "source": "generated"
   },
   "2026-04-30__2026-04-30_vc_ru_statya_banner_bez_vizualnogo_shuma_statya_pochem": {
-    "folderId": "09_Post_Разбор постеров Durex и Xbox",
-    "source": "excel"
+    "folderId": "30_Post_Баннеры_без_визуального_шума",
+    "source": "generated"
   },
   "2026-05-02__2026-05-02_telegram_vk_storis_chek_list_mayskie_no_brend_otdyhat_ne_dol": {
     "folderId": "02_Post_Бренд_на_майских",
@@ -194,8 +194,8 @@ export const taskFolderMap = {
     "source": "generated"
   },
   "2026-05-02__2026-05-02_setka_kak_shablony_snizhayut_haos_v_regulyarnom_konten": {
-    "folderId": "07_Post_Шаблоны_постов",
-    "source": "excel"
+    "folderId": "02_Post_Бренд_на_майских",
+    "source": "generated"
   },
   "2026-05-04__2026-05-04_vc_ru_statya_kak_rabotat_s_dizaynerom_chtoby_ne_utonut": {
     "folderId": "12_Post_Как проходит работа с дизайнером",
@@ -258,8 +258,8 @@ export const taskFolderMap = {
     "source": "generated"
   },
   "2026-05-07__2026-05-07_vc_ru_statya_dizayn_ne_ukrashaet_a_prodaet_chto_imenno": {
-    "folderId": "13_Post_Почему дизайн продает",
-    "source": "excel"
+    "folderId": "07_Post_Логотип_и_запоминаемость",
+    "source": "generated"
   },
   "2026-05-08__2026-05-08_instagram_reels_oblozhka": {
     "folderId": "08_Post_Логотип_и_запоминаемость",
@@ -338,8 +338,8 @@ export const taskFolderMap = {
     "source": "generated"
   },
   "2026-05-14__2026-05-14_vc_ru_statya_pochemu_fraza_sdelayte_krasivo_lomaet_diz": {
-    "folderId": "22_Post_Сделай красиво не работает",
-    "source": "excel"
+    "folderId": "14_Post_Упаковка_и_средний_чек",
+    "source": "generated"
   },
   "2026-05-15__2026-05-15_facebook_upakovka_i_sredniy_chek_pochemu_tovar_dolzhen_vy": {
     "folderId": "14_Post_Упаковка_и_средний_чек",
@@ -382,8 +382,8 @@ export const taskFolderMap = {
     "source": "generated"
   },
   "2026-05-19__2026-05-19_facebook_banner_kotoryy_prodaet_i_banner_kotoryy_prosto_z": {
-    "folderId": "14_Video_Баннер продает и не продает",
-    "source": "excel"
+    "folderId": "19_Post_Найди_ошибки_в_макете",
+    "source": "generated"
   },
   "2026-05-21__2026-05-21_telegram_vk_razbor_5_oshibok_v_makete": {
     "folderId": "21_Post_Разбор_ошибок_в_макете",
@@ -410,8 +410,8 @@ export const taskFolderMap = {
     "source": "generated"
   },
   "2026-05-21__2026-05-21_vc_ru_statya_razbor_5_oshibok_v_reklamnom_makete_staty": {
-    "folderId": "29_Quiz_Какая кнопка продает",
-    "source": "excel"
+    "folderId": "21_Post_Разбор_ошибок_в_макете",
+    "source": "generated"
   },
   "2026-05-22__2026-05-22_facebook_5_oshibok_v_reklamnom_makete_iz_za_kotoryh_ego_n": {
     "folderId": "21_Post_Разбор_ошибок_в_макете",
@@ -450,8 +450,8 @@ export const taskFolderMap = {
     "source": "generated"
   },
   "2026-05-26__2026-05-26_facebook_delovoy_anons_mini_konsaltinga_mini_keys_redizay": {
-    "folderId": "21_Post_Кейс_редизайн_кофе",
-    "source": "excel"
+    "folderId": "26_Post_Мини_консалтинг_по_визуалу",
+    "source": "generated"
   },
   "2026-05-28__2026-05-28_telegram_vk_post_offer_ai_kak_rabochiy_instrument": {
     "folderId": "28_Post_AI_как_рабочий_инструмент",
@@ -478,8 +478,8 @@ export const taskFolderMap = {
     "source": "generated"
   },
   "2026-05-28__2026-05-28_vc_ru_statya_ai_v_dizayne_dlya_biznesa_statya_kak_pote": {
-    "folderId": "12_Post_Как сэкономить 15000 на рекламе",
-    "source": "excel"
+    "folderId": "28_Post_AI_как_рабочий_инструмент",
+    "source": "generated"
   },
   "2026-05-29__2026-05-29_facebook_ekspertnaya_zametka_gde_ai_pomogaet_biznesu_v_vi": {
     "folderId": "28_Post_AI_как_рабочий_инструмент",
@@ -526,8 +526,8 @@ export const taskFolderMap = {
     "source": "generated"
   },
   "2026-06-02__2026-06-02_facebook_poleznyy_delovoy_chek_list_chek_list_kak_obyasni": {
-    "folderId": "02_Post_Как_объяснить_дизайнеру_задачу",
-    "source": "excel"
+    "folderId": "02_Post_Летний_визуал",
+    "source": "generated"
   },
   "2026-06-04__2026-06-04_telegram_vk_offer_kartochka_tovara_kak_vitrina": {
     "folderId": "04_Post_Карточка_товара",
@@ -554,8 +554,8 @@ export const taskFolderMap = {
     "source": "generated"
   },
   "2026-06-04__2026-06-04_vc_ru_statya_pochemu_kartochka_tovara_ne_prodaet_staty": {
-    "folderId": "14_Post_Разбор билборда стоматологии",
-    "source": "excel"
+    "folderId": "04_Post_Карточка_товара",
+    "source": "generated"
   },
   "2026-06-05__2026-06-05_facebook_kartochka_tovara_kak_vitrina_chto_pokupatel_dolz": {
     "folderId": "05_Post_Карточка_товара_витрина_покупатель_должен",
@@ -622,16 +622,16 @@ export const taskFolderMap = {
     "source": "excel"
   },
   "2026-06-11__2026-06-11_setka_zametka_shrift_zadaet_golos_brenda_kak_ya_dumayu": {
-    "folderId": "25_Post_Топ 5 шрифтов",
-    "source": "excel"
+    "folderId": "11_Post_Современные_шрифты",
+    "source": "generated"
   },
   "2026-06-11__2026-06-11_facebook_ekspertnaya_zametka_pro_shrift": {
-    "folderId": "25_Post_Топ 5 шрифтов",
-    "source": "excel"
+    "folderId": "11_Post_Современные_шрифты",
+    "source": "generated"
   },
   "2026-06-11__2026-06-11_vc_ru_statya_do_i_posle_sayta_shkoly_tancev_chto_menya": {
-    "folderId": "25_Post_Топ 5 шрифтов",
-    "source": "excel"
+    "folderId": "11_Post_Современные_шрифты",
+    "source": "generated"
   },
   "2026-06-12__2026-06-12_facebook_do_posle_kartochki_tovara_kakie_izmeneniya_deyst": {
     "folderId": "12_Post_после_карточки_товара_какие_изменения",
@@ -686,8 +686,8 @@ export const taskFolderMap = {
     "source": "generated"
   },
   "2026-06-16__2026-06-16_facebook_pro_firmennyy_stil_delovoy_post_prezentaciya_kot": {
-    "folderId": "21_Post_Презентация_которую_не_хочется_закрыть",
-    "source": "excel"
+    "folderId": "16_Post_Фирменный_стиль_система",
+    "source": "generated"
   },
   "2026-06-18__2026-06-18_telegram_vk_offer_poligrafiya_i_naruzhka": {
     "folderId": "18_Post_Полиграфия_наружка",
@@ -714,8 +714,8 @@ export const taskFolderMap = {
     "source": "generated"
   },
   "2026-06-18__2026-06-18_vc_ru_statya_redizayn_etiketki_kofe_chto_izmenit_chtob": {
-    "folderId": "21_Post_Кейс_редизайн_кофе",
-    "source": "excel"
+    "folderId": "18_Post_Полиграфия_наружка",
+    "source": "generated"
   },
   "2026-06-19__2026-06-19_facebook_firmennyy_stil_eto_sistema_a_ne_tolko_logotip": {
     "folderId": "19_Post_Фирменный_стиль_-_система_только",
@@ -766,8 +766,8 @@ export const taskFolderMap = {
     "source": "generated"
   },
   "2026-06-23__2026-06-23_facebook_pro_upakovku_uslugi_delovoy_post_faq_dizayneru_3": {
-    "folderId": "23_Post_FAQ_3_вопроса_дизайнеру",
-    "source": "excel"
+    "folderId": "23_Post_Услуга_понятна_5_секунд",
+    "source": "generated"
   },
   "2026-06-25__2026-06-25_telegram_vk_post_gayd_kak_oformit_uslugu_v_socsetyah_chtoby_": {
     "folderId": "25_Post_Оформление_услуги_соцсетях",
@@ -782,8 +782,8 @@ export const taskFolderMap = {
     "source": "generated"
   },
   "2026-06-25__2026-06-25_vc_ru_statya_pochemu_odin_profil_vyglyadit_dorozhe_dru": {
-    "folderId": "30_Post_AB-профиль_оформление-соцсетей",
-    "source": "excel"
+    "folderId": "25_Post_Оформление_услуги_соцсетях",
+    "source": "generated"
   },
   "2026-06-26__2026-06-26_facebook_myagkiy_offer_poligrafiya_i_naruzhka_pochemu_ofl": {
     "folderId": "26_Post_Полиграфия_наружка_офлайн-носители_тоже_часть",
@@ -854,8 +854,8 @@ export const taskFolderMap = {
     "source": "generated"
   },
   "2026-07-02__2026-07-02_vc_ru_statya_kak_keys_prodaet_uslugu_statya_do_i_posle": {
-    "folderId": "15_Post_Аудит_профиля",
-    "source": "excel"
+    "folderId": "02_Post_показать_кейс",
+    "source": "generated"
   },
   "2026-07-04__2026-07-04_telegram_vk_storis_video_do_posle_bez_vody_chto_pomenyalos": {
     "folderId": "04_Video_после_воды",
@@ -910,8 +910,8 @@ export const taskFolderMap = {
     "source": "generated"
   },
   "2026-07-09__2026-07-09_vc_ru_statya_prezentaciya_kotoruyu_ne_zakryvayut_na_vt": {
-    "folderId": "21_Post_Презентация_которую_не_хочется_закрыть",
-    "source": "excel"
+    "folderId": "09_Post_Баннер_мусора",
+    "source": "generated"
   },
   "2026-07-11__2026-07-11_telegram_vk_igra_naydi_slaboe_mesto_v_reklamnom_makete": {
     "folderId": "11_Post_Найди_слабое_место_рекламе",
@@ -1080,5 +1080,69 @@ export const taskFolderMap = {
   "2026-07-21__2026-07-21_vc_ru_statya_vizualnyy_audit_brenda": {
     "folderId": "21_Post_Визуальный_аудит_бренда",
     "source": "generated"
+  },
+  "2026-05-10__2026-05-10_vc_ru_statya_razbor_posterov_durex_xbox": {
+    "folderId": "09_Post_Разбор постеров Durex и Xbox",
+    "source": "excel"
+  },
+  "2026-05-15__2026-05-15_setka_shablony_snizhayut_haos": {
+    "folderId": "07_Post_Шаблоны_постов",
+    "source": "excel"
+  },
+  "2026-05-17__2026-05-17_vc_ru_pochemu_dizayn_prodaet": {
+    "folderId": "13_Post_Почему дизайн продает",
+    "source": "excel"
+  },
+  "2026-05-22__2026-05-22_vc_ru_kakaya_knopka_prodaet": {
+    "folderId": "29_Quiz_Какая кнопка продает",
+    "source": "excel"
+  },
+  "2026-05-29__2026-05-29_vc_ru_kak_sekonomit_15000_na_reklame": {
+    "folderId": "12_Post_Как сэкономить 15000 на рекламе",
+    "source": "excel"
+  },
+  "2026-06-05__2026-06-05_vc_ru_bilbord_stomatologii": {
+    "folderId": "14_Post_Разбор билборда стоматологии",
+    "source": "excel"
+  },
+  "2026-06-26__2026-06-26_vc_ru_ab_profil_oformlenie": {
+    "folderId": "30_Post_AB-профиль_оформление-соцсетей",
+    "source": "excel"
+  },
+  "2026-07-08__2026-07-08_vc_ru_audit_profilya": {
+    "folderId": "15_Post_Аудит_профиля",
+    "source": "excel"
+  },
+  "2026-05-11__2026-05-11_facebook_banner_prodaet_i_ne_prodaet": {
+    "folderId": "14_Video_Баннер продает и не продает",
+    "source": "excel"
+  },
+  "2026-05-24__2026-05-24_facebook_redizayn_etiketki_kofe": {
+    "folderId": "21_Post_Кейс_редизайн_кофе",
+    "source": "excel"
+  },
+  "2026-06-01__2026-06-01_facebook_cheklist_tz_dizayneru": {
+    "folderId": "02_Post_Как_объяснить_дизайнеру_задачу",
+    "source": "excel"
+  },
+  "2026-05-18__2026-05-18_facebook_shrift_vliyaet_na_brend": {
+    "folderId": "25_Post_Топ 5 шрифтов",
+    "source": "excel"
+  },
+  "2026-05-18__2026-05-18_setka_shrift_golos_brenda": {
+    "folderId": "25_Post_Топ 5 шрифтов",
+    "source": "excel"
+  },
+  "2026-07-10__2026-07-10_facebook_prezentaciya_ne_zakryvayut": {
+    "folderId": "21_Post_Презентация_которую_не_хочется_закрыть",
+    "source": "excel"
+  },
+  "2026-07-13__2026-07-13_facebook_faq_dizayneru": {
+    "folderId": "23_Post_FAQ_3_вопроса_дизайнеру",
+    "source": "excel"
+  },
+  "2026-06-01__2026-06-01_setka_chto_vazhno_v_tz": {
+    "folderId": "02_Post_Как_объяснить_дизайнеру_задачу",
+    "source": "excel"
   }
 };
