@@ -169,10 +169,6 @@ export const taskFolderMap = {
     "folderId": "30_Post_Баннеры_без_визуального_шума",
     "source": "generated"
   },
-  "2026-04-30__2026-04-30_dzen_banner_bez_vizualnogo_shuma": {
-    "folderId": "09_Post_Разбор постеров Durex и Xbox",
-    "source": "excel"
-  },
   "2026-04-30__2026-04-30_setka_prof_zametka_pochemu_reklamnyy_banner_dolzhen_by": {
     "folderId": "30_Post_Баннеры_без_визуального_шума",
     "source": "generated"

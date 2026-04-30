@@ -177,21 +177,6 @@ export const calendarData = [
     ],
     "optional": [
       {
-        "id": "2026-04-30_dzen_banner_bez_vizualnogo_shuma",
-        "platform": "Дзен",
-        "text": "баннер без визуального шума",
-        "taskType": "post",
-        "checklist": [
-          "text",
-          "visual",
-          "published",
-          "tracked"
-        ],
-        "sourceSection": "optional",
-        "folderId": "09_Post_Разбор постеров Durex и Xbox",
-        "folderSource": "excel"
-      },
-      {
         "id": "2026-04-30_setka_prof_zametka_pochemu_reklamnyy_banner_dolzhen_by",
         "platform": "Сетка",
         "text": "Проф. заметка: Почему рекламный баннер должен быть проще, чем кажется; Рабочий...",
@@ -242,7 +227,6 @@ export const calendarData = [
     ],
     "prepare": [
       "4-5 карточек",
-      "статья",
       "ролик, обложка",
       "статья vc.ru, обложка, 2-4 иллюстрации",
       "Сетка: Убрать сезонный акцент на майские, оставить вывод про...",
