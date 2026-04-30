@@ -108,6 +108,26 @@ function sameWeek(date, anchor) {
   return date >= monday && date <= sunday;
 }
 
+function planWeeks(days) {
+  const weeks = [];
+  const seen = new Set();
+  days.forEach((day) => {
+    const monday = getMonday(parseDate(day.date));
+    const key = monday.toISOString().slice(0, 10);
+    if (!seen.has(key)) {
+      seen.add(key);
+      weeks.push(monday);
+    }
+  });
+  return weeks;
+}
+
+function getPlanWeekNumber(days, anchor) {
+  const currentMonday = getMonday(anchor).toISOString().slice(0, 10);
+  const index = planWeeks(days).findIndex((week) => week.toISOString().slice(0, 10) === currentMonday);
+  return index >= 0 ? index + 1 : 1;
+}
+
 function getNearestDay(days) {
   const today = new Date();
   today.setHours(12, 0, 0, 0);
@@ -230,8 +250,8 @@ function Header({ taskCount }) {
       </div>
       <div className="heroCard">
         <span>Период</span>
-        <strong>90 дней</strong>
-        <small>66 рабочих дат · {taskCount} задач</small>
+        <strong>27.04.2026 — 25.07.2026</strong>
+        <small>{taskCount} задач</small>
       </div>
     </header>
   );
@@ -352,6 +372,7 @@ function TodayPanel({ day, progress, updateTask }) {
           </h2>
         </div>
         <span className="typePill">{day.typeLabel}</span>
+        {day.calendarNote && <span className="notePill">{day.calendarNote}</span>}
       </div>
       <DayCard day={day} progress={progress} updateTask={updateTask} compact highlight />
     </section>
@@ -391,6 +412,7 @@ function DayCard({ day, progress, updateTask, compact = false, highlight = false
         </div>
         <div className="dayMeta">
           <span className="typePill">{day.typeLabel}</span>
+          {day.calendarNote && <span className="notePill">{day.calendarNote}</span>}
           <strong>
             {dayProgress.done} из {dayProgress.total}
           </strong>
@@ -710,6 +732,7 @@ export default function App() {
 
   const weekDays = calendarData.filter((day) => sameWeek(parseDate(day.date), weekAnchor));
   const weekLabel = weekDays.length ? formatShortRange(weekDays[0].date, weekDays[weekDays.length - 1].date) : "";
+  const weekNumber = getPlanWeekNumber(calendarData, weekAnchor);
 
   return (
     <div className="app">
@@ -730,7 +753,7 @@ export default function App() {
 
       {view === "week" && (
         <div className="weekBanner">
-          <span>Неделя 1</span>
+          <span>Неделя {weekNumber}</span>
           <strong>{weekLabel}</strong>
         </div>
       )}

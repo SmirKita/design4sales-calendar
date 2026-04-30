@@ -225,11 +225,6 @@ export const taskFolderMap = {
     "folderId": "05_Post_До_после_баннера",
     "source": "generated"
   },
-  "2026-05-05__2026-05-05_vc_ru_statya_banner_stal_ponyatnee": {
-    "folderId": "ПАПКА_НЕ_НАЙДЕНА",
-    "source": "missing",
-    "note": "Нужно вручную сверить с Excel"
-  },
   "2026-05-06__2026-05-06_instagram_karusel_4_5_karusel_4_5_banner_do_posle_chto_ubr": {
     "folderId": "06_Post_Баннер_до_после",
     "source": "generated"
@@ -317,11 +312,6 @@ export const taskFolderMap = {
   "2026-05-12__2026-05-12_facebook_delovaya_podborka_pro_komplekt_nositeley_chek_li": {
     "folderId": "12_Post_Офлайн_носители_бренда",
     "source": "generated"
-  },
-  "2026-05-12__2026-05-12_vc_ru_statya_onlayn_i_oflayn_kak_sistema": {
-    "folderId": "ПАПКА_НЕ_НАЙДЕНА",
-    "source": "missing",
-    "note": "Нужно вручную сверить с Excel"
   },
   "2026-05-14__2026-05-14_telegram_vk_keys_kak_upakovka_pomogla_tovaru_vyglyadet_doroz": {
     "folderId": "14_Post_Упаковка_и_средний_чек",
@@ -615,11 +605,6 @@ export const taskFolderMap = {
     "folderId": "09_Post_после_карточки_товара",
     "source": "generated"
   },
-  "2026-06-09__2026-06-09_vc_ru_statya_ierarhiya_v_kartochke_tovara": {
-    "folderId": "ПАПКА_НЕ_НАЙДЕНА",
-    "source": "missing",
-    "note": "Нужно вручную сверить с Excel"
-  },
   "2026-06-11__2026-06-11_telegram_vk_podborka_5_sovremennyh_shriftov": {
     "folderId": "11_Post_Современные_шрифты",
     "source": "generated"
@@ -704,11 +689,6 @@ export const taskFolderMap = {
     "folderId": "21_Post_Презентация_которую_не_хочется_закрыть",
     "source": "excel"
   },
-  "2026-06-16__2026-06-16_vc_ru_statya_firmennyy_stil_kak_sistema": {
-    "folderId": "ПАПКА_НЕ_НАЙДЕНА",
-    "source": "missing",
-    "note": "Нужно вручную сверить с Excel"
-  },
   "2026-06-18__2026-06-18_telegram_vk_offer_poligrafiya_i_naruzhka": {
     "folderId": "18_Post_Полиграфия_наружка",
     "source": "generated"
@@ -788,11 +768,6 @@ export const taskFolderMap = {
   "2026-06-23__2026-06-23_facebook_pro_upakovku_uslugi_delovoy_post_faq_dizayneru_3": {
     "folderId": "23_Post_FAQ_3_вопроса_дизайнеру",
     "source": "excel"
-  },
-  "2026-06-23__2026-06-23_vc_ru_statya_pochemu_uslugu_ne_pokupayut": {
-    "folderId": "ПАПКА_НЕ_НАЙДЕНА",
-    "source": "missing",
-    "note": "Нужно вручную сверить с Excel"
   },
   "2026-06-25__2026-06-25_telegram_vk_post_gayd_kak_oformit_uslugu_v_socsetyah_chtoby_": {
     "folderId": "25_Post_Оформление_услуги_соцсетях",
@@ -922,11 +897,6 @@ export const taskFolderMap = {
     "folderId": "07_Post_Первый_экран_решает",
     "source": "generated"
   },
-  "2026-07-07__2026-07-07_vc_ru_statya_pervyy_ekran_bannera_reshaet": {
-    "folderId": "ПАПКА_НЕ_НАЙДЕНА",
-    "source": "missing",
-    "note": "Нужно вручную сверить с Excel"
-  },
   "2026-07-09__2026-07-09_telegram_vk_post_cheklist_kak_sdelat_banner_bez_vizualnogo_m": {
     "folderId": "09_Post_Баннер_мусора",
     "source": "generated"
@@ -982,11 +952,6 @@ export const taskFolderMap = {
   "2026-07-14__2026-07-14_facebook_delovoy_keys_po_upakovke": {
     "folderId": "14_Post_Этикетка_которая_выглядит_дороже",
     "source": "generated"
-  },
-  "2026-07-14__2026-07-14_vc_ru_statya_statya_keys_etiketka_i_oschuschenie_ceny": {
-    "folderId": "ПАПКА_НЕ_НАЙДЕНА",
-    "source": "missing",
-    "note": "Нужно вручную сверить с Excel"
   },
   "2026-07-16__2026-07-16_telegram_vk_post_gayd_chto_dolzhno_byt_na_upakovke_chtoby_po": {
     "folderId": "16_Post_должно_быть_упаковке",
@@ -1048,11 +1013,6 @@ export const taskFolderMap = {
     "folderId": "21_Post_Визуальный_аудит_бренда",
     "source": "generated"
   },
-  "2026-07-21__2026-07-21_vc_ru_statya_kogda_vizual_pora_privesti_v_sistemu": {
-    "folderId": "ПАПКА_НЕ_НАЙДЕНА",
-    "source": "missing",
-    "note": "Нужно вручную сверить с Excel"
-  },
   "2026-07-23__2026-07-23_telegram_vk_post_chto_sobrat_v_edinuyu_sistemu_profil_banner": {
     "folderId": "23_Post_собрать_единую_систему",
     "source": "generated"
@@ -1087,6 +1047,38 @@ export const taskFolderMap = {
   },
   "2026-07-25__2026-07-25_instagram_stories_interaktiv": {
     "folderId": "25_Post_Оффер_визуал_под_ключ",
+    "source": "generated"
+  },
+  "2026-05-05__2026-05-05_vc_ru_statya_do_posle_reklamnogo_bannera": {
+    "folderId": "05_Post_До_после_баннера",
+    "source": "generated"
+  },
+  "2026-05-12__2026-05-12_vc_ru_statya_oflayn_nositeli_brenda": {
+    "folderId": "12_Post_Офлайн_носители_бренда",
+    "source": "generated"
+  },
+  "2026-06-09__2026-06-09_vc_ru_statya_do_posle_kartochki_tovara": {
+    "folderId": "09_Post_после_карточки_товара",
+    "source": "generated"
+  },
+  "2026-06-16__2026-06-16_vc_ru_statya_firmennyy_stil_kak_sistema": {
+    "folderId": "16_Post_Фирменный_стиль_система",
+    "source": "generated"
+  },
+  "2026-06-23__2026-06-23_vc_ru_statya_pochemu_uslugu_ne_pokupayut": {
+    "folderId": "23_Post_Услуга_понятна_5_секунд",
+    "source": "generated"
+  },
+  "2026-07-07__2026-07-07_vc_ru_statya_pervyy_ekran_bannera": {
+    "folderId": "07_Post_Первый_экран_решает",
+    "source": "generated"
+  },
+  "2026-07-14__2026-07-14_vc_ru_statya_etiketka_kotoraya_vyglyadit_dorozhe": {
+    "folderId": "14_Post_Этикетка_которая_выглядит_дороже",
+    "source": "generated"
+  },
+  "2026-07-21__2026-07-21_vc_ru_statya_vizualnyy_audit_brenda": {
+    "folderId": "21_Post_Визуальный_аудит_бренда",
     "source": "generated"
   }
 };

@@ -6,14 +6,14 @@ export const calendarData = [
     "dayShort": "Пн",
     "title": "Брендбук для малого бизнеса: когда он реально нужен, а когда это лишняя трата",
     "type": "post",
-    "typeLabel": "основной пост",
+    "typeLabel": "архивная перепаковка",
     "priority": [],
     "optional": [],
     "archive": [
       {
         "id": "2026-04-27_vc_ru_statya_brendbuk_dlya_malogo_biznesa_kogda_on_rea",
         "platform": "vc.ru",
-        "text": "статья «Брендбук для малого бизнеса: когда он реально нужен, а когда это...»",
+        "text": "статья vc.ru: Брендбук для малого бизнеса — когда он нужен, а когда это лишняя трата",
         "taskType": "article",
         "checklist": [
           "text",
@@ -28,11 +28,12 @@ export const calendarData = [
       }
     ],
     "prepare": [
-      "VC: Показать брендбук как инструмент согласованности, скорости..."
+      "vc.ru: статья, обложка, 2-3 примера брендбука"
     ],
     "cta": [
       "мягкий переход в Telegram/VK"
-    ]
+    ],
+    "calendarNote": "Архивная перепаковка / доп. публикация"
   },
   {
     "date": "2026-04-28",
@@ -109,10 +110,10 @@ export const calendarData = [
     ],
     "archive": [],
     "prepare": [
-      "Игровой баннер",
-      "сторис",
+      "игровой баннер",
+      "1-2 сторис",
       "ролик-ответ",
-      "Сетка: Убрать формат гайда из Telegram/VK, оставить профессиональную..."
+      "Сетка: короткая проф. заметка про ТЗ"
     ],
     "cta": [
       "Переход в канал",
@@ -179,7 +180,7 @@ export const calendarData = [
       {
         "id": "2026-04-30_setka_prof_zametka_pochemu_reklamnyy_banner_dolzhen_by",
         "platform": "Сетка",
-        "text": "Проф. заметка: Почему рекламный баннер должен быть проще, чем кажется; Рабочий...",
+        "text": "Сетка: рабочий вывод — почему рекламный баннер должен быть проще, чем кажется",
         "taskType": "post",
         "checklist": [
           "text",
@@ -211,7 +212,7 @@ export const calendarData = [
       {
         "id": "2026-04-30_vc_ru_statya_banner_bez_vizualnogo_shuma_statya_pochem",
         "platform": "vc.ru",
-        "text": "статья «баннер без визуального шума; Статья: Почему одни рекламные постеры...»",
+        "text": "статья vc.ru: Разбор постеров Durex и Xbox — почему одни рекламные постеры считываются быстрее других",
         "taskType": "article",
         "checklist": [
           "text",
@@ -227,10 +228,9 @@ export const calendarData = [
     ],
     "prepare": [
       "4-5 карточек",
-      "ролик, обложка",
-      "статья vc.ru, обложка, 2-4 иллюстрации",
-      "Сетка: Убрать сезонный акцент на майские, оставить вывод про...",
-      "VC: Сделать разбор механики креатива: идея, контраст, фокус, бренд"
+      "ролик и обложка",
+      "vc.ru: статья по Durex/Xbox + обложка + 2-4 иллюстрации",
+      "Сетка: короткая заметка без сезонного акцента"
     ],
     "cta": [
       "Напишите: БАННЕР",
@@ -312,9 +312,9 @@ export const calendarData = [
     ],
     "archive": [],
     "prepare": [
-      "3-4 сторис, галочки, мягкий тон",
-      "ролик",
-      "Сетка: Снять прямой оффер, показать шаблоны как систему: меньше..."
+      "3-4 сторис с чек-листом",
+      "короткий ролик",
+      "Сетка: шаблоны как система регулярного контента"
     ],
     "cta": [
       "Сохранить сторис",
@@ -328,14 +328,14 @@ export const calendarData = [
     "dayShort": "Пн",
     "title": "Как работать с дизайнером, чтобы не утонуть в правках",
     "type": "post",
-    "typeLabel": "основной пост",
+    "typeLabel": "архивная перепаковка",
     "priority": [],
     "optional": [],
     "archive": [
       {
         "id": "2026-05-04_vc_ru_statya_kak_rabotat_s_dizaynerom_chtoby_ne_utonut",
         "platform": "vc.ru",
-        "text": "статья «Как работать с дизайнером, чтобы не утонуть в правках»",
+        "text": "статья vc.ru: Как работать с дизайнером, чтобы не утонуть в правках",
         "taskType": "article",
         "checklist": [
           "text",
@@ -350,11 +350,12 @@ export const calendarData = [
       }
     ],
     "prepare": [
-      "VC: Превратить в пошаговый процесс: бриф, референсы, этапы..."
+      "vc.ru: пошаговая статья — бриф, референсы, этапы, правки"
     ],
     "cta": [
       "мягкий переход в Telegram/VK"
-    ]
+    ],
+    "calendarNote": "Архивная перепаковка / доп. публикация"
   },
   {
     "date": "2026-05-05",
@@ -416,10 +417,11 @@ export const calendarData = [
       {
         "id": "2026-05-05_dzen_kak_uluchshit_banner",
         "platform": "Дзен",
-        "text": "как улучшить баннер",
-        "taskType": "post",
+        "text": "Статья: как улучшить рекламный баннер",
+        "taskType": "article",
         "checklist": [
           "text",
+          "article",
           "visual",
           "published",
           "tracked"
@@ -431,7 +433,7 @@ export const calendarData = [
       {
         "id": "2026-05-05_setka_mini_keys_zadacha_reshenie_rezultat_reklamnyy_ba",
         "platform": "Сетка",
-        "text": "Мини-кейс Задача → решение → результат: рекламный баннер; Мини-кейс: Задача -...",
+        "text": "Сетка: мини-кейс — задача, решение и результат в рекламном баннере",
         "taskType": "case",
         "checklist": [
           "text",
@@ -461,9 +463,9 @@ export const calendarData = [
     ],
     "archive": [
       {
-        "id": "2026-05-05_vc_ru_statya_banner_stal_ponyatnee",
+        "id": "2026-05-05_vc_ru_statya_do_posle_reklamnogo_bannera",
         "platform": "vc.ru",
-        "text": "статья «баннер стал понятнее»",
+        "text": "статья vc.ru: До/после рекламного баннера — что изменили, чтобы баннер стал понятнее",
         "taskType": "article",
         "checklist": [
           "text",
@@ -473,17 +475,16 @@ export const calendarData = [
           "tracked"
         ],
         "sourceSection": "archive",
-        "folderId": "ПАПКА_НЕ_НАЙДЕНА",
-        "folderSource": "missing",
-        "folderNote": "Нужно вручную сверить с Excel"
+        "folderId": "05_Post_До_после_баннера",
+        "folderSource": "generated",
+        "folderNote": "Та же папка, что у основной темы дня"
       }
     ],
     "prepare": [
-      "До/после, выноски",
-      "статья",
-      "ролик",
-      "кейс vc.ru, до/после, выводы",
-      "Сетка: Структура: задача, что мешало считыванию, что изменили..."
+      "до/после баннера",
+      "выноски",
+      "короткий ролик",
+      "vc.ru: статья по до/после баннера + обложка + выводы"
     ],
     "cta": [
       "Подборка примеров",
@@ -502,7 +503,7 @@ export const calendarData = [
       {
         "id": "2026-05-06_instagram_karusel_4_5_karusel_4_5_banner_do_posle_chto_ubr",
         "platform": "Instagram",
-        "text": "карусель 4:5 «Карусель 4:5: Баннер до/после: что убрать, чтобы креатив...»",
+        "text": "карусель 4:5: Баннер до/после — что убрать, чтобы креатив считывался быстрее",
         "taskType": "carousel",
         "checklist": [
           "text",
@@ -519,7 +520,7 @@ export const calendarData = [
       {
         "id": "2026-05-06_facebook_pochemu_fraza_sdelayte_krasivo_meshaet_poluchit_",
         "platform": "Facebook",
-        "text": "Почему фраза «сделайте красиво» мешает получить рабочий дизайн",
+        "text": "Facebook: деловая версия — почему фраза «сделайте красиво» мешает получить рабочий дизайн",
         "taskType": "post",
         "checklist": [
           "text",
@@ -534,13 +535,14 @@ export const calendarData = [
     ],
     "archive": [],
     "prepare": [
-      "IG: 5 карточек 1080x1350: слабый баннер, сильный баннер, 3 выноски",
-      "FB: Переписать без полемики: первый абзац про риск размытых задач..."
+      "Instagram: 5 карточек 1080x1350",
+      "Facebook: деловой пост без полемики"
     ],
     "cta": [
       "Сохранить / написать «БАННЕР»",
       "Сохранить / написать в личку"
-    ]
+    ],
+    "calendarNote": "Доп. публикация"
   },
   {
     "date": "2026-05-07",
@@ -618,7 +620,7 @@ export const calendarData = [
       {
         "id": "2026-05-07_setka_zametka_logotip_rabotaet_v_sisteme_a_ne_v_vakuum",
         "platform": "Сетка",
-        "text": "Заметка Логотип работает в системе, а не в вакууме; Рабочий вывод: Логотип...",
+        "text": "Сетка: рабочий вывод — логотип работает в системе, а не в вакууме",
         "taskType": "post",
         "checklist": [
           "text",
@@ -650,7 +652,7 @@ export const calendarData = [
       {
         "id": "2026-05-07_vc_ru_statya_dizayn_ne_ukrashaet_a_prodaet_chto_imenno",
         "platform": "vc.ru",
-        "text": "статья «Дизайн не украшает, а продает: что именно он делает для бизнеса»",
+        "text": "статья vc.ru: Почему дизайн продает — что именно он делает для бизнеса",
         "taskType": "article",
         "checklist": [
           "text",
@@ -665,11 +667,10 @@ export const calendarData = [
       }
     ],
     "prepare": [
-      "Коллаж логотипов, 3 тезиса",
-      "статья",
+      "коллаж логотипов",
+      "3 тезиса про систему",
       "ролик",
-      "Сетка: Сделать заметку о системе идентичности: повторяемость, носители",
-      "VC: Раскрыть связь дизайна с доверием, выбором, конверсией и..."
+      "vc.ru: статья про дизайн как бизнес-инструмент"
     ],
     "cta": [
       "Напишите: ЛОГО",
@@ -743,7 +744,8 @@ export const calendarData = [
     "cta": [
       "Комментарии: какой легче вспомнить?",
       "Telegram/VK за примерами"
-    ]
+    ],
+    "calendarNote": "Доп. публикация"
   },
   {
     "date": "2026-05-09",
@@ -808,7 +810,7 @@ export const calendarData = [
       {
         "id": "2026-05-10_setka_oshibka_biznesa_v_vizuale_silnyy_profil_eto_iera",
         "platform": "Сетка",
-        "text": "Ошибка бизнеса в визуале: Сильный профиль - это иерархия, ясность и единый...",
+        "text": "Сетка: ошибка бизнеса в визуале — сильный профиль держится на иерархии, ясности и едином тоне",
         "taskType": "post",
         "checklist": [
           "text",
@@ -823,7 +825,7 @@ export const calendarData = [
     ],
     "archive": [],
     "prepare": [
-      "Сетка: Убрать A/B-голосование и оставить проф. разбор: почему один..."
+      "Сетка: проф. разбор без A/B-голосования"
     ],
     "cta": [
       "Сохранить вывод"
@@ -836,14 +838,14 @@ export const calendarData = [
     "dayShort": "Пн",
     "title": "Баннер, который продает, и баннер, который просто занимает место",
     "type": "post",
-    "typeLabel": "основной пост",
+    "typeLabel": "архивная перепаковка",
     "priority": [],
     "optional": [],
     "archive": [
       {
         "id": "2026-05-11_vc_ru_statya_banner_kotoryy_prodaet_i_banner_kotoryy_p",
         "platform": "vc.ru",
-        "text": "статья «Баннер, который продает, и баннер, который просто занимает место»",
+        "text": "статья vc.ru: Баннер, который продает, и баннер, который просто занимает место",
         "taskType": "article",
         "checklist": [
           "text",
@@ -858,11 +860,12 @@ export const calendarData = [
       }
     ],
     "prepare": [
-      "VC: Сделать до/после-разбор: оффер, иерархия, CTA, визуальный шум..."
+      "vc.ru: до/после-разбор — оффер, иерархия, CTA, визуальный шум"
     ],
     "cta": [
       "мягкий переход в Telegram/VK"
-    ]
+    ],
+    "calendarNote": "Архивная перепаковка / доп. публикация"
   },
   {
     "date": "2026-05-12",
@@ -940,7 +943,7 @@ export const calendarData = [
       {
         "id": "2026-05-12_setka_rabochiy_vyvod_pro_edinyy_brend_onlayn_i_oflayn_",
         "platform": "Сетка",
-        "text": "Рабочий вывод про единый бренд онлайн и офлайн; Рабочий вывод: Бренд должен быть...",
+        "text": "Сетка: рабочий вывод — бренд должен быть узнаваемым онлайн и офлайн",
         "taskType": "post",
         "checklist": [
           "text",
@@ -955,7 +958,7 @@ export const calendarData = [
       {
         "id": "2026-05-12_facebook_delovaya_podborka_pro_komplekt_nositeley_chek_li",
         "platform": "Facebook",
-        "text": "Деловая подборка про комплект носителей; Чек-лист: Как работать с...",
+        "text": "Facebook: чек-лист — как работать с комплектом офлайн-носителей бренда",
         "taskType": "checklist",
         "checklist": [
           "text",
@@ -970,9 +973,9 @@ export const calendarData = [
     ],
     "archive": [
       {
-        "id": "2026-05-12_vc_ru_statya_onlayn_i_oflayn_kak_sistema",
+        "id": "2026-05-12_vc_ru_statya_oflayn_nositeli_brenda",
         "platform": "vc.ru",
-        "text": "статья «онлайн и офлайн как система»",
+        "text": "статья vc.ru: Офлайн-носители бренда — как собрать единую визуальную систему",
         "taskType": "article",
         "checklist": [
           "text",
@@ -982,19 +985,16 @@ export const calendarData = [
           "tracked"
         ],
         "sourceSection": "archive",
-        "folderId": "ПАПКА_НЕ_НАЙДЕНА",
-        "folderSource": "missing",
-        "folderNote": "Нужно вручную сверить с Excel"
+        "folderId": "12_Post_Офлайн_носители_бренда",
+        "folderSource": "generated",
+        "folderNote": "Та же папка, что у основной темы дня"
       }
     ],
     "prepare": [
-      "Коллаж 5 носителей, подписи",
-      "статья",
+      "коллаж 5 носителей",
       "ролик",
-      "статья vc.ru, коллаж носителей",
-      "IG: 2 варианта профиля, голосование в Stories",
-      "карусель с 4 карточками разбора и CTA-слайдом",
-      "FB: Сделать самостоятельный пост: этапы работы, где возникают..."
+      "Facebook: чек-лист носителей",
+      "vc.ru: статья по офлайн-носителям + коллаж примеров"
     ],
     "cta": [
       "Подобрать комплект",
@@ -1046,7 +1046,7 @@ export const calendarData = [
       {
         "id": "2026-05-14_shorts_reels_vk_video_do_posle_upakovki_za_10_sekund_reels_upakovka_i_",
         "platform": "Shorts/Reels/VK Видео",
-        "text": "До/после упаковки за 10 секунд; Reels: Упаковка и средний чек: как...",
+        "text": "Reels/Shorts: до/после упаковки за 10 секунд — как визуал влияет на ощущение цены",
         "taskType": "video",
         "checklist": [
           "text",
@@ -1064,10 +1064,11 @@ export const calendarData = [
       {
         "id": "2026-05-14_dzen_keys_upakovka_i_sredniy_chek",
         "platform": "Дзен",
-        "text": "Кейс упаковка и средний чек",
-        "taskType": "case",
+        "text": "Дзен: кейс — упаковка и средний чек",
+        "taskType": "article",
         "checklist": [
           "text",
+          "article",
           "visual",
           "published",
           "tracked"
@@ -1079,7 +1080,7 @@ export const calendarData = [
       {
         "id": "2026-05-14_setka_mini_keys_po_upakovke_mini_keys_zadacha_reshenie",
         "platform": "Сетка",
-        "text": "Мини-кейс по упаковке; Мини-кейс: Задача - решение - результат: упаковка товара",
+        "text": "Сетка: мини-кейс — задача, решение и результат в упаковке товара",
         "taskType": "case",
         "checklist": [
           "text",
@@ -1111,7 +1112,7 @@ export const calendarData = [
       {
         "id": "2026-05-14_vc_ru_statya_pochemu_fraza_sdelayte_krasivo_lomaet_diz",
         "platform": "vc.ru",
-        "text": "статья «Почему фраза “сделайте красиво” ломает дизайн-процесс»",
+        "text": "статья vc.ru: Почему фраза «сделайте красиво» ломает дизайн-процесс",
         "taskType": "article",
         "checklist": [
           "text",
@@ -1126,13 +1127,10 @@ export const calendarData = [
       }
     ],
     "prepare": [
-      "До/после, цитата",
-      "статья",
-      "ролик",
-      "IG: До/после упаковки",
-      "мокап на полке, крупные выноски, короткое видео-трансформация",
-      "Сетка: Оставить деловую структуру кейса: задача, слабое место...",
-      "VC: Дать предпринимателю замену этой фразе: цель, аудитория, контекст"
+      "до/после упаковки",
+      "мокап на полке",
+      "короткий ролик",
+      "vc.ru: статья про «сделайте красиво» + примеры формулировок"
     ],
     "cta": [
       "Разбор упаковки",
@@ -1168,7 +1166,7 @@ export const calendarData = [
     ],
     "archive": [],
     "prepare": [
-      "FB: Структура: задача, что было не так, что изменили в упаковке..."
+      "Facebook: мини-кейс упаковки — задача, изменения, вывод"
     ],
     "cta": [
       "Написать «УПАКОВКА»"
@@ -1217,7 +1215,7 @@ export const calendarData = [
       {
         "id": "2026-05-16_shorts_reels_vk_video_foto_do_posle_odin_priem_kotoryy_usilil_tovar_re",
         "platform": "Shorts/Reels/VK Видео",
-        "text": "Фото до/после: один прием, который усилил товар; Reels: Из обычного...",
+        "text": "Reels/Shorts: фото до/после — один прием, который усиливает товарный визуал",
         "taskType": "video",
         "checklist": [
           "text",
@@ -1250,9 +1248,10 @@ export const calendarData = [
     ],
     "archive": [],
     "prepare": [
-      "Before/after видео, титры",
-      "сторис",
-      "IG: Вертикальное before/after 1080x1920, титры, обложка Reels, 2..."
+      "вертикальное before/after 1080x1920",
+      "титры",
+      "обложка Reels",
+      "2 сторис"
     ],
     "cta": [
       "Отправить фото",
@@ -1287,8 +1286,7 @@ export const calendarData = [
     ],
     "archive": [],
     "prepare": [
-      "Сетка: Не делать ролик ради эффекта",
-      "описать ход мысли: что усилить в фото, что не искажать, где граница..."
+      "Сетка: ход мысли дизайнера — что усилить в фото и где граница ретуши"
     ],
     "cta": [
       "Сохранить мысль"
@@ -1301,14 +1299,14 @@ export const calendarData = [
     "dayShort": "Пн",
     "title": "5 шрифтовых ошибок, из-за которых бренд выглядит дешевле",
     "type": "post",
-    "typeLabel": "основной пост",
+    "typeLabel": "архивная перепаковка",
     "priority": [],
     "optional": [],
     "archive": [
       {
         "id": "2026-05-18_vc_ru_statya_5_shriftovyh_oshibok_iz_za_kotoryh_brend_",
         "platform": "vc.ru",
-        "text": "статья «5 шрифтовых ошибок, из-за которых бренд выглядит дешевле»",
+        "text": "статья vc.ru: 5 шрифтовых ошибок, из-за которых бренд выглядит дешевле",
         "taskType": "article",
         "checklist": [
           "text",
@@ -1327,7 +1325,8 @@ export const calendarData = [
     ],
     "cta": [
       "мягкий переход в Telegram/VK"
-    ]
+    ],
+    "calendarNote": "Архивная перепаковка / доп. публикация"
   },
   {
     "date": "2026-05-19",
@@ -1389,7 +1388,7 @@ export const calendarData = [
       {
         "id": "2026-05-19_facebook_banner_kotoryy_prodaet_i_banner_kotoryy_prosto_z",
         "platform": "Facebook",
-        "text": "Баннер, который продает, и баннер, который просто занимает место",
+        "text": "Facebook: деловая версия — баннер, который продает, и баннер, который просто занимает место",
         "taskType": "post",
         "checklist": [
           "text",
@@ -1404,11 +1403,8 @@ export const calendarData = [
     ],
     "archive": [],
     "prepare": [
-      "Слабый макет",
-      "сторис",
-      "ролик-ответ",
-      "IG: Мокап 1080x1350, крупный фрагмент этикетки, до/после, 2 сторис с...",
-      "FB: Не делать развлекательный разбор: показать проблему, что..."
+      "Instagram: мокап 1080x1350, фрагмент этикетки, до/после",
+      "Facebook: практичный разбор без игры"
     ],
     "cta": [
       "Мини-разбор победителю",
@@ -1443,7 +1439,7 @@ export const calendarData = [
       {
         "id": "2026-05-21_instagram_karusel_4_5_oshibka_ispravlenie_karusel_4_5_5_os",
         "platform": "Instagram",
-        "text": "карусель 4:5 «ошибка → исправление; Карусель 4:5: 5 ошибок в рекламном...»",
+        "text": "карусель 4:5: 5 ошибок в рекламном макете — ошибка и исправление",
         "taskType": "carousel",
         "checklist": [
           "text",
@@ -1477,9 +1473,10 @@ export const calendarData = [
         "id": "2026-05-21_dzen_bolshoy_razbor_pochemu_reklamnyy_maket_ne_schity",
         "platform": "Дзен",
         "text": "Большой разбор Почему рекламный макет не считывается",
-        "taskType": "post",
+        "taskType": "article",
         "checklist": [
           "text",
+          "article",
           "visual",
           "published",
           "tracked"
@@ -1491,7 +1488,7 @@ export const calendarData = [
       {
         "id": "2026-05-21_setka_zametka_kogda_maket_pytaetsya_skazat_vse_srazu_o",
         "platform": "Сетка",
-        "text": "Заметка Когда макет пытается сказать все сразу, он не говорит ничего; Ошибка...",
+        "text": "Сетка: ошибка бизнеса в визуале — перегруженный макет теряет смысл",
         "taskType": "post",
         "checklist": [
           "text",
@@ -1523,7 +1520,7 @@ export const calendarData = [
       {
         "id": "2026-05-21_vc_ru_statya_razbor_5_oshibok_v_reklamnom_makete_staty",
         "platform": "vc.ru",
-        "text": "статья «Разбор: 5 ошибок в рекламном макете; Статья: Какая кнопка продает...»",
+        "text": "статья vc.ru: Какая кнопка продает — почему один CTA считывается быстрее другого",
         "taskType": "article",
         "checklist": [
           "text",
@@ -1538,13 +1535,10 @@ export const calendarData = [
       }
     ],
     "prepare": [
-      "Макет с пометками, исправление",
-      "статья",
+      "5 карточек: ошибка → исправление",
       "ролик",
-      "разбор vc.ru, примеры ошибок",
-      "IG: Слабый макет, пометки, исправленный вариант, 5 карточек с крупными",
-      "Сетка: Убрать игровую механику, оставить проф. разбор перегруза...",
-      "VC: Использовать A/B-исходник не как игру, а как экспертный разбор..."
+      "vc.ru: статья про CTA и кнопку",
+      "Сетка: заметка про перегруженный макет"
     ],
     "cta": [
       "Прислать свой макет",
@@ -1579,7 +1573,7 @@ export const calendarData = [
     ],
     "archive": [],
     "prepare": [
-      "FB: Убрать игровую механику. Дать список ошибок с практическим..."
+      "Facebook: убрать игру, оставить список ошибок и практический вывод"
     ],
     "cta": [
       "Прислать макет"
@@ -1681,7 +1675,7 @@ export const calendarData = [
     ],
     "archive": [],
     "prepare": [
-      "Сетка: Сделать заметку с задачей, проблемой старой этикетки..."
+      "Сетка: заметка — задача, проблема старой этикетки, что изменили"
     ],
     "cta": [
       "Посмотреть кейс"
@@ -1694,7 +1688,7 @@ export const calendarData = [
     "dayShort": "Пн",
     "title": "Реклама “купи ноутбук”: почему прямой оффер часто не работает",
     "type": "post",
-    "typeLabel": "основной пост",
+    "typeLabel": "архивная перепаковка",
     "priority": [],
     "optional": [],
     "archive": [
@@ -1716,11 +1710,12 @@ export const calendarData = [
       }
     ],
     "prepare": [
-      "VC: Разобрать слабую рекламу через потребность, выгоду..."
+      "vc.ru: разбор слабой рекламы через потребность, выгоду и визуальную иерархию"
     ],
     "cta": [
       "мягкий переход в Telegram/VK"
-    ]
+    ],
+    "calendarNote": "Архивная перепаковка / доп. публикация"
   },
   {
     "date": "2026-05-26",
@@ -1749,7 +1744,7 @@ export const calendarData = [
       {
         "id": "2026-05-26_shorts_reels_vk_video_razberu_vizual_3_podpischikov_reels_kofeynaya_et",
         "platform": "Shorts/Reels/VK Видео",
-        "text": "Разберу визуал 3 подписчиков; Reels: Кофейная этикетка: как выделиться...",
+        "text": "Reels/Shorts: разбор визуала подписчика за 20 секунд",
         "taskType": "video",
         "checklist": [
           "text",
@@ -1782,7 +1777,7 @@ export const calendarData = [
       {
         "id": "2026-05-26_facebook_delovoy_anons_mini_konsaltinga_mini_keys_redizay",
         "platform": "Facebook",
-        "text": "Деловой анонс мини-консалтинга; Мини-кейс: Редизайн этикетки кофе: как товар...",
+        "text": "Facebook: мини-кейс — редизайн этикетки кофе и заметность товара на полке",
         "taskType": "case",
         "checklist": [
           "text",
@@ -1797,12 +1792,9 @@ export const calendarData = [
     ],
     "archive": [],
     "prepare": [
-      "Баннер акции, правила",
-      "сторис",
-      "ролик",
-      "IG: До/после, полка",
-      "мокап, 4 карточки с акцентами: контраст, премиальность, читаемость",
-      "FB: Спокойно описать задачу, проблемы старой этикетки, решения по..."
+      "мини-консалтинг: 3 примера",
+      "короткий ролик",
+      "Facebook: кейс этикетки кофе"
     ],
     "cta": [
       "Комментарий + заявка",
@@ -1837,7 +1829,7 @@ export const calendarData = [
       {
         "id": "2026-05-28_instagram_karusel_4_5_ai_podhodit_ai_ne_podhodit_karusel_4",
         "platform": "Instagram",
-        "text": "карусель 4:5 «AI подходит / AI не подходит; Карусель 4:5: AI в...»",
+        "text": "карусель 4:5: AI подходит / AI не подходит — где дизайнер все равно нужен",
         "taskType": "carousel",
         "checklist": [
           "text",
@@ -1871,9 +1863,10 @@ export const calendarData = [
         "id": "2026-05-28_dzen_gayd_gde_ai_pomogaet_biznesu_a_gde_nuzhen_dizayn",
         "platform": "Дзен",
         "text": "Гайд: Где AI помогает бизнесу, а где нужен дизайнер",
-        "taskType": "post",
+        "taskType": "article",
         "checklist": [
           "text",
+          "article",
           "visual",
           "published",
           "tracked"
@@ -1885,7 +1878,7 @@ export const calendarData = [
       {
         "id": "2026-05-28_setka_prof_zametka_ai_uskoryaet_varianty_no_ne_zamenya",
         "platform": "Сетка",
-        "text": "Проф. заметка: AI ускоряет варианты, но не заменяет задачу, вкус и контроль...",
+        "text": "Сетка: профессиональная заметка — AI ускоряет варианты, но не заменяет задачу, вкус и контроль",
         "taskType": "post",
         "checklist": [
           "text",
@@ -1917,7 +1910,7 @@ export const calendarData = [
       {
         "id": "2026-05-28_vc_ru_statya_ai_v_dizayne_dlya_biznesa_statya_kak_pote",
         "platform": "vc.ru",
-        "text": "статья «AI в дизайне для бизнеса; Статья: Как потерять 15 000 рублей на...»",
+        "text": "статья vc.ru: Как потерять 15 000 рублей на рекламе из-за слабого визуала",
         "taskType": "article",
         "checklist": [
           "text",
@@ -1932,13 +1925,9 @@ export const calendarData = [
       }
     ],
     "prepare": [
-      "Примеры визуалов",
-      "статья",
+      "5 карточек AI/дизайнер",
       "ролик",
-      "статья vc.ru, примеры AI/дизайн",
-      "IG: Сравнение AI/дизайнер, 5 карточек: генерация, контроль качества...",
-      "Сетка: Без хайпа и игры: разделить, где AI помогает, а где дизайнер...",
-      "VC: Показать дизайн как способ снизить цену ошибки: тест гипотез..."
+      "vc.ru: статья про цену ошибки в рекламе"
     ],
     "cta": [
       "Напишите: AI",
@@ -1974,7 +1963,7 @@ export const calendarData = [
     ],
     "archive": [],
     "prepare": [
-      "FB: Без хайпа и игры: разделить задачи на генерацию вариантов..."
+      "Facebook: без хайпа — где AI помогает, а где нужен дизайнер"
     ],
     "cta": [
       "Комментарии / личка"
@@ -2007,7 +1996,7 @@ export const calendarData = [
       {
         "id": "2026-05-30_shorts_reels_vk_video_bystryy_vybor_foto_ai_ili_photoshop_reels_foto_a",
         "platform": "Shorts/Reels/VK Видео",
-        "text": "Быстрый выбор: фото, AI или Photoshop; Reels: Фото, AI или Photoshop...",
+        "text": "Reels/Shorts: быстрый выбор — фото, AI или Photoshop для товарного визуала",
         "taskType": "video",
         "checklist": [
           "text",
@@ -2071,7 +2060,7 @@ export const calendarData = [
     "dayShort": "Пн",
     "title": "Как написать ТЗ дизайнеру, чтобы получить результат, а не угадайку",
     "type": "post",
-    "typeLabel": "основной пост",
+    "typeLabel": "архивная перепаковка",
     "priority": [],
     "optional": [],
     "archive": [
@@ -2093,11 +2082,12 @@ export const calendarData = [
       }
     ],
     "prepare": [
-      "VC: Сделать практический шаблон ТЗ с блоками: задача, аудитория..."
+      "vc.ru: шаблон ТЗ — задача, аудитория, ограничения, критерий успеха"
     ],
     "cta": [
       "мягкий переход в Telegram/VK"
-    ]
+    ],
+    "calendarNote": "Архивная перепаковка / доп. публикация"
   },
   {
     "date": "2026-06-02",
@@ -2126,7 +2116,7 @@ export const calendarData = [
       {
         "id": "2026-06-02_instagram_karusel_4_5_yarkaya_karusel_chek_list_karusel_4_",
         "platform": "Instagram",
-        "text": "карусель 4:5 «Яркая карусель-чек-лист; Карусель 4:5: Редизайн...»",
+        "text": "карусель 4:5: Летний визуал — что обновить в дизайне без хаоса",
         "taskType": "carousel",
         "checklist": [
           "text",
@@ -2160,9 +2150,10 @@ export const calendarData = [
         "id": "2026-06-02_dzen_gayd_kak_sdelat_vizual_biznesa_k_letu",
         "platform": "Дзен",
         "text": "Гайд: Как сделать визуал бизнеса к лету",
-        "taskType": "post",
+        "taskType": "article",
         "checklist": [
           "text",
+          "article",
           "visual",
           "published",
           "tracked"
@@ -2174,7 +2165,7 @@ export const calendarData = [
       {
         "id": "2026-06-02_setka_rabochiy_vyvod_pro_sezonnoe_obnovlenie_vizuala_r",
         "platform": "Сетка",
-        "text": "Рабочий вывод про сезонное обновление визуала; Рабочий вывод: Сезонное...",
+        "text": "Сетка: рабочий вывод — сезонное обновление визуала должно сохранять узнаваемость бренда",
         "taskType": "post",
         "checklist": [
           "text",
@@ -2189,7 +2180,7 @@ export const calendarData = [
       {
         "id": "2026-06-02_facebook_poleznyy_delovoy_chek_list_chek_list_kak_obyasni",
         "platform": "Facebook",
-        "text": "Полезный деловой чек-лист; Чек-лист: Как объяснить дизайнеру задачу без...",
+        "text": "Facebook: чек-лист — как объяснить дизайнеру задачу без «сделайте красиво»",
         "taskType": "checklist",
         "checklist": [
           "text",
@@ -2204,12 +2195,10 @@ export const calendarData = [
     ],
     "archive": [],
     "prepare": [
-      "Карусель, чек-лист",
-      "статья",
+      "4-6 карточек летнего визуала",
       "ролик",
-      "IG: 4-6 карточек: полка, иерархия, название, цвет, отличие от...",
-      "FB: Сделать мини-шаблон: задача, аудитория, формат, ограничения...",
-      "Сетка: Убрать легкую сезонную подачу, оставить проф. вывод: что..."
+      "Facebook: чек-лист ТЗ",
+      "Сетка: заметка про узнаваемость"
     ],
     "cta": [
       "Напишите: ЛЕТО",
@@ -2245,7 +2234,7 @@ export const calendarData = [
       {
         "id": "2026-06-04_instagram_karusel_4_5_kartochka_kak_vitrina_karusel_4_5_ka",
         "platform": "Instagram",
-        "text": "карусель 4:5 «Карточка как витрина; Карусель 4:5: Карточка товара как...»",
+        "text": "карусель 4:5: Карточка товара как витрина — что покупатель должен понять сразу",
         "taskType": "carousel",
         "checklist": [
           "text",
@@ -2294,7 +2283,7 @@ export const calendarData = [
       {
         "id": "2026-06-04_setka_oshibka_biznesa_v_vizuale_kartochka_ne_dolzhna_s",
         "platform": "Сетка",
-        "text": "Ошибка бизнеса в визуале: карточка не должна спорить за внимание; Ошибка бизнеса...",
+        "text": "Сетка: ошибка бизнеса в визуале — карточка товара не должна спорить за внимание",
         "taskType": "post",
         "checklist": [
           "text",
@@ -2326,7 +2315,7 @@ export const calendarData = [
       {
         "id": "2026-06-04_vc_ru_statya_pochemu_kartochka_tovara_ne_prodaet_staty",
         "platform": "vc.ru",
-        "text": "статья «почему карточка товара не продает; Статья: Билборд стоматологии: как...»",
+        "text": "статья vc.ru: Билборд стоматологии — как визуальная иерархия помогает рекламе считываться быстрее",
         "taskType": "article",
         "checklist": [
           "text",
@@ -2341,13 +2330,9 @@ export const calendarData = [
       }
     ],
     "prepare": [
-      "Карточки, инфографика",
-      "статья",
+      "карточка товара до/после",
       "ролик",
-      "статья vc.ru, скрины карточек",
-      "IG: Пример карточки, крупные зоны внимания, инфографика, финальный...",
-      "Сетка: Перевести оффер в заметку: главный аргумент, визуальная...",
-      "VC: Разобрать считываемость на скорости: один главный смысл, крупность"
+      "vc.ru: статья по билборду стоматологии"
     ],
     "cta": [
       "Напишите: КАРТОЧКА",
@@ -2383,7 +2368,7 @@ export const calendarData = [
     ],
     "archive": [],
     "prepare": [
-      "FB: Перевести оффер в пользу: структура карточки, читабельность..."
+      "Facebook: польза карточки — структура, читабельность, доверие"
     ],
     "cta": [
       "Написать «КАРТОЧКА»"
@@ -2416,7 +2401,7 @@ export const calendarData = [
       {
         "id": "2026-06-06_shorts_reels_vk_video_odna_oshibka_kartochki_iz_za_kotoroy_ee_ne_chita",
         "platform": "Shorts/Reels/VK Видео",
-        "text": "Одна ошибка карточки, из-за которой ее не читают; Reels: Мелкий текст...",
+        "text": "Reels/Shorts: одна ошибка карточки товара, из-за которой ее не читают",
         "taskType": "video",
         "checklist": [
           "text",
@@ -2498,7 +2483,7 @@ export const calendarData = [
     "dayShort": "Пн",
     "title": "3 ошибки в цвете, из-за которых дизайн выглядит непрофессионально",
     "type": "post",
-    "typeLabel": "основной пост",
+    "typeLabel": "архивная перепаковка",
     "priority": [],
     "optional": [],
     "archive": [
@@ -2520,11 +2505,12 @@ export const calendarData = [
       }
     ],
     "prepare": [
-      "VC: Дать бизнесовый угол: цвет как навигация, акцент, эмоция и..."
+      "vc.ru: цвет как навигация, акцент, эмоция и доверие"
     ],
     "cta": [
       "мягкий переход в Telegram/VK"
-    ]
+    ],
+    "calendarNote": "Архивная перепаковка / доп. публикация"
   },
   {
     "date": "2026-06-09",
@@ -2569,7 +2555,7 @@ export const calendarData = [
       {
         "id": "2026-06-09_shorts_reels_vk_video_do_posle_kartochki_za_10_sekund_reels_do_posle_k",
         "platform": "Shorts/Reels/VK Видео",
-        "text": "До/после карточки за 10 секунд; Reels: До/после карточки товара: как...",
+        "text": "Reels/Shorts: до/после карточки товара за 10 секунд",
         "taskType": "video",
         "checklist": [
           "text",
@@ -2587,10 +2573,11 @@ export const calendarData = [
       {
         "id": "2026-06-09_dzen_keys_kak_uluchshit_kartochku_tovara",
         "platform": "Дзен",
-        "text": "Кейс Как улучшить карточку товара",
-        "taskType": "case",
+        "text": "Дзен: кейс — как улучшить карточку товара",
+        "taskType": "article",
         "checklist": [
           "text",
+          "article",
           "visual",
           "published",
           "tracked"
@@ -2617,7 +2604,7 @@ export const calendarData = [
       {
         "id": "2026-06-09_facebook_delovoy_keys_po_kartochke_mini_keys_oformlenie_p",
         "platform": "Facebook",
-        "text": "Деловой кейс по карточке; Мини-кейс: Оформление профиля как...",
+        "text": "Facebook: мини-кейс по карточке товара — что изменили в визуальной иерархии",
         "taskType": "case",
         "checklist": [
           "text",
@@ -2632,9 +2619,9 @@ export const calendarData = [
     ],
     "archive": [
       {
-        "id": "2026-06-09_vc_ru_statya_ierarhiya_v_kartochke_tovara",
+        "id": "2026-06-09_vc_ru_statya_do_posle_kartochki_tovara",
         "platform": "vc.ru",
-        "text": "статья «иерархия в карточке товара»",
+        "text": "статья vc.ru: До/после карточки товара — как визуальная иерархия помогает продаже",
         "taskType": "article",
         "checklist": [
           "text",
@@ -2644,19 +2631,16 @@ export const calendarData = [
           "tracked"
         ],
         "sourceSection": "archive",
-        "folderId": "ПАПКА_НЕ_НАЙДЕНА",
-        "folderSource": "missing",
-        "folderNote": "Нужно вручную сверить с Excel"
+        "folderId": "09_Post_после_карточки_товара",
+        "folderSource": "generated",
+        "folderNote": "Та же папка, что у основной темы дня"
       }
     ],
     "prepare": [
-      "Кейс с выводами",
-      "статья",
+      "до/после карточки товара",
       "ролик",
-      "кейс vc.ru, до/после карточки",
-      "IG: До/после, 4 выноски, обложка Reels",
-      "сторис-анонс",
-      "FB: Убрать голосование, оставить деловой вывод: первый экран, иерархия"
+      "Facebook: мини-кейс карточки",
+      "vc.ru: статья по карточке товара + до/после + выноски"
     ],
     "cta": [
       "Разбор карточки",
@@ -2690,7 +2674,7 @@ export const calendarData = [
       {
         "id": "2026-06-11_instagram_karusel_4_5_5_shriftov_gde_ispolzovat_karusel_4_",
         "platform": "Instagram",
-        "text": "карусель 4:5 «5 шрифтов + где использовать; Карусель 4:5: 5...»",
+        "text": "карусель 4:5: 5 шрифтов — где использовать и каких ошибок избегать",
         "taskType": "carousel",
         "checklist": [
           "text",
@@ -2723,10 +2707,11 @@ export const calendarData = [
       {
         "id": "2026-06-11_dzen_gayd_kak_vybrat_shrift_dlya_brenda",
         "platform": "Дзен",
-        "text": "Гайд: Как выбрать шрифт для бренда",
-        "taskType": "post",
+        "text": "Дзен: гайд — как выбрать шрифт для бренда",
+        "taskType": "article",
         "checklist": [
           "text",
+          "article",
           "visual",
           "published",
           "tracked"
@@ -2738,7 +2723,7 @@ export const calendarData = [
       {
         "id": "2026-06-11_setka_zametka_shrift_zadaet_golos_brenda_kak_ya_dumayu",
         "platform": "Сетка",
-        "text": "Заметка Шрифт задает голос бренда; Как я думаю как дизайнер: Шрифт задает голос...",
+        "text": "Сетка: как я думаю как дизайнер — шрифт задает голос бренда",
         "taskType": "post",
         "checklist": [
           "text",
@@ -2753,7 +2738,7 @@ export const calendarData = [
       {
         "id": "2026-06-11_facebook_ekspertnaya_zametka_pro_shrift",
         "platform": "Facebook",
-        "text": "Экспертная заметка про шрифт",
+        "text": "Facebook: экспертная заметка — как шрифт влияет на ощущение бренда",
         "taskType": "post",
         "checklist": [
           "text",
@@ -2770,7 +2755,7 @@ export const calendarData = [
       {
         "id": "2026-06-11_vc_ru_statya_do_i_posle_sayta_shkoly_tancev_chto_menya",
         "platform": "vc.ru",
-        "text": "статья «До и после сайта школы танцев: что меняется, когда дизайн начинает...»",
+        "text": "статья vc.ru: 5 шрифтовых ошибок, из-за которых бренд выглядит дешевле",
         "taskType": "article",
         "checklist": [
           "text",
@@ -2785,13 +2770,10 @@ export const calendarData = [
       }
     ],
     "prepare": [
-      "Типографика, примеры",
-      "статья",
-      "ролик",
-      "IG: 5 карточек типографики, примеры применения, безопасный финальный...",
-      "Сетка: Не делать подборку ради подборки",
-      "объяснить, как шрифт меняет ощущение цены, ниши и характера бренда",
-      "VC: Сделать кейс: проблема первого экрана, структура оффера..."
+      "5 карточек типографики",
+      "Дзен: статья про выбор шрифта",
+      "Facebook/Сетка: короткие адаптации",
+      "vc.ru: статья про шрифтовые ошибки"
     ],
     "cta": [
       "Сохранить / запросить подбор",
@@ -2875,7 +2857,7 @@ export const calendarData = [
       {
         "id": "2026-06-13_shorts_reels_vk_video_logotip_ozhil_chto_vazhno_ne_isportit_reels_anim",
         "platform": "Shorts/Reels/VK Видео",
-        "text": "Логотип ожил: что важно не испортить?; Reels: Анимация логотипа без...",
+        "text": "Reels/Shorts: анимация логотипа без лишних эффектов",
         "taskType": "video",
         "checklist": [
           "text",
@@ -2944,7 +2926,7 @@ export const calendarData = [
       {
         "id": "2026-06-14_setka_kak_ya_dumayu_kak_dizayner_animaciya_logotipa_do",
         "platform": "Сетка",
-        "text": "Как я думаю как дизайнер: Анимация логотипа должна раскрывать идею, а не...",
+        "text": "Сетка: как я думаю как дизайнер — анимация логотипа должна раскрывать идею, а не эффект",
         "taskType": "post",
         "checklist": [
           "text",
@@ -2959,7 +2941,7 @@ export const calendarData = [
     ],
     "archive": [],
     "prepare": [
-      "Сетка: Сделать профессиональную заметку о критериях уместной..."
+      "Сетка: профессиональная заметка о критериях уместной анимации"
     ],
     "cta": [
       "Посмотреть пример"
@@ -2972,14 +2954,14 @@ export const calendarData = [
     "dayShort": "Пн",
     "title": "Редизайн этикетки печенья: как упаковка помогает товару выглядеть дороже",
     "type": "post",
-    "typeLabel": "основной пост",
+    "typeLabel": "архивная перепаковка",
     "priority": [],
     "optional": [],
     "archive": [
       {
         "id": "2026-06-15_vc_ru_statya_redizayn_etiketki_pechenya_kak_upakovka_p",
         "platform": "vc.ru",
-        "text": "статья «Редизайн этикетки печенья: как упаковка помогает товару выглядеть дороже»",
+        "text": "статья vc.ru: Редизайн этикетки печенья — как упаковка помогает товару выглядеть дороже",
         "taskType": "article",
         "checklist": [
           "text",
@@ -2994,11 +2976,12 @@ export const calendarData = [
       }
     ],
     "prepare": [
-      "VC: Сделать кейс упаковки: исходная проблема, что поменяли, как..."
+      "vc.ru: кейс упаковки — проблема, решение, результат"
     ],
     "cta": [
       "мягкий переход в Telegram/VK"
-    ]
+    ],
+    "calendarNote": "Архивная перепаковка / доп. публикация"
   },
   {
     "date": "2026-06-16",
@@ -3027,7 +3010,7 @@ export const calendarData = [
       {
         "id": "2026-06-16_instagram_karusel_4_5_karusel_shema_firmennogo_stilya_karu",
         "platform": "Instagram",
-        "text": "карусель 4:5 «Карусель-схема фирменного стиля; Карусель 4:5: Фирменный...»",
+        "text": "карусель 4:5: Фирменный стиль как система — логотип, цвет, шрифт и носители",
         "taskType": "carousel",
         "checklist": [
           "text",
@@ -3061,9 +3044,10 @@ export const calendarData = [
         "id": "2026-06-16_dzen_gayd_iz_chego_sostoit_firmennyy_stil",
         "platform": "Дзен",
         "text": "Гайд: Из чего состоит фирменный стиль",
-        "taskType": "post",
+        "taskType": "article",
         "checklist": [
           "text",
+          "article",
           "visual",
           "published",
           "tracked"
@@ -3090,7 +3074,7 @@ export const calendarData = [
       {
         "id": "2026-06-16_facebook_pro_firmennyy_stil_delovoy_post_prezentaciya_kot",
         "platform": "Facebook",
-        "text": "про фирменный стиль; Деловой пост: Презентация, которую не закрывают на...",
+        "text": "Facebook: деловая версия — презентация, которую не хочется закрывать",
         "taskType": "post",
         "checklist": [
           "text",
@@ -3107,7 +3091,7 @@ export const calendarData = [
       {
         "id": "2026-06-16_vc_ru_statya_firmennyy_stil_kak_sistema",
         "platform": "vc.ru",
-        "text": "статья «фирменный стиль как система»",
+        "text": "статья vc.ru: Фирменный стиль как система — что важно кроме логотипа",
         "taskType": "article",
         "checklist": [
           "text",
@@ -3117,18 +3101,16 @@ export const calendarData = [
           "tracked"
         ],
         "sourceSection": "archive",
-        "folderId": "ПАПКА_НЕ_НАЙДЕНА",
-        "folderSource": "missing",
-        "folderNote": "Нужно вручную сверить с Excel"
+        "folderId": "16_Post_Фирменный_стиль_система",
+        "folderSource": "generated",
+        "folderNote": "Та же папка, что у основной темы дня"
       }
     ],
     "prepare": [
-      "Схема бренда, 5 карточек",
-      "статья",
-      "ролик",
-      "статья vc.ru, схема системы",
-      "IG: Схема бренда, 5 карточек: логотип, цвет, шрифт, носители, правила",
-      "FB: Убрать прямую продажу услуги, объяснить структуру КП: первый слайд"
+      "схема фирменного стиля",
+      "5 карточек",
+      "Facebook: пост про презентацию",
+      "vc.ru: статья про фирменный стиль + схема системы"
     ],
     "cta": [
       "Мини-брендборд",
@@ -3162,7 +3144,7 @@ export const calendarData = [
       {
         "id": "2026-06-18_instagram_karusel_4_5_karusel_kollazh_nositeley_karusel_ko",
         "platform": "Instagram",
-        "text": "карусель 4:5 «Карусель-коллаж носителей; Карусель-коллаж 4:5...»",
+        "text": "карусель 4:5: Полиграфия и наружка — как носители продолжают бренд",
         "taskType": "carousel",
         "checklist": [
           "text",
@@ -3211,7 +3193,7 @@ export const calendarData = [
       {
         "id": "2026-06-18_setka_mini_keys_vyvod_pro_oflayn_nositeli_rabochiy_vyv",
         "platform": "Сетка",
-        "text": "Мини-кейс/вывод про офлайн-носители; Рабочий вывод: Система визуала снижает...",
+        "text": "Сетка: рабочий вывод — система визуала снижает хаос в офлайн-носителях",
         "taskType": "case",
         "checklist": [
           "text",
@@ -3243,7 +3225,7 @@ export const calendarData = [
       {
         "id": "2026-06-18_vc_ru_statya_redizayn_etiketki_kofe_chto_izmenit_chtob",
         "platform": "vc.ru",
-        "text": "статья «Редизайн этикетки кофе: что изменить, чтобы товар заметили на полке»",
+        "text": "статья vc.ru: Редизайн этикетки кофе — что изменить, чтобы товар заметили на полке",
         "taskType": "article",
         "checklist": [
           "text",
@@ -3258,12 +3240,10 @@ export const calendarData = [
       }
     ],
     "prepare": [
-      "Коллаж носителей",
-      "статья",
+      "коллаж носителей",
+      "мокапы",
       "ролик",
-      "IG: Коллаж носителей, мокапы, 4 карточки с примерами: вывеска...",
-      "Сетка: Объяснить фирстиль как рабочий инструмент: быстрее макеты...",
-      "VC: Разобрать упаковку через полочное окружение, премиальность..."
+      "vc.ru: кейс этикетки кофе"
     ],
     "cta": [
       "ПЕЧАТЬ / ВИТРИНА",
@@ -3299,7 +3279,7 @@ export const calendarData = [
     ],
     "archive": [],
     "prepare": [
-      "FB: Объяснить через рабочие носители: логотип, цвет, шрифт, макеты..."
+      "Facebook: носители бренда — логотип, цвет, шрифт, макеты"
     ],
     "cta": [
       "Мини-брендборд"
@@ -3332,7 +3312,7 @@ export const calendarData = [
       {
         "id": "2026-06-20_shorts_reels_vk_video_chto_sobrat_pod_klyuch_reels_lina_pomogaet_sobra",
         "platform": "Shorts/Reels/VK Видео",
-        "text": "Что собрать под ключ?; Reels: Лина помогает собрать визуал под ключ",
+        "text": "Reels/Shorts: Лина помогает собрать визуал под ключ",
         "taskType": "video",
         "checklist": [
           "text",
@@ -3418,7 +3398,7 @@ export const calendarData = [
     ],
     "archive": [],
     "prepare": [
-      "Сетка: Убрать прямой оффер, оставить вывод о связке онлайн-визуала..."
+      "Сетка: вывод о связке онлайн-визуала и офлайн-носителей"
     ],
     "cta": [
       "Перейти в канал"
@@ -3431,14 +3411,14 @@ export const calendarData = [
     "dayShort": "Пн",
     "title": "Оформление соцсетей для бизнеса: что должно быть в профиле до рекламы",
     "type": "post",
-    "typeLabel": "основной пост",
+    "typeLabel": "архивная перепаковка",
     "priority": [],
     "optional": [],
     "archive": [
       {
         "id": "2026-06-22_vc_ru_statya_oformlenie_socsetey_dlya_biznesa_chto_dol",
         "platform": "vc.ru",
-        "text": "статья «Оформление соцсетей для бизнеса: что должно быть в профиле до рекламы»",
+        "text": "статья vc.ru: Оформление соцсетей для бизнеса — что должно быть в профиле до рекламы",
         "taskType": "article",
         "checklist": [
           "text",
@@ -3453,11 +3433,12 @@ export const calendarData = [
       }
     ],
     "prepare": [
-      "VC: Оставить не призыв перейти в канал, а чек-лист профиля: аватар..."
+      "vc.ru: чек-лист профиля — аватар, шапка, оффер, визуальная система"
     ],
     "cta": [
       "мягкий переход в Telegram/VK"
-    ]
+    ],
+    "calendarNote": "Архивная перепаковка / доп. публикация"
   },
   {
     "date": "2026-06-23",
@@ -3520,9 +3501,10 @@ export const calendarData = [
         "id": "2026-06-23_dzen_kak_upakovat_uslugu_v_socsetyah_offer_vizual_cen",
         "platform": "Дзен",
         "text": "Как упаковать услугу в соцсетях: оффер, визуал, цена, доверие",
-        "taskType": "post",
+        "taskType": "article",
         "checklist": [
           "text",
+          "article",
           "visual",
           "published",
           "tracked"
@@ -3549,7 +3531,7 @@ export const calendarData = [
       {
         "id": "2026-06-23_facebook_pro_upakovku_uslugi_delovoy_post_faq_dizayneru_3",
         "platform": "Facebook",
-        "text": "про упаковку услуги; Деловой пост: FAQ дизайнеру: 3 вопроса, которые лучше...",
+        "text": "Facebook: деловая версия FAQ дизайнеру — 3 вопроса, которые лучше задать до старта",
         "taskType": "post",
         "checklist": [
           "text",
@@ -3566,7 +3548,7 @@ export const calendarData = [
       {
         "id": "2026-06-23_vc_ru_statya_pochemu_uslugu_ne_pokupayut",
         "platform": "vc.ru",
-        "text": "статья «почему услугу не покупают»",
+        "text": "статья vc.ru: Почему услугу не покупают, если ее плохо упаковали",
         "taskType": "article",
         "checklist": [
           "text",
@@ -3576,17 +3558,16 @@ export const calendarData = [
           "tracked"
         ],
         "sourceSection": "archive",
-        "folderId": "ПАПКА_НЕ_НАЙДЕНА",
-        "folderSource": "missing",
-        "folderNote": "Нужно вручную сверить с Excel"
+        "folderId": "23_Post_Услуга_понятна_5_секунд",
+        "folderSource": "generated",
+        "folderNote": "Та же папка, что у основной темы дня"
       }
     ],
     "prepare": [
-      "Карусель",
-      "статья",
-      "ролик, примеры услуги",
-      "статья vc.ru, структура услуги",
-      "FB: Сделать Q/A для владельца бизнеса: сроки, правки, исходники"
+      "карусель про упаковку услуги",
+      "ролик",
+      "Facebook: FAQ дизайнеру",
+      "vc.ru: статья по упаковке услуги + примеры первого экрана"
     ],
     "cta": [
       "Напишите: УСЛУГА",
@@ -3605,7 +3586,7 @@ export const calendarData = [
       {
         "id": "2026-06-25_telegram_vk_post_gayd_kak_oformit_uslugu_v_socsetyah_chtoby_",
         "platform": "Telegram + VK",
-        "text": "Пост-гайд: Как оформить услугу в соцсетях, чтобы было понятно: что, для кого и...",
+        "text": "Пост-гайд: как оформить услугу в соцсетях, чтобы было понятно что, для кого и зачем",
         "taskType": "post",
         "checklist": [
           "text",
@@ -3654,7 +3635,7 @@ export const calendarData = [
       {
         "id": "2026-06-25_vc_ru_statya_pochemu_odin_profil_vyglyadit_dorozhe_dru",
         "platform": "vc.ru",
-        "text": "статья «Почему один профиль выглядит дороже другого: A/B-разбор оформления»",
+        "text": "статья vc.ru: Почему один профиль выглядит дороже другого — A/B-разбор оформления",
         "taskType": "article",
         "checklist": [
           "text",
@@ -3669,9 +3650,7 @@ export const calendarData = [
       }
     ],
     "prepare": [
-      "3-5 работ, обложки, карточки",
-      "ролик",
-      "VC: Объединить интерактив и разбор в одну статью: признаки дорогого..."
+      "vc.ru: статья по A/B-разбору профиля и признакам дорогого визуала"
     ],
     "cta": [
       "Напишите: ОФФЕР"
@@ -3786,14 +3765,14 @@ export const calendarData = [
     "dayShort": "Пн",
     "title": "Как объяснить дизайнеру задачу без “сделайте красиво”",
     "type": "post",
-    "typeLabel": "основной пост",
+    "typeLabel": "архивная перепаковка",
     "priority": [],
     "optional": [],
     "archive": [
       {
         "id": "2026-06-29_vc_ru_statya_kak_obyasnit_dizayneru_zadachu_bez_sdelay",
         "platform": "vc.ru",
-        "text": "статья «Как объяснить дизайнеру задачу без “сделайте красиво”»",
+        "text": "статья vc.ru: Как объяснить дизайнеру задачу без фразы «сделайте красиво»",
         "taskType": "article",
         "checklist": [
           "text",
@@ -3812,7 +3791,8 @@ export const calendarData = [
     ],
     "cta": [
       "мягкий переход в Telegram/VK"
-    ]
+    ],
+    "calendarNote": "Архивная перепаковка / доп. публикация"
   },
   {
     "date": "2026-06-30",
@@ -3875,9 +3855,10 @@ export const calendarData = [
         "id": "2026-06-30_dzen_kak_oformit_portfolio_dizaynera_ili_studii_chtob",
         "platform": "Дзен",
         "text": "Как оформить портфолио дизайнера или студии, чтобы оно продавало услуги",
-        "taskType": "post",
+        "taskType": "article",
         "checklist": [
           "text",
+          "article",
           "visual",
           "published",
           "tracked"
@@ -3987,10 +3968,11 @@ export const calendarData = [
       {
         "id": "2026-07-02_dzen_kak_pravilno_pokazyvat_keys_ne_prosto_kartinki_a",
         "platform": "Дзен",
-        "text": "Как правильно показывать кейс: не просто картинки, а история решения",
-        "taskType": "case",
+        "text": "Дзен: статья — как правильно показывать кейс: не просто картинки, а история решения",
+        "taskType": "article",
         "checklist": [
           "text",
+          "article",
           "visual",
           "published",
           "tracked"
@@ -4034,7 +4016,7 @@ export const calendarData = [
       {
         "id": "2026-07-02_vc_ru_statya_kak_keys_prodaet_uslugu_statya_do_i_posle",
         "platform": "vc.ru",
-        "text": "статья «как кейс продает услугу; Статья: До и после оформления профиля: 3...»",
+        "text": "статья vc.ru: До и после оформления профиля — 3 ошибки визуальной упаковки",
         "taskType": "article",
         "checklist": [
           "text",
@@ -4049,11 +4031,10 @@ export const calendarData = [
       }
     ],
     "prepare": [
-      "Кейс, 3 карточки",
-      "статья",
+      "кейс профиля",
+      "3 карточки",
       "ролик",
-      "статья vc.ru, схема кейса",
-      "VC: Сделать разбор профиля как мини-аудит: что мешает понять оффер"
+      "vc.ru: мини-аудит профиля"
     ],
     "cta": [
       "Напишите: КЕЙС"
@@ -4134,14 +4115,14 @@ export const calendarData = [
     "dayShort": "Пн",
     "title": "Редизайн упаковки: что менять, чтобы товар не терялся на полке",
     "type": "post",
-    "typeLabel": "основной пост",
+    "typeLabel": "архивная перепаковка",
     "priority": [],
     "optional": [],
     "archive": [
       {
         "id": "2026-07-06_vc_ru_statya_redizayn_upakovki_chto_menyat_chtoby_tova",
         "platform": "vc.ru",
-        "text": "статья «Редизайн упаковки: что менять, чтобы товар не терялся на полке»",
+        "text": "статья vc.ru: Редизайн упаковки — что менять, чтобы товар не терялся на полке",
         "taskType": "article",
         "checklist": [
           "text",
@@ -4156,11 +4137,12 @@ export const calendarData = [
       }
     ],
     "prepare": [
-      "VC: Раскрыть до/после: полка, иерархия, название, вкус/категория..."
+      "vc.ru: до/после упаковки — полка, иерархия, вкус, категория"
     ],
     "cta": [
       "мягкий переход в Telegram/VK"
-    ]
+    ],
+    "calendarNote": "Архивная перепаковка / доп. публикация"
   },
   {
     "date": "2026-07-07",
@@ -4223,9 +4205,10 @@ export const calendarData = [
         "id": "2026-07-07_dzen_pochemu_reklamnyy_banner_ne_rabotaet_7_oshibok_p",
         "platform": "Дзен",
         "text": "Почему рекламный баннер не работает: 7 ошибок первого экрана",
-        "taskType": "post",
+        "taskType": "article",
         "checklist": [
           "text",
+          "article",
           "visual",
           "published",
           "tracked"
@@ -4267,9 +4250,9 @@ export const calendarData = [
     ],
     "archive": [
       {
-        "id": "2026-07-07_vc_ru_statya_pervyy_ekran_bannera_reshaet",
+        "id": "2026-07-07_vc_ru_statya_pervyy_ekran_bannera",
         "platform": "vc.ru",
-        "text": "статья «первый экран баннера решает»",
+        "text": "статья vc.ru: Первый экран баннера — что должно считываться за 2 секунды",
         "taskType": "article",
         "checklist": [
           "text",
@@ -4279,16 +4262,15 @@ export const calendarData = [
           "tracked"
         ],
         "sourceSection": "archive",
-        "folderId": "ПАПКА_НЕ_НАЙДЕНА",
-        "folderSource": "missing",
-        "folderNote": "Нужно вручную сверить с Excel"
+        "folderId": "07_Post_Первый_экран_решает",
+        "folderSource": "generated",
+        "folderNote": "Та же папка, что у основной темы дня"
       }
     ],
     "prepare": [
       "Карусель",
-      "статья",
       "ролик, примеры",
-      "статья vc.ru, примеры первого экрана"
+      "vc.ru: статья по первому экрану баннера + примеры"
     ],
     "cta": [
       "Напишите: БАННЕР"
@@ -4355,7 +4337,7 @@ export const calendarData = [
       {
         "id": "2026-07-09_vc_ru_statya_prezentaciya_kotoruyu_ne_zakryvayut_na_vt",
         "platform": "vc.ru",
-        "text": "статья «Презентация, которую не закрывают на втором слайде: что в ней должно...»",
+        "text": "статья vc.ru: Презентация, которую не закрывают на втором слайде — что в ней должно быть",
         "taskType": "article",
         "checklist": [
           "text",
@@ -4370,9 +4352,9 @@ export const calendarData = [
       }
     ],
     "prepare": [
-      "До/после, чек-лист",
-      "ролик",
-      "VC: Оффер адаптировать в экспертную статью про структуру КП: первый..."
+      "до/после баннера",
+      "чек-лист",
+      "vc.ru: статья про структуру презентации"
     ],
     "cta": [
       "Прислать макет"
@@ -4453,14 +4435,14 @@ export const calendarData = [
     "dayShort": "Пн",
     "title": "3 вопроса дизайнеру, которые предприниматели зря стесняются задавать",
     "type": "post",
-    "typeLabel": "основной пост",
+    "typeLabel": "архивная перепаковка",
     "priority": [],
     "optional": [],
     "archive": [
       {
         "id": "2026-07-13_vc_ru_statya_3_voprosa_dizayneru_kotorye_predprinimate",
         "platform": "vc.ru",
-        "text": "статья «3 вопроса дизайнеру, которые предприниматели зря стесняются задавать»",
+        "text": "статья vc.ru: 3 вопроса дизайнеру, которые предприниматели зря стесняются задавать",
         "taskType": "article",
         "checklist": [
           "text",
@@ -4475,11 +4457,12 @@ export const calendarData = [
       }
     ],
     "prepare": [
-      "VC: Сделать FAQ-статью: сроки, цена, правки, исходники..."
+      "vc.ru: FAQ-статья — сроки, цена, правки, исходники"
     ],
     "cta": [
       "мягкий переход в Telegram/VK"
-    ]
+    ],
+    "calendarNote": "Архивная перепаковка / доп. публикация"
   },
   {
     "date": "2026-07-14",
@@ -4542,9 +4525,10 @@ export const calendarData = [
         "id": "2026-07-14_dzen_kak_dizayn_etiketki_vliyaet_na_oschuschenie_ceny",
         "platform": "Дзен",
         "text": "Как дизайн этикетки влияет на ощущение цены продукта",
-        "taskType": "post",
+        "taskType": "article",
         "checklist": [
           "text",
+          "article",
           "visual",
           "published",
           "tracked"
@@ -4586,9 +4570,9 @@ export const calendarData = [
     ],
     "archive": [
       {
-        "id": "2026-07-14_vc_ru_statya_statya_keys_etiketka_i_oschuschenie_ceny",
+        "id": "2026-07-14_vc_ru_statya_etiketka_kotoraya_vyglyadit_dorozhe",
         "platform": "vc.ru",
-        "text": "статья «Статья/кейс: этикетка и ощущение цены»",
+        "text": "статья vc.ru: Этикетка, которая выглядит дороже — как упаковка влияет на ощущение цены",
         "taskType": "article",
         "checklist": [
           "text",
@@ -4598,16 +4582,15 @@ export const calendarData = [
           "tracked"
         ],
         "sourceSection": "archive",
-        "folderId": "ПАПКА_НЕ_НАЙДЕНА",
-        "folderSource": "missing",
-        "folderNote": "Нужно вручную сверить с Excel"
+        "folderId": "14_Post_Этикетка_которая_выглядит_дороже",
+        "folderSource": "generated",
+        "folderNote": "Та же папка, что у основной темы дня"
       }
     ],
     "prepare": [
       "До/после этикетки",
-      "статья",
       "ролик",
-      "статья vc.ru, до/после этикетки"
+      "vc.ru: статья по этикетке + до/после + мокап"
     ],
     "cta": [
       "Напишите: ЭТИКЕТКА"
@@ -4674,9 +4657,10 @@ export const calendarData = [
         "id": "2026-07-16_dzen_chto_dolzhno_byt_na_upakovke_sostav_utp_akcenty_",
         "platform": "Дзен",
         "text": "Что должно быть на упаковке: состав, УТП, акценты, доверие",
-        "taskType": "post",
+        "taskType": "article",
         "checklist": [
           "text",
+          "article",
           "visual",
           "published",
           "tracked"
@@ -4855,9 +4839,10 @@ export const calendarData = [
         "id": "2026-07-21_dzen_kak_ponyat_chto_vizual_biznesa_pora_privesti_v_s",
         "platform": "Дзен",
         "text": "Как понять, что визуал бизнеса пора привести в систему",
-        "taskType": "post",
+        "taskType": "article",
         "checklist": [
           "text",
+          "article",
           "visual",
           "published",
           "tracked"
@@ -4899,9 +4884,9 @@ export const calendarData = [
     ],
     "archive": [
       {
-        "id": "2026-07-21_vc_ru_statya_kogda_vizual_pora_privesti_v_sistemu",
+        "id": "2026-07-21_vc_ru_statya_vizualnyy_audit_brenda",
         "platform": "vc.ru",
-        "text": "статья «когда визуал пора привести в систему»",
+        "text": "статья vc.ru: Визуальный аудит бренда — 7 точек, где бизнес теряет доверие",
         "taskType": "article",
         "checklist": [
           "text",
@@ -4911,16 +4896,15 @@ export const calendarData = [
           "tracked"
         ],
         "sourceSection": "archive",
-        "folderId": "ПАПКА_НЕ_НАЙДЕНА",
-        "folderSource": "missing",
-        "folderNote": "Нужно вручную сверить с Excel"
+        "folderId": "21_Post_Визуальный_аудит_бренда",
+        "folderSource": "generated",
+        "folderNote": "Та же папка, что у основной темы дня"
       }
     ],
     "prepare": [
       "Чек-лист",
-      "статья",
       "ролик, обложка",
-      "статья vc.ru, чек-лист аудита"
+      "vc.ru: статья-чек-лист по визуальному аудиту"
     ],
     "cta": [
       "Напишите: АУДИТ"
@@ -4938,7 +4922,7 @@ export const calendarData = [
       {
         "id": "2026-07-23_telegram_vk_post_chto_sobrat_v_edinuyu_sistemu_profil_banner",
         "platform": "Telegram + VK",
-        "text": "Пост Что собрать в единую систему: профиль, баннеры, карточки, презентации...",
+        "text": "Пост: что собрать в единую систему — профиль, баннеры, карточки и презентации",
         "taskType": "post",
         "checklist": [
           "text",
@@ -4986,7 +4970,7 @@ export const calendarData = [
       {
         "id": "2026-07-23_dzen_seo_statya_kompleksnoe_oformlenie_biznesa_socset",
         "platform": "Дзен",
-        "text": "SEO-Статья: Комплексное оформление бизнеса: соцсети, баннеры, презентации...",
+        "text": "Дзен: статья — комплексное оформление бизнеса: соцсети, баннеры, карточки и презентации",
         "taskType": "article",
         "checklist": [
           "text",
@@ -5002,7 +4986,7 @@ export const calendarData = [
       {
         "id": "2026-07-23_setka_rabochiy_vyvod_kogda_u_biznesa_net_vizualnoy_sis",
         "platform": "Сетка",
-        "text": "Рабочий вывод Когда у бизнеса нет визуальной системы, каждый новый макет...",
+        "text": "Сетка: рабочий вывод — без визуальной системы каждый новый макет приходится собирать заново",
         "taskType": "post",
         "checklist": [
           "text",
@@ -5032,9 +5016,10 @@ export const calendarData = [
     ],
     "archive": [],
     "prepare": [
-      "Мини-портфолио",
+      "мини-портфолио",
       "статья",
-      "ролик, оффер"
+      "ролик",
+      "короткие адаптации для Дзена, Сетки и Facebook"
     ],
     "cta": [
       "Напишите: СИСТЕМА"
@@ -5109,4 +5094,4 @@ export const calendarData = [
   }
 ];
 
-export const platformLabels = ["Telegram + VK", "Instagram", "Shorts/Reels/VK Видео", "Дзен", "vc.ru", "Сетка", "Facebook"];
+export const platformLabels = ["Telegram + VK","Instagram","Shorts/Reels/VK Видео","Дзен","vc.ru","Сетка","Facebook"];

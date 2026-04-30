@@ -357,6 +357,7 @@ h1 {
 }
 
 .typePill,
+.notePill,
 .todayTag,
 .overdueTag {
   display: inline-flex;
@@ -371,6 +372,11 @@ h1 {
 .typePill {
   background: #edf1f5;
   color: #3b4350;
+}
+
+.notePill {
+  background: #fff6d9;
+  color: #6f5300;
 }
 
 .todayTag {
