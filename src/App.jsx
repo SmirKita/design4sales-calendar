@@ -25,11 +25,10 @@ const typeLabels = {
   all: "Все",
   today: "Сегодня",
   week: "Эта неделя",
-  main: "Только главное",
-  articles: "Только статьи",
-  video: "Только видео",
-  incomplete: "Не выполнено",
-  missingFolders: "Папка не найдена",
+  overdue: "Просроченные",
+  ready: "Готово к публикации",
+  archive: "Архив / перепаковка",
+  extra: "Доп. публикации",
 };
 
 const platformClass = {
@@ -132,6 +131,15 @@ function getNearestDay(days) {
   const today = new Date();
   today.setHours(12, 0, 0, 0);
   return days.find((day) => parseDate(day.date) >= today) || days[days.length - 1];
+}
+
+function getTodayIso() {
+  const today = new Date();
+  today.setHours(12, 0, 0, 0);
+  const year = today.getFullYear();
+  const month = String(today.getMonth() + 1).padStart(2, "0");
+  const day = String(today.getDate()).padStart(2, "0");
+  return `${year}-${month}-${day}`;
 }
 
 function getCurrentWeekAnchor(days) {
@@ -343,7 +351,7 @@ function Filters({ view, setView, selectedPlatforms, setSelectedPlatforms, searc
         <input
           value={search}
           onChange={(event) => setSearch(event.target.value)}
-          placeholder="Поиск по теме, площадке или CTA"
+          placeholder="Поиск по теме, площадке, папке или CTA"
           type="search"
         />
         <select onChange={(event) => jumpToDate(event.target.value)} defaultValue="">
@@ -390,10 +398,19 @@ function CalendarNav({ jumpToMonth }) {
   );
 }
 
-function DayCard({ day, progress, updateTask, compact = false, highlight = false, onlyMain = false, onlyMissingFolders = false }) {
+function DayCard({
+  day,
+  progress,
+  updateTask,
+  compact = false,
+  highlight = false,
+  taskFilter = null,
+  onlyArchive = false,
+  onlyExtra = false,
+}) {
   const dayProgress = statusForDay(day, progress);
   const completePercent = dayProgress.total ? Math.round((dayProgress.done / dayProgress.total) * 100) : 0;
-  const todayIso = new Date().toISOString().slice(0, 10);
+  const todayIso = getTodayIso();
   const overdue = day.date < todayIso && dayProgress.done < dayProgress.total;
   const isToday = day.date === todayIso;
 
@@ -423,12 +440,14 @@ function DayCard({ day, progress, updateTask, compact = false, highlight = false
         <span style={{ width: `${completePercent}%` }} />
       </div>
 
-      <TaskSection title="Главное" tasks={day.priority} progress={progress} updateTask={updateTask} onlyMissingFolders={onlyMissingFolders} />
-      {!onlyMain && (
-        <>
-          <TaskSection title="Дополнительно" tasks={day.optional} progress={progress} updateTask={updateTask} onlyMissingFolders={onlyMissingFolders} />
-          <TaskSection title="Архив / перепаковка" tasks={day.archive} progress={progress} updateTask={updateTask} onlyMissingFolders={onlyMissingFolders} />
-        </>
+      {!onlyArchive && !onlyExtra && (
+        <TaskSection title="Главное" tasks={day.priority} progress={progress} updateTask={updateTask} taskFilter={taskFilter} />
+      )}
+      {(onlyExtra || (!onlyArchive && !onlyExtra)) && (
+        <TaskSection title="Дополнительно" tasks={day.optional} progress={progress} updateTask={updateTask} taskFilter={taskFilter} />
+      )}
+      {(onlyArchive || onlyExtra || (!onlyArchive && !onlyExtra)) && (
+        <TaskSection title="Архив / перепаковка" tasks={day.archive} progress={progress} updateTask={updateTask} taskFilter={taskFilter} />
       )}
 
       {!compact && (
@@ -442,10 +461,8 @@ function DayCard({ day, progress, updateTask, compact = false, highlight = false
   );
 }
 
-function TaskSection({ title, tasks, progress, updateTask, onlyMissingFolders = false }) {
-  const visibleTasks = onlyMissingFolders
-    ? tasks.filter((task) => task.folderSource === "missing" || task.folderId === "ПАПКА_НЕ_НАЙДЕНА")
-    : tasks;
+function TaskSection({ title, tasks, progress, updateTask, taskFilter = null }) {
+  const visibleTasks = taskFilter ? tasks.filter((task) => taskFilter(task)) : tasks;
   if (!visibleTasks.length) return null;
   return (
     <section className="taskSection">
@@ -683,24 +700,13 @@ function matchesFilters(day, view, selectedPlatforms, search, progress) {
     .join(" ")
     .toLowerCase();
   const searchMatch = !query || textHaystack.includes(query);
-  const taskTypeMatch =
-    view === "articles"
-      ? all.some((task) => task.taskType === "article" || day.type === "article")
-      : view === "video"
-        ? all.some((task) => task.taskType === "video" || day.type === "video")
-        : true;
-  const folderMatch =
-    view === "missingFolders"
-      ? all.some((task) => task.folderSource === "missing" || task.folderId === "ПАПКА_НЕ_НАЙДЕНА")
+  const readyMatch =
+    view === "ready"
+      ? all.some((task) => getTaskProgress(progress, task).status === "done")
       : true;
-  const incompleteMatch =
-    view === "incomplete"
-      ? all.some((task) => {
-          const status = getTaskProgress(progress, task).status;
-          return status !== "published" && status !== "skipped";
-        })
-      : true;
-  return platformMatch && searchMatch && taskTypeMatch && folderMatch && incompleteMatch;
+  const archiveMatch = view === "archive" ? day.archive.length > 0 : true;
+  const extraMatch = view === "extra" ? day.optional.length > 0 || day.archive.length > 0 : true;
+  return platformMatch && searchMatch && readyMatch && archiveMatch && extraMatch;
 }
 
 export default function App() {
@@ -711,15 +717,39 @@ export default function App() {
   const nearestDay = useMemo(() => getNearestDay(calendarData), []);
   const weekAnchor = useMemo(() => getCurrentWeekAnchor(calendarData), []);
   const taskCount = useMemo(() => calendarData.flatMap(allTasks).length, []);
+  const todayIso = useMemo(() => getTodayIso(), []);
 
   const filteredDays = useMemo(() => {
     return calendarData.filter((day) => {
       const date = parseDate(day.date);
       if (view === "today" && day.date !== nearestDay.date) return false;
       if (view === "week" && !sameWeek(date, weekAnchor)) return false;
+      if (
+        view === "overdue" &&
+        (day.date >= todayIso ||
+          !allTasks(day).some((task) => {
+            const status = getTaskProgress(progress, task).status;
+            return status !== "published" && status !== "skipped";
+          }))
+      ) {
+        return false;
+      }
       return matchesFilters(day, view, selectedPlatforms, search, progress);
     });
-  }, [view, selectedPlatforms, search, progress, nearestDay, weekAnchor]);
+  }, [view, selectedPlatforms, search, progress, nearestDay, weekAnchor, todayIso]);
+
+  const taskFilter = useMemo(() => {
+    if (view === "overdue") {
+      return (task) => {
+        const status = getTaskProgress(progress, task).status;
+        return status !== "published" && status !== "skipped";
+      };
+    }
+    if (view === "ready") {
+      return (task) => getTaskProgress(progress, task).status === "done";
+    }
+    return null;
+  }, [view, progress]);
 
   const jumpToDate = (date) => {
     document.getElementById(`date-${date}`)?.scrollIntoView({ behavior: "smooth", block: "start" });
@@ -748,7 +778,7 @@ export default function App() {
         jumpToDate={jumpToDate}
       />
       <ProgressExportImport progress={progress} setProgress={setProgress} />
-      <TodayPanel day={nearestDay} progress={progress} updateTask={updateTask} />
+      {view === "all" && <TodayPanel day={nearestDay} progress={progress} updateTask={updateTask} />}
       <CalendarNav jumpToMonth={jumpToMonth} />
 
       {view === "week" && (
@@ -765,8 +795,9 @@ export default function App() {
             day={day}
             progress={progress}
             updateTask={updateTask}
-            onlyMain={view === "main"}
-            onlyMissingFolders={view === "missingFolders"}
+            taskFilter={taskFilter}
+            onlyArchive={view === "archive"}
+            onlyExtra={view === "extra"}
           />
         ))}
       </main>
