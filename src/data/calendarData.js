@@ -1,41 +1,5 @@
 export const calendarData = [
   {
-    "date": "2026-04-27",
-    "displayDate": "27.04.2026",
-    "day": "Понедельник",
-    "dayShort": "Пн",
-    "title": "Брендбук для малого бизнеса: когда он реально нужен, а когда это лишняя трата",
-    "type": "post",
-    "typeLabel": "архивная перепаковка",
-    "priority": [],
-    "optional": [],
-    "archive": [
-      {
-        "id": "2026-04-27_vc_ru_statya_brendbuk_dlya_malogo_biznesa_kogda_on_rea",
-        "platform": "vc.ru",
-        "text": "статья vc.ru: Брендбук для малого бизнеса — когда он нужен, а когда это лишняя трата",
-        "taskType": "article",
-        "checklist": [
-          "text",
-          "article",
-          "visual",
-          "published",
-          "tracked"
-        ],
-        "sourceSection": "archive",
-        "folderId": "04_Post_Зачем нужен брендбук",
-        "folderSource": "excel"
-      }
-    ],
-    "prepare": [
-      "vc.ru: статья, обложка, 2-3 примера брендбука"
-    ],
-    "cta": [
-      "мягкий переход в Telegram/VK"
-    ],
-    "calendarNote": "Архивная перепаковка / доп. публикация"
-  },
-  {
     "date": "2026-04-28",
     "displayDate": "28.04.2026",
     "day": "Вторник",
@@ -209,29 +173,10 @@ export const calendarData = [
         "folderSource": "generated"
       }
     ],
-    "archive": [
-      {
-        "id": "2026-04-30_vc_ru_statya_banner_bez_vizualnogo_shuma_statya_pochem",
-        "platform": "vc.ru",
-        "text": "статья vc.ru: Баннеры без визуального шума — что убрать из креатива",
-        "taskType": "article",
-        "checklist": [
-          "text",
-          "article",
-          "visual",
-          "published",
-          "tracked"
-        ],
-        "sourceSection": "archive",
-        "folderId": "30_Post_Баннеры_без_визуального_шума",
-        "folderSource": "generated",
-        "folderNote": "Та же папка, что у основной Telegram/VK-темы дня"
-      }
-    ],
+    "archive": [],
     "prepare": [
       "4-5 карточек",
       "ролик и обложка",
-      "vc.ru: статья по Durex/Xbox + обложка + 2-4 иллюстрации",
       "Сетка: короткая заметка без сезонного акцента"
     ],
     "cta": [
@@ -330,35 +275,40 @@ export const calendarData = [
     "day": "Понедельник",
     "dayShort": "Пн",
     "title": "Как работать с дизайнером, чтобы не утонуть в правках",
-    "type": "post",
-    "typeLabel": "архивная перепаковка",
+    "type": "article",
+    "typeLabel": "vc.ru · публикация месяца",
     "priority": [],
     "optional": [],
     "archive": [
       {
-        "id": "2026-05-04_vc_ru_statya_kak_rabotat_s_dizaynerom_chtoby_ne_utonut",
+        "id": "2026-05-04_vc_month_work_with_designer",
         "platform": "vc.ru",
-        "text": "статья vc.ru: Как работать с дизайнером, чтобы не утонуть в правках",
+        "text": "Статья vc.ru: Как работать с дизайнером, чтобы не утонуть в правках",
         "taskType": "article",
         "checklist": [
-          "text",
           "article",
-          "visual",
+          "cover",
           "published",
           "tracked"
         ],
         "sourceSection": "archive",
         "folderId": "12_Post_Как проходит работа с дизайнером",
-        "folderSource": "excel"
+        "folderSource": "excel",
+        "monthlyFeature": true,
+        "monthlyLabel": "vc.ru · сильная статья месяца",
+        "defaultStatus": "in_progress",
+        "warning": "Проверить лимит публикаций перед подготовкой финального текста. Если лимит vc.ru в мае уже потрачен — резерв на следующий месяц.",
+        "folderNote": "Архивная перепаковка для публикации месяца vc.ru"
       }
     ],
     "prepare": [
-      "vc.ru: пошаговая статья — бриф, референсы, этапы, правки"
+      "vc.ru: статья месяца + обложка + примеры правок",
+      "проверить лимит публикаций"
     ],
     "cta": [
       "мягкий переход в Telegram/VK"
     ],
-    "calendarNote": "Архивная перепаковка / доп. публикация"
+    "calendarNote": "vc.ru · публикация месяца"
   },
   {
     "date": "2026-05-05",
@@ -464,30 +414,11 @@ export const calendarData = [
         "folderSource": "generated"
       }
     ],
-    "archive": [
-      {
-        "id": "2026-05-05_vc_ru_statya_do_posle_reklamnogo_bannera",
-        "platform": "vc.ru",
-        "text": "статья vc.ru: До/после рекламного баннера — что изменили, чтобы баннер стал понятнее",
-        "taskType": "article",
-        "checklist": [
-          "text",
-          "article",
-          "visual",
-          "published",
-          "tracked"
-        ],
-        "sourceSection": "archive",
-        "folderId": "05_Post_До_после_баннера",
-        "folderSource": "generated",
-        "folderNote": "Та же папка, что у основной темы дня"
-      }
-    ],
+    "archive": [],
     "prepare": [
       "до/после баннера",
       "выноски",
-      "короткий ролик",
-      "vc.ru: статья по до/после баннера + обложка + выводы"
+      "короткий ролик"
     ],
     "cta": [
       "Подборка примеров",
@@ -651,30 +582,11 @@ export const calendarData = [
         "folderSource": "generated"
       }
     ],
-    "archive": [
-      {
-        "id": "2026-05-07_vc_ru_statya_dizayn_ne_ukrashaet_a_prodaet_chto_imenno",
-        "platform": "vc.ru",
-        "text": "статья vc.ru: Логотип и запоминаемость — почему знак работает только в системе",
-        "taskType": "article",
-        "checklist": [
-          "text",
-          "article",
-          "visual",
-          "published",
-          "tracked"
-        ],
-        "sourceSection": "archive",
-        "folderId": "07_Post_Логотип_и_запоминаемость",
-        "folderSource": "generated",
-        "folderNote": "Та же папка, что у основной Telegram/VK-темы дня"
-      }
-    ],
+    "archive": [],
     "prepare": [
       "коллаж логотипов",
       "3 тезиса про систему",
-      "ролик",
-      "vc.ru: статья про дизайн как бизнес-инструмент"
+      "ролик"
     ],
     "cta": [
       "Напишите: ЛОГО",
@@ -827,28 +739,9 @@ export const calendarData = [
         "folderSource": "generated"
       }
     ],
-    "archive": [
-      {
-        "id": "2026-05-10_vc_ru_statya_razbor_posterov_durex_xbox",
-        "platform": "vc.ru",
-        "text": "статья vc.ru: Разбор постеров Durex и Xbox — почему одни рекламные постеры считываются быстрее других",
-        "taskType": "article",
-        "checklist": [
-          "text",
-          "article",
-          "visual",
-          "published",
-          "tracked"
-        ],
-        "sourceSection": "archive",
-        "folderId": "09_Post_Разбор постеров Durex и Xbox",
-        "folderSource": "excel",
-        "folderNote": "Перенесено с дня, где тема не совпадала с Telegram/VK"
-      }
-    ],
+    "archive": [],
     "prepare": [
-      "Сетка: проф. разбор без A/B-голосования",
-      "vc.ru: статья + обложка + 2-3 примера"
+      "Сетка: проф. разбор без A/B-голосования"
     ],
     "cta": [
       "Сохранить вывод"
@@ -881,26 +774,8 @@ export const calendarData = [
         "folderNote": "Перенесено с дня, где тема не совпадала с Telegram/VK"
       }
     ],
-    "archive": [
-      {
-        "id": "2026-05-11_vc_ru_statya_banner_kotoryy_prodaet_i_banner_kotoryy_p",
-        "platform": "vc.ru",
-        "text": "статья vc.ru: Баннер, который продает, и баннер, который просто занимает место",
-        "taskType": "article",
-        "checklist": [
-          "text",
-          "article",
-          "visual",
-          "published",
-          "tracked"
-        ],
-        "sourceSection": "archive",
-        "folderId": "14_Video_Баннер продает и не продает",
-        "folderSource": "excel"
-      }
-    ],
+    "archive": [],
     "prepare": [
-      "vc.ru: до/после-разбор — оффер, иерархия, CTA, визуальный шум",
       "Facebook: адаптация старого материала"
     ],
     "cta": [
@@ -1012,30 +887,11 @@ export const calendarData = [
         "folderSource": "generated"
       }
     ],
-    "archive": [
-      {
-        "id": "2026-05-12_vc_ru_statya_oflayn_nositeli_brenda",
-        "platform": "vc.ru",
-        "text": "статья vc.ru: Офлайн-носители бренда — как собрать единую визуальную систему",
-        "taskType": "article",
-        "checklist": [
-          "text",
-          "article",
-          "visual",
-          "published",
-          "tracked"
-        ],
-        "sourceSection": "archive",
-        "folderId": "12_Post_Офлайн_носители_бренда",
-        "folderSource": "generated",
-        "folderNote": "Та же папка, что у основной темы дня"
-      }
-    ],
+    "archive": [],
     "prepare": [
       "коллаж 5 носителей",
       "ролик",
-      "Facebook: чек-лист носителей",
-      "vc.ru: статья по офлайн-носителям + коллаж примеров"
+      "Facebook: чек-лист носителей"
     ],
     "cta": [
       "Подобрать комплект",
@@ -1149,30 +1005,11 @@ export const calendarData = [
         "folderSource": "generated"
       }
     ],
-    "archive": [
-      {
-        "id": "2026-05-14_vc_ru_statya_pochemu_fraza_sdelayte_krasivo_lomaet_diz",
-        "platform": "vc.ru",
-        "text": "статья vc.ru: Упаковка и средний чек — как визуал влияет на ощущение цены",
-        "taskType": "article",
-        "checklist": [
-          "text",
-          "article",
-          "visual",
-          "published",
-          "tracked"
-        ],
-        "sourceSection": "archive",
-        "folderId": "14_Post_Упаковка_и_средний_чек",
-        "folderSource": "generated",
-        "folderNote": "Та же папка, что у основной Telegram/VK-темы дня"
-      }
-    ],
+    "archive": [],
     "prepare": [
       "до/после упаковки",
       "мокап на полке",
-      "короткий ролик",
-      "vc.ru: статья про «сделайте красиво» + примеры формулировок"
+      "короткий ролик"
     ],
     "cta": [
       "Разбор упаковки",
@@ -1343,28 +1180,9 @@ export const calendarData = [
         "folderSource": "generated"
       }
     ],
-    "archive": [
-      {
-        "id": "2026-05-17_vc_ru_pochemu_dizayn_prodaet",
-        "platform": "vc.ru",
-        "text": "статья vc.ru: Почему дизайн продает — что именно он делает для бизнеса",
-        "taskType": "article",
-        "checklist": [
-          "text",
-          "article",
-          "visual",
-          "published",
-          "tracked"
-        ],
-        "sourceSection": "archive",
-        "folderId": "13_Post_Почему дизайн продает",
-        "folderSource": "excel",
-        "folderNote": "Перенесено с дня, где тема не совпадала с Telegram/VK"
-      }
-    ],
+    "archive": [],
     "prepare": [
-      "Сетка: ход мысли дизайнера — что усилить в фото и где граница ретуши",
-      "vc.ru: статья + обложка + 2-3 примера"
+      "Сетка: ход мысли дизайнера — что усилить в фото и где граница ретуши"
     ],
     "cta": [
       "Сохранить мысль"
@@ -1413,26 +1231,8 @@ export const calendarData = [
         "folderNote": "Перенесено с дня, где тема не совпадала с Telegram/VK"
       }
     ],
-    "archive": [
-      {
-        "id": "2026-05-18_vc_ru_statya_5_shriftovyh_oshibok_iz_za_kotoryh_brend_",
-        "platform": "vc.ru",
-        "text": "статья vc.ru: 5 шрифтовых ошибок, из-за которых бренд выглядит дешевле",
-        "taskType": "article",
-        "checklist": [
-          "text",
-          "article",
-          "visual",
-          "published",
-          "tracked"
-        ],
-        "sourceSection": "archive",
-        "folderId": "25_Post_Топ 5 шрифтов",
-        "folderSource": "excel"
-      }
-    ],
+    "archive": [],
     "prepare": [
-      "VC: Не делать подборку ради подборки, а объяснить выбор шрифта через",
       "Facebook: адаптация старого материала",
       "Сетка: адаптация старого материала"
     ],
@@ -1630,29 +1430,10 @@ export const calendarData = [
         "folderSource": "generated"
       }
     ],
-    "archive": [
-      {
-        "id": "2026-05-21_vc_ru_statya_razbor_5_oshibok_v_reklamnom_makete_staty",
-        "platform": "vc.ru",
-        "text": "статья vc.ru: Разбор 5 ошибок в рекламном макете",
-        "taskType": "article",
-        "checklist": [
-          "text",
-          "article",
-          "visual",
-          "published",
-          "tracked"
-        ],
-        "sourceSection": "archive",
-        "folderId": "21_Post_Разбор_ошибок_в_макете",
-        "folderSource": "generated",
-        "folderNote": "Та же папка, что у основной Telegram/VK-темы дня"
-      }
-    ],
+    "archive": [],
     "prepare": [
       "5 карточек: ошибка → исправление",
       "ролик",
-      "vc.ru: статья про CTA и кнопку",
       "Сетка: заметка про перегруженный макет"
     ],
     "cta": [
@@ -1686,28 +1467,9 @@ export const calendarData = [
         "folderSource": "generated"
       }
     ],
-    "archive": [
-      {
-        "id": "2026-05-22_vc_ru_kakaya_knopka_prodaet",
-        "platform": "vc.ru",
-        "text": "статья vc.ru: Какая кнопка продает — почему один CTA считывается быстрее другого",
-        "taskType": "article",
-        "checklist": [
-          "text",
-          "article",
-          "visual",
-          "published",
-          "tracked"
-        ],
-        "sourceSection": "archive",
-        "folderId": "29_Quiz_Какая кнопка продает",
-        "folderSource": "excel",
-        "folderNote": "Перенесено с дня, где тема не совпадала с Telegram/VK"
-      }
-    ],
+    "archive": [],
     "prepare": [
-      "Facebook: убрать игру, оставить список ошибок и практический вывод",
-      "vc.ru: статья + обложка + 2-3 примера"
+      "Facebook: убрать игру, оставить список ошибок и практический вывод"
     ],
     "cta": [
       "Прислать макет"
@@ -1831,42 +1593,6 @@ export const calendarData = [
     "cta": [
       "Посмотреть кейс"
     ]
-  },
-  {
-    "date": "2026-05-25",
-    "displayDate": "25.05.2026",
-    "day": "Понедельник",
-    "dayShort": "Пн",
-    "title": "Реклама “купи ноутбук”: почему прямой оффер часто не работает",
-    "type": "post",
-    "typeLabel": "архивная перепаковка",
-    "priority": [],
-    "optional": [],
-    "archive": [
-      {
-        "id": "2026-05-25_vc_ru_statya_reklama_kupi_noutbuk_pochemu_pryamoy_offe",
-        "platform": "vc.ru",
-        "text": "статья «Реклама “купи ноутбук”: почему прямой оффер часто не работает»",
-        "taskType": "article",
-        "checklist": [
-          "text",
-          "article",
-          "visual",
-          "published",
-          "tracked"
-        ],
-        "sourceSection": "archive",
-        "folderId": "05_Post_Реклама купи ноутбук разбор",
-        "folderSource": "excel"
-      }
-    ],
-    "prepare": [
-      "vc.ru: разбор слабой рекламы через потребность, выгоду и визуальную иерархию"
-    ],
-    "cta": [
-      "мягкий переход в Telegram/VK"
-    ],
-    "calendarNote": "Архивная перепаковка / доп. публикация"
   },
   {
     "date": "2026-05-26",
@@ -2058,29 +1784,10 @@ export const calendarData = [
         "folderSource": "generated"
       }
     ],
-    "archive": [
-      {
-        "id": "2026-05-28_vc_ru_statya_ai_v_dizayne_dlya_biznesa_statya_kak_pote",
-        "platform": "vc.ru",
-        "text": "статья vc.ru: AI как рабочий инструмент дизайнера — где он помогает бизнесу",
-        "taskType": "article",
-        "checklist": [
-          "text",
-          "article",
-          "visual",
-          "published",
-          "tracked"
-        ],
-        "sourceSection": "archive",
-        "folderId": "28_Post_AI_как_рабочий_инструмент",
-        "folderSource": "generated",
-        "folderNote": "Та же папка, что у основной Telegram/VK-темы дня"
-      }
-    ],
+    "archive": [],
     "prepare": [
       "5 карточек AI/дизайнер",
-      "ролик",
-      "vc.ru: статья про цену ошибки в рекламе"
+      "ролик"
     ],
     "cta": [
       "Напишите: AI",
@@ -2114,28 +1821,9 @@ export const calendarData = [
         "folderSource": "generated"
       }
     ],
-    "archive": [
-      {
-        "id": "2026-05-29_vc_ru_kak_sekonomit_15000_na_reklame",
-        "platform": "vc.ru",
-        "text": "статья vc.ru: Как потерять 15 000 рублей на рекламе из-за слабого визуала",
-        "taskType": "article",
-        "checklist": [
-          "text",
-          "article",
-          "visual",
-          "published",
-          "tracked"
-        ],
-        "sourceSection": "archive",
-        "folderId": "12_Post_Как сэкономить 15000 на рекламе",
-        "folderSource": "excel",
-        "folderNote": "Перенесено с дня, где тема не совпадала с Telegram/VK"
-      }
-    ],
+    "archive": [],
     "prepare": [
-      "Facebook: без хайпа — где AI помогает, а где нужен дизайнер",
-      "vc.ru: статья + обложка + 2-3 примера"
+      "Facebook: без хайпа — где AI помогает, а где нужен дизайнер"
     ],
     "cta": [
       "Комментарии / личка"
@@ -2268,26 +1956,8 @@ export const calendarData = [
         "folderNote": "Перенесено с дня, где тема не совпадала с Telegram/VK"
       }
     ],
-    "archive": [
-      {
-        "id": "2026-06-01_vc_ru_statya_kak_napisat_tz_dizayneru_chtoby_poluchit_",
-        "platform": "vc.ru",
-        "text": "статья «Как написать ТЗ дизайнеру, чтобы получить результат, а не угадайку»",
-        "taskType": "article",
-        "checklist": [
-          "text",
-          "article",
-          "visual",
-          "published",
-          "tracked"
-        ],
-        "sourceSection": "archive",
-        "folderId": "02_Post_Как_объяснить_дизайнеру_задачу",
-        "folderSource": "excel"
-      }
-    ],
+    "archive": [],
     "prepare": [
-      "vc.ru: шаблон ТЗ — задача, аудитория, ограничения, критерий успеха",
       "Facebook: адаптация старого материала",
       "Сетка: адаптация старого материала"
     ],
@@ -2519,29 +2189,10 @@ export const calendarData = [
         "folderSource": "generated"
       }
     ],
-    "archive": [
-      {
-        "id": "2026-06-04_vc_ru_statya_pochemu_kartochka_tovara_ne_prodaet_staty",
-        "platform": "vc.ru",
-        "text": "статья vc.ru: Карточка товара как витрина — что покупатель должен понять сразу",
-        "taskType": "article",
-        "checklist": [
-          "text",
-          "article",
-          "visual",
-          "published",
-          "tracked"
-        ],
-        "sourceSection": "archive",
-        "folderId": "04_Post_Карточка_товара",
-        "folderSource": "generated",
-        "folderNote": "Та же папка, что у основной Telegram/VK-темы дня"
-      }
-    ],
+    "archive": [],
     "prepare": [
       "карточка товара до/после",
-      "ролик",
-      "vc.ru: статья по билборду стоматологии"
+      "ролик"
     ],
     "cta": [
       "Напишите: КАРТОЧКА",
@@ -2575,28 +2226,9 @@ export const calendarData = [
         "folderSource": "generated"
       }
     ],
-    "archive": [
-      {
-        "id": "2026-06-05_vc_ru_bilbord_stomatologii",
-        "platform": "vc.ru",
-        "text": "статья vc.ru: Билборд стоматологии — как визуальная иерархия помогает рекламе считываться быстрее",
-        "taskType": "article",
-        "checklist": [
-          "text",
-          "article",
-          "visual",
-          "published",
-          "tracked"
-        ],
-        "sourceSection": "archive",
-        "folderId": "14_Post_Разбор билборда стоматологии",
-        "folderSource": "excel",
-        "folderNote": "Перенесено с дня, где тема не совпадала с Telegram/VK"
-      }
-    ],
+    "archive": [],
     "prepare": [
-      "Facebook: польза карточки — структура, читабельность, доверие",
-      "vc.ru: статья + обложка + 2-3 примера"
+      "Facebook: польза карточки — структура, читабельность, доверие"
     ],
     "cta": [
       "Написать «КАРТОЧКА»"
@@ -2705,42 +2337,6 @@ export const calendarData = [
     ]
   },
   {
-    "date": "2026-06-08",
-    "displayDate": "08.06.2026",
-    "day": "Понедельник",
-    "dayShort": "Пн",
-    "title": "3 ошибки в цвете, из-за которых дизайн выглядит непрофессионально",
-    "type": "post",
-    "typeLabel": "архивная перепаковка",
-    "priority": [],
-    "optional": [],
-    "archive": [
-      {
-        "id": "2026-06-08_vc_ru_statya_3_oshibki_v_cvete_iz_za_kotoryh_dizayn_vy",
-        "platform": "vc.ru",
-        "text": "статья «3 ошибки в цвете, из-за которых дизайн выглядит непрофессионально»",
-        "taskType": "article",
-        "checklist": [
-          "text",
-          "article",
-          "visual",
-          "published",
-          "tracked"
-        ],
-        "sourceSection": "archive",
-        "folderId": "17_Guide_Цвет в дизайне 3 ошибки",
-        "folderSource": "excel"
-      }
-    ],
-    "prepare": [
-      "vc.ru: цвет как навигация, акцент, эмоция и доверие"
-    ],
-    "cta": [
-      "мягкий переход в Telegram/VK"
-    ],
-    "calendarNote": "Архивная перепаковка / доп. публикация"
-  },
-  {
     "date": "2026-06-09",
     "displayDate": "09.06.2026",
     "day": "Вторник",
@@ -2845,30 +2441,11 @@ export const calendarData = [
         "folderSource": "generated"
       }
     ],
-    "archive": [
-      {
-        "id": "2026-06-09_vc_ru_statya_do_posle_kartochki_tovara",
-        "platform": "vc.ru",
-        "text": "статья vc.ru: До/после карточки товара — как визуальная иерархия помогает продаже",
-        "taskType": "article",
-        "checklist": [
-          "text",
-          "article",
-          "visual",
-          "published",
-          "tracked"
-        ],
-        "sourceSection": "archive",
-        "folderId": "09_Post_после_карточки_товара",
-        "folderSource": "generated",
-        "folderNote": "Та же папка, что у основной темы дня"
-      }
-    ],
+    "archive": [],
     "prepare": [
       "до/после карточки товара",
       "ролик",
-      "Facebook: мини-кейс карточки",
-      "vc.ru: статья по карточке товара + до/после + выноски"
+      "Facebook: мини-кейс карточки"
     ],
     "cta": [
       "Разбор карточки",
@@ -2981,30 +2558,11 @@ export const calendarData = [
         "folderNote": "Та же папка, что у основной Telegram/VK-темы дня"
       }
     ],
-    "archive": [
-      {
-        "id": "2026-06-11_vc_ru_statya_do_i_posle_sayta_shkoly_tancev_chto_menya",
-        "platform": "vc.ru",
-        "text": "статья vc.ru: Современные шрифты — где использовать и каких ошибок избегать",
-        "taskType": "article",
-        "checklist": [
-          "text",
-          "article",
-          "visual",
-          "published",
-          "tracked"
-        ],
-        "sourceSection": "archive",
-        "folderId": "11_Post_Современные_шрифты",
-        "folderSource": "generated",
-        "folderNote": "Та же папка, что у основной Telegram/VK-темы дня"
-      }
-    ],
+    "archive": [],
     "prepare": [
       "5 карточек типографики",
       "Дзен: статья про выбор шрифта",
-      "Facebook/Сетка: короткие адаптации",
-      "vc.ru: статья про шрифтовые ошибки"
+      "Facebook/Сетка: короткие адаптации"
     ],
     "cta": [
       "Сохранить / запросить подбор",
@@ -3179,42 +2737,6 @@ export const calendarData = [
     ]
   },
   {
-    "date": "2026-06-15",
-    "displayDate": "15.06.2026",
-    "day": "Понедельник",
-    "dayShort": "Пн",
-    "title": "Редизайн этикетки печенья: как упаковка помогает товару выглядеть дороже",
-    "type": "post",
-    "typeLabel": "архивная перепаковка",
-    "priority": [],
-    "optional": [],
-    "archive": [
-      {
-        "id": "2026-06-15_vc_ru_statya_redizayn_etiketki_pechenya_kak_upakovka_p",
-        "platform": "vc.ru",
-        "text": "статья vc.ru: Редизайн этикетки печенья — как упаковка помогает товару выглядеть дороже",
-        "taskType": "article",
-        "checklist": [
-          "text",
-          "article",
-          "visual",
-          "published",
-          "tracked"
-        ],
-        "sourceSection": "archive",
-        "folderId": "17_Post_Кейс_редизайн_печенья",
-        "folderSource": "excel"
-      }
-    ],
-    "prepare": [
-      "vc.ru: кейс упаковки — проблема, решение, результат"
-    ],
-    "cta": [
-      "мягкий переход в Telegram/VK"
-    ],
-    "calendarNote": "Архивная перепаковка / доп. публикация"
-  },
-  {
     "date": "2026-06-16",
     "displayDate": "16.06.2026",
     "day": "Вторник",
@@ -3319,30 +2841,11 @@ export const calendarData = [
         "folderNote": "Та же папка, что у основной Telegram/VK-темы дня"
       }
     ],
-    "archive": [
-      {
-        "id": "2026-06-16_vc_ru_statya_firmennyy_stil_kak_sistema",
-        "platform": "vc.ru",
-        "text": "статья vc.ru: Фирменный стиль как система — что важно кроме логотипа",
-        "taskType": "article",
-        "checklist": [
-          "text",
-          "article",
-          "visual",
-          "published",
-          "tracked"
-        ],
-        "sourceSection": "archive",
-        "folderId": "16_Post_Фирменный_стиль_система",
-        "folderSource": "generated",
-        "folderNote": "Та же папка, что у основной темы дня"
-      }
-    ],
+    "archive": [],
     "prepare": [
       "схема фирменного стиля",
       "5 карточек",
-      "Facebook: пост про презентацию",
-      "vc.ru: статья про фирменный стиль + схема системы"
+      "Facebook: пост про презентацию"
     ],
     "cta": [
       "Мини-брендборд",
@@ -3453,30 +2956,11 @@ export const calendarData = [
         "folderSource": "generated"
       }
     ],
-    "archive": [
-      {
-        "id": "2026-06-18_vc_ru_statya_redizayn_etiketki_kofe_chto_izmenit_chtob",
-        "platform": "vc.ru",
-        "text": "статья vc.ru: Полиграфия и наружка — почему офлайн-носители тоже часть бренда",
-        "taskType": "article",
-        "checklist": [
-          "text",
-          "article",
-          "visual",
-          "published",
-          "tracked"
-        ],
-        "sourceSection": "archive",
-        "folderId": "18_Post_Полиграфия_наружка",
-        "folderSource": "generated",
-        "folderNote": "Та же папка, что у основной Telegram/VK-темы дня"
-      }
-    ],
+    "archive": [],
     "prepare": [
       "коллаж носителей",
       "мокапы",
-      "ролик",
-      "vc.ru: кейс этикетки кофе"
+      "ролик"
     ],
     "cta": [
       "ПЕЧАТЬ / ВИТРИНА",
@@ -3638,42 +3122,6 @@ export const calendarData = [
     ]
   },
   {
-    "date": "2026-06-22",
-    "displayDate": "22.06.2026",
-    "day": "Понедельник",
-    "dayShort": "Пн",
-    "title": "Оформление соцсетей для бизнеса: что должно быть в профиле до рекламы",
-    "type": "post",
-    "typeLabel": "архивная перепаковка",
-    "priority": [],
-    "optional": [],
-    "archive": [
-      {
-        "id": "2026-06-22_vc_ru_statya_oformlenie_socsetey_dlya_biznesa_chto_dol",
-        "platform": "vc.ru",
-        "text": "статья vc.ru: Оформление соцсетей для бизнеса — что должно быть в профиле до рекламы",
-        "taskType": "article",
-        "checklist": [
-          "text",
-          "article",
-          "visual",
-          "published",
-          "tracked"
-        ],
-        "sourceSection": "archive",
-        "folderId": "24_Post_Гайд соцпрофиль",
-        "folderSource": "excel"
-      }
-    ],
-    "prepare": [
-      "vc.ru: чек-лист профиля — аватар, шапка, оффер, визуальная система"
-    ],
-    "cta": [
-      "мягкий переход в Telegram/VK"
-    ],
-    "calendarNote": "Архивная перепаковка / доп. публикация"
-  },
-  {
     "date": "2026-06-23",
     "displayDate": "23.06.2026",
     "day": "Вторник",
@@ -3778,35 +3226,57 @@ export const calendarData = [
         "folderNote": "Та же папка, что у основной Telegram/VK-темы дня"
       }
     ],
+    "archive": [],
+    "prepare": [
+      "карусель про упаковку услуги",
+      "ролик",
+      "Facebook: FAQ дизайнеру"
+    ],
+    "cta": [
+      "Напишите: УСЛУГА",
+      "Задать вопрос"
+    ]
+  },
+  {
+    "date": "2026-06-24",
+    "displayDate": "24.06.2026",
+    "day": "Среда",
+    "dayShort": "Ср",
+    "title": "Как упаковать услугу в соцсетях",
+    "type": "article",
+    "typeLabel": "vc.ru · публикация месяца",
+    "priority": [],
+    "optional": [],
     "archive": [
       {
-        "id": "2026-06-23_vc_ru_statya_pochemu_uslugu_ne_pokupayut",
+        "id": "2026-06-24_vc_month_service_packaging",
         "platform": "vc.ru",
-        "text": "статья vc.ru: Почему услугу не покупают, если ее плохо упаковали",
+        "text": "Статья vc.ru: Как упаковать услугу в соцсетях: оффер, визуал, цена, доверие",
         "taskType": "article",
         "checklist": [
-          "text",
           "article",
-          "visual",
+          "cover",
           "published",
           "tracked"
         ],
         "sourceSection": "archive",
         "folderId": "23_Post_Услуга_понятна_5_секунд",
         "folderSource": "generated",
-        "folderNote": "Та же папка, что у основной темы дня"
+        "folderNote": "Связана с темой недели: Услуга понятна за 5 секунд / Оформление услуги в соцсетях",
+        "monthlyFeature": true,
+        "monthlyLabel": "vc.ru · сильная статья месяца",
+        "defaultStatus": "planned",
+        "warning": "Проверить лимит публикаций перед подготовкой финального текста."
       }
     ],
     "prepare": [
-      "карусель про упаковку услуги",
-      "ролик",
-      "Facebook: FAQ дизайнеру",
-      "vc.ru: статья по упаковке услуги + примеры первого экрана"
+      "vc.ru: статья месяца + обложка + 2-3 примера",
+      "проверить лимит публикаций"
     ],
     "cta": [
-      "Напишите: УСЛУГА",
-      "Задать вопрос"
-    ]
+      "мягкий переход в Telegram/VK"
+    ],
+    "calendarNote": "vc.ru · публикация месяца"
   },
   {
     "date": "2026-06-25",
@@ -3865,28 +3335,8 @@ export const calendarData = [
       }
     ],
     "optional": [],
-    "archive": [
-      {
-        "id": "2026-06-25_vc_ru_statya_pochemu_odin_profil_vyglyadit_dorozhe_dru",
-        "platform": "vc.ru",
-        "text": "статья vc.ru: Как оформить услугу в соцсетях, чтобы было понятно что, для кого и зачем",
-        "taskType": "article",
-        "checklist": [
-          "text",
-          "article",
-          "visual",
-          "published",
-          "tracked"
-        ],
-        "sourceSection": "archive",
-        "folderId": "25_Post_Оформление_услуги_соцсетях",
-        "folderSource": "generated",
-        "folderNote": "Та же папка, что у основной Telegram/VK-темы дня"
-      }
-    ],
-    "prepare": [
-      "vc.ru: статья по A/B-разбору профиля и признакам дорогого визуала"
-    ],
+    "archive": [],
+    "prepare": [],
     "cta": [
       "Напишите: ОФФЕР"
     ]
@@ -3917,28 +3367,9 @@ export const calendarData = [
         "folderSource": "generated"
       }
     ],
-    "archive": [
-      {
-        "id": "2026-06-26_vc_ru_ab_profil_oformlenie",
-        "platform": "vc.ru",
-        "text": "статья vc.ru: Почему один профиль выглядит дороже другого — A/B-разбор оформления",
-        "taskType": "article",
-        "checklist": [
-          "text",
-          "article",
-          "visual",
-          "published",
-          "tracked"
-        ],
-        "sourceSection": "archive",
-        "folderId": "30_Post_AB-профиль_оформление-соцсетей",
-        "folderSource": "excel",
-        "folderNote": "Перенесено с дня, где тема не совпадала с Telegram/VK"
-      }
-    ],
+    "archive": [],
     "prepare": [
-      "FB: Подать через проблему разрозненных носителей: что проверить перед",
-      "vc.ru: статья + обложка + 2-3 примера"
+      "FB: Подать через проблему разрозненных носителей: что проверить перед"
     ],
     "cta": [
       "Личка / Telegram"
@@ -4011,42 +3442,6 @@ export const calendarData = [
     "cta": [
       "Прислать карточку услуги"
     ]
-  },
-  {
-    "date": "2026-06-29",
-    "displayDate": "29.06.2026",
-    "day": "Понедельник",
-    "dayShort": "Пн",
-    "title": "Как объяснить дизайнеру задачу без “сделайте красиво”",
-    "type": "post",
-    "typeLabel": "архивная перепаковка",
-    "priority": [],
-    "optional": [],
-    "archive": [
-      {
-        "id": "2026-06-29_vc_ru_statya_kak_obyasnit_dizayneru_zadachu_bez_sdelay",
-        "platform": "vc.ru",
-        "text": "статья vc.ru: Как объяснить дизайнеру задачу без фразы «сделайте красиво»",
-        "taskType": "article",
-        "checklist": [
-          "text",
-          "article",
-          "visual",
-          "published",
-          "tracked"
-        ],
-        "sourceSection": "archive",
-        "folderId": "22_Post_Сделай красиво не работает",
-        "folderSource": "excel"
-      }
-    ],
-    "prepare": [
-      "VC: Сделать инструкцию для заказчика: формулировка цели, критерии"
-    ],
-    "cta": [
-      "мягкий переход в Telegram/VK"
-    ],
-    "calendarNote": "Архивная перепаковка / доп. публикация"
   },
   {
     "date": "2026-06-30",
@@ -4266,30 +3661,11 @@ export const calendarData = [
         "folderSource": "generated"
       }
     ],
-    "archive": [
-      {
-        "id": "2026-07-02_vc_ru_statya_kak_keys_prodaet_uslugu_statya_do_i_posle",
-        "platform": "vc.ru",
-        "text": "статья vc.ru: Как показать кейс — задача, решение, результат",
-        "taskType": "article",
-        "checklist": [
-          "text",
-          "article",
-          "visual",
-          "published",
-          "tracked"
-        ],
-        "sourceSection": "archive",
-        "folderId": "02_Post_показать_кейс",
-        "folderSource": "generated",
-        "folderNote": "Та же папка, что у основной Telegram/VK-темы дня"
-      }
-    ],
+    "archive": [],
     "prepare": [
       "кейс профиля",
       "3 карточки",
-      "ролик",
-      "vc.ru: мини-аудит профиля"
+      "ролик"
     ],
     "cta": [
       "Напишите: КЕЙС"
@@ -4362,42 +3738,6 @@ export const calendarData = [
     "cta": [
       "Сохранить разбор"
     ]
-  },
-  {
-    "date": "2026-07-06",
-    "displayDate": "06.07.2026",
-    "day": "Понедельник",
-    "dayShort": "Пн",
-    "title": "Редизайн упаковки: что менять, чтобы товар не терялся на полке",
-    "type": "post",
-    "typeLabel": "архивная перепаковка",
-    "priority": [],
-    "optional": [],
-    "archive": [
-      {
-        "id": "2026-07-06_vc_ru_statya_redizayn_upakovki_chto_menyat_chtoby_tova",
-        "platform": "vc.ru",
-        "text": "статья vc.ru: Редизайн упаковки — что менять, чтобы товар не терялся на полке",
-        "taskType": "article",
-        "checklist": [
-          "text",
-          "article",
-          "visual",
-          "published",
-          "tracked"
-        ],
-        "sourceSection": "archive",
-        "folderId": "16_Post_Редизайн_упаковки",
-        "folderSource": "excel"
-      }
-    ],
-    "prepare": [
-      "vc.ru: до/после упаковки — полка, иерархия, вкус, категория"
-    ],
-    "cta": [
-      "мягкий переход в Telegram/VK"
-    ],
-    "calendarNote": "Архивная перепаковка / доп. публикация"
   },
   {
     "date": "2026-07-07",
@@ -4503,69 +3843,13 @@ export const calendarData = [
         "folderSource": "generated"
       }
     ],
-    "archive": [
-      {
-        "id": "2026-07-07_vc_ru_statya_pervyy_ekran_bannera",
-        "platform": "vc.ru",
-        "text": "статья vc.ru: Первый экран баннера — что должно считываться за 2 секунды",
-        "taskType": "article",
-        "checklist": [
-          "text",
-          "article",
-          "visual",
-          "published",
-          "tracked"
-        ],
-        "sourceSection": "archive",
-        "folderId": "07_Post_Первый_экран_решает",
-        "folderSource": "generated",
-        "folderNote": "Та же папка, что у основной темы дня"
-      }
-    ],
+    "archive": [],
     "prepare": [
       "Карусель",
-      "ролик, примеры",
-      "vc.ru: статья по первому экрану баннера + примеры"
+      "ролик, примеры"
     ],
     "cta": [
       "Напишите: БАННЕР"
-    ]
-  },
-  {
-    "date": "2026-07-08",
-    "displayDate": "08.07.2026",
-    "day": "Среда",
-    "dayShort": "Ср",
-    "title": "До и после оформления профиля",
-    "type": "archive",
-    "typeLabel": "архивная перепаковка",
-    "calendarNote": "Архивная перепаковка / доп. публикация",
-    "priority": [],
-    "optional": [],
-    "archive": [
-      {
-        "id": "2026-07-08_vc_ru_audit_profilya",
-        "platform": "vc.ru",
-        "text": "статья vc.ru: До и после оформления профиля — 3 ошибки визуальной упаковки",
-        "taskType": "article",
-        "checklist": [
-          "text",
-          "article",
-          "visual",
-          "published",
-          "tracked"
-        ],
-        "sourceSection": "archive",
-        "folderId": "15_Post_Аудит_профиля",
-        "folderSource": "excel",
-        "folderNote": "Перенесено с дня, где тема не совпадала с Telegram/VK"
-      }
-    ],
-    "prepare": [
-      "vc.ru: статья + обложка + 2-3 примера"
-    ],
-    "cta": [
-      "мягкий переход в Telegram/VK"
     ]
   },
   {
@@ -4625,29 +3909,10 @@ export const calendarData = [
       }
     ],
     "optional": [],
-    "archive": [
-      {
-        "id": "2026-07-09_vc_ru_statya_prezentaciya_kotoruyu_ne_zakryvayut_na_vt",
-        "platform": "vc.ru",
-        "text": "статья vc.ru: Баннер без визуального мусора — как сделать креатив понятнее",
-        "taskType": "article",
-        "checklist": [
-          "text",
-          "article",
-          "visual",
-          "published",
-          "tracked"
-        ],
-        "sourceSection": "archive",
-        "folderId": "09_Post_Баннер_мусора",
-        "folderSource": "generated",
-        "folderNote": "Та же папка, что у основной Telegram/VK-темы дня"
-      }
-    ],
+    "archive": [],
     "prepare": [
       "до/после баннера",
-      "чек-лист",
-      "vc.ru: статья про структуру презентации"
+      "чек-лист"
     ],
     "cta": [
       "Прислать макет"
@@ -4784,26 +4049,8 @@ export const calendarData = [
         "folderNote": "Перенесено с дня, где тема не совпадала с Telegram/VK"
       }
     ],
-    "archive": [
-      {
-        "id": "2026-07-13_vc_ru_statya_3_voprosa_dizayneru_kotorye_predprinimate",
-        "platform": "vc.ru",
-        "text": "статья vc.ru: 3 вопроса дизайнеру, которые предприниматели зря стесняются задавать",
-        "taskType": "article",
-        "checklist": [
-          "text",
-          "article",
-          "visual",
-          "published",
-          "tracked"
-        ],
-        "sourceSection": "archive",
-        "folderId": "23_Post_FAQ_3_вопроса_дизайнеру",
-        "folderSource": "excel"
-      }
-    ],
+    "archive": [],
     "prepare": [
-      "vc.ru: FAQ-статья — сроки, цена, правки, исходники",
       "Facebook: адаптация старого материала"
     ],
     "cta": [
@@ -4915,33 +4162,55 @@ export const calendarData = [
         "folderSource": "generated"
       }
     ],
+    "archive": [],
+    "prepare": [
+      "До/после этикетки",
+      "ролик"
+    ],
+    "cta": [
+      "Напишите: ЭТИКЕТКА"
+    ]
+  },
+  {
+    "date": "2026-07-15",
+    "displayDate": "15.07.2026",
+    "day": "Среда",
+    "dayShort": "Ср",
+    "title": "Как дизайн этикетки влияет на ощущение цены продукта",
+    "type": "article",
+    "typeLabel": "vc.ru · публикация месяца",
+    "priority": [],
+    "optional": [],
     "archive": [
       {
-        "id": "2026-07-14_vc_ru_statya_etiketka_kotoraya_vyglyadit_dorozhe",
+        "id": "2026-07-15_vc_month_label_price_perception",
         "platform": "vc.ru",
-        "text": "статья vc.ru: Этикетка, которая выглядит дороже — как упаковка влияет на ощущение цены",
+        "text": "Статья vc.ru: Как дизайн этикетки влияет на ощущение цены продукта",
         "taskType": "article",
         "checklist": [
-          "text",
           "article",
-          "visual",
+          "cover",
           "published",
           "tracked"
         ],
         "sourceSection": "archive",
         "folderId": "14_Post_Этикетка_которая_выглядит_дороже",
         "folderSource": "generated",
-        "folderNote": "Та же папка, что у основной темы дня"
+        "folderNote": "Связана с темой недели: Этикетка, которая выглядит дороже / Что должно быть на упаковке",
+        "monthlyFeature": true,
+        "monthlyLabel": "vc.ru · сильная статья месяца",
+        "defaultStatus": "planned",
+        "warning": "Проверить лимит публикаций перед подготовкой финального текста."
       }
     ],
     "prepare": [
-      "До/после этикетки",
-      "ролик",
-      "vc.ru: статья по этикетке + до/после + мокап"
+      "vc.ru: статья месяца + обложка + до/после этикетки",
+      "проверить лимит публикаций"
     ],
     "cta": [
-      "Напишите: ЭТИКЕТКА"
-    ]
+      "мягкий переход в Telegram/VK"
+    ],
+    "calendarNote": "vc.ru · публикация месяца"
   },
   {
     "date": "2026-07-16",
@@ -5229,29 +4498,10 @@ export const calendarData = [
         "folderSource": "generated"
       }
     ],
-    "archive": [
-      {
-        "id": "2026-07-21_vc_ru_statya_vizualnyy_audit_brenda",
-        "platform": "vc.ru",
-        "text": "статья vc.ru: Визуальный аудит бренда — 7 точек, где бизнес теряет доверие",
-        "taskType": "article",
-        "checklist": [
-          "text",
-          "article",
-          "visual",
-          "published",
-          "tracked"
-        ],
-        "sourceSection": "archive",
-        "folderId": "21_Post_Визуальный_аудит_бренда",
-        "folderSource": "generated",
-        "folderNote": "Та же папка, что у основной темы дня"
-      }
-    ],
+    "archive": [],
     "prepare": [
       "Чек-лист",
-      "ролик, обложка",
-      "vc.ru: статья-чек-лист по визуальному аудиту"
+      "ролик, обложка"
     ],
     "cta": [
       "Напишите: АУДИТ"

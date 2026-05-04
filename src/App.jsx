@@ -4,6 +4,7 @@ import { calendarData, platformLabels } from "./data/calendarData.js";
 const STORAGE_KEY = "design4sales-calendar-progress-v1";
 
 const statusLabels = {
+  planned: "Запланировано",
   not_started: "Не начато",
   in_progress: "В работе",
   done: "Готово",
@@ -27,6 +28,7 @@ const typeLabels = {
   week: "Эта неделя",
   overdue: "Просроченные",
   ready: "Готово к публикации",
+  vcMonthly: "Публикация месяца",
   archive: "Архив",
   extra: "Доп. публикации",
 };
@@ -57,7 +59,7 @@ function formatShortRange(start, end) {
 }
 
 function getTaskProgress(progress, task) {
-  const item = progress[task.id] || { status: "not_started", checks: {} };
+  const item = progress[task.id] || { status: task.defaultStatus || "not_started", checks: {} };
   const checks = { ...(item.checks || {}) };
   if (item.status === "published") {
     checks.published = true;
@@ -210,7 +212,7 @@ function useCalendarProgress() {
 
   const updateTask = (task, patch) => {
     setProgress((current) => {
-      const currentItem = current[task.id] || { status: "not_started", checks: {} };
+      const currentItem = current[task.id] || { status: task.defaultStatus || "not_started", checks: {} };
       const checks = {
         ...currentItem.checks,
         ...(patch.checks || {}),
@@ -265,11 +267,30 @@ function Header({ taskCount }) {
   );
 }
 
+function CalendarGuide() {
+  return (
+    <section className="guidePanel">
+      <div>
+        <p className="eyebrow">Памятка по площадкам</p>
+        <h2>vc.ru — редкая репутационная публикация</h2>
+      </div>
+      <p>
+        vc.ru — 1 публикация в месяц. Публикуем только сильные экспертные материалы: кейсы, большие разборы, статьи про процесс работы, упаковку услуги, визуальную систему бренда. Игры, сторис, легкие офферы и короткие посты на vc.ru не ведем.
+      </p>
+    </section>
+  );
+}
+
 function StatsBar({ progress }) {
   const tasks = calendarData.flatMap(allTasks);
+  const monthlyVcTasks = tasks.filter((task) => task.platform === "vc.ru" && task.monthlyFeature);
+  const regularTasks = tasks.filter((task) => !(task.platform === "vc.ru" && task.monthlyFeature));
   const counts = tasks.reduce(
     (acc, task) => {
       const item = getTaskProgress(progress, task);
+      if (task.platform === "vc.ru" && task.monthlyFeature) {
+        return acc;
+      }
       acc.total += 1;
       acc[item.status] = (acc[item.status] || 0) + 1;
       if (!isComplete(item) && !isSkipped(item)) acc.left += 1;
@@ -279,9 +300,10 @@ function StatsBar({ progress }) {
   );
   const effectiveTotal = counts.total - (counts.skipped || 0);
   const percent = effectiveTotal ? Math.round(((counts.published || 0) / effectiveTotal) * 100) : 0;
+  const monthlyVcCompleted = monthlyVcTasks.filter((task) => isComplete(getTaskProgress(progress, task))).length;
 
   const platformStats = platformLabels.map((platform) => {
-    const platformTasks = tasks.filter((task) => task.platform === platform);
+    const platformTasks = regularTasks.filter((task) => task.platform === platform);
     const activeTasks = platformTasks.filter((task) => !isSkipped(getTaskProgress(progress, task)));
     const completed = activeTasks.filter((task) => isComplete(getTaskProgress(progress, task))).length;
     return { platform, completed, total: activeTasks.length };
@@ -295,6 +317,7 @@ function StatsBar({ progress }) {
         <Stat label="Опубликовано" value={counts.published || 0} tone="blue" />
         <Stat label="В работе" value={counts.in_progress || 0} tone="yellow" />
         <Stat label="Осталось" value={counts.left || 0} tone="red" />
+        <Stat label="vc.ru / месяц" value={`${monthlyVcCompleted}/${monthlyVcTasks.length}`} tone="dark" />
       </div>
       <div className="progressLine" aria-label={`Общий прогресс ${percent}%`}>
         <span style={{ width: `${percent}%` }} />
@@ -481,7 +504,9 @@ function TaskItem({ task, progress, updateTask }) {
         <PlatformBadge platform={task.platform} />
         <div className="taskMainText">
           <p>{task.text}</p>
+          {task.monthlyFeature && <span className="monthlyBadge">{task.monthlyLabel || "vc.ru · сильная статья месяца"}</span>}
           <MaterialRef folderId={task.folderId} folderSource={task.folderSource} folderNote={task.folderNote} />
+          {task.warning && <div className="taskWarning">{task.warning}</div>}
         </div>
         <span className={`statusBadge ${item.status}`}>{statusLabels[item.status]}</span>
       </div>
@@ -690,7 +715,16 @@ function matchesFilters(day, view, selectedPlatforms, search, progress) {
     day.typeLabel,
     ...day.prepare,
     ...day.cta,
-    ...all.flatMap((task) => [task.platform, task.text, task.taskType, task.folderId, task.folderNote]),
+    ...all.flatMap((task) => [
+      task.platform,
+      task.text,
+      task.taskType,
+      task.folderId,
+      task.folderNote,
+      task.monthlyLabel,
+      task.warning,
+      task.defaultStatus,
+    ]),
   ]
     .join(" ")
     .toLowerCase();
@@ -699,10 +733,11 @@ function matchesFilters(day, view, selectedPlatforms, search, progress) {
     view === "ready"
       ? all.some((task) => getTaskProgress(progress, task).status === "done")
       : true;
+  const vcMonthlyMatch = view === "vcMonthly" ? all.some((task) => task.monthlyFeature && task.platform === "vc.ru") : true;
   const dayProgress = statusForDay(day, progress);
   const completedDayMatch = view === "archive" ? dayProgress.total > 0 && dayProgress.done === dayProgress.total : true;
   const extraMatch = view === "extra" ? day.optional.length > 0 || day.archive.length > 0 : true;
-  return platformMatch && searchMatch && readyMatch && completedDayMatch && extraMatch;
+  return platformMatch && searchMatch && readyMatch && vcMonthlyMatch && completedDayMatch && extraMatch;
 }
 
 export default function App() {
@@ -712,7 +747,10 @@ export default function App() {
   const [search, setSearch] = useState("");
   const nearestDay = useMemo(() => getNearestDay(calendarData), []);
   const weekAnchor = useMemo(() => getCurrentWeekAnchor(calendarData), []);
-  const taskCount = useMemo(() => calendarData.flatMap(allTasks).length, []);
+  const taskCount = useMemo(
+    () => calendarData.flatMap(allTasks).filter((task) => !(task.platform === "vc.ru" && task.monthlyFeature)).length,
+    [],
+  );
   const todayIso = useMemo(() => getTodayIso(), []);
 
   const filteredDays = useMemo(() => {
@@ -744,6 +782,9 @@ export default function App() {
     if (view === "ready") {
       return (task) => getTaskProgress(progress, task).status === "done";
     }
+    if (view === "vcMonthly") {
+      return (task) => task.platform === "vc.ru" && task.monthlyFeature;
+    }
     return null;
   }, [view, progress]);
 
@@ -763,6 +804,7 @@ export default function App() {
   return (
     <div className="app">
       <Header taskCount={taskCount} />
+      <CalendarGuide />
       <StatsBar progress={progress} />
       <Filters
         view={view}
