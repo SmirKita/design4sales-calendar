@@ -27,7 +27,7 @@ const typeLabels = {
   week: "Эта неделя",
   overdue: "Просроченные",
   ready: "Готово к публикации",
-  archive: "Архив / перепаковка",
+  archive: "Архив",
   extra: "Доп. публикации",
 };
 
@@ -405,7 +405,6 @@ function DayCard({
   compact = false,
   highlight = false,
   taskFilter = null,
-  onlyArchive = false,
   onlyExtra = false,
 }) {
   const dayProgress = statusForDay(day, progress);
@@ -440,15 +439,11 @@ function DayCard({
         <span style={{ width: `${completePercent}%` }} />
       </div>
 
-      {!onlyArchive && !onlyExtra && (
+      {!onlyExtra && (
         <TaskSection title="Главное" tasks={day.priority} progress={progress} updateTask={updateTask} taskFilter={taskFilter} />
       )}
-      {(onlyExtra || (!onlyArchive && !onlyExtra)) && (
-        <TaskSection title="Дополнительно" tasks={day.optional} progress={progress} updateTask={updateTask} taskFilter={taskFilter} />
-      )}
-      {(onlyArchive || onlyExtra || (!onlyArchive && !onlyExtra)) && (
-        <TaskSection title="Архив / перепаковка" tasks={day.archive} progress={progress} updateTask={updateTask} taskFilter={taskFilter} />
-      )}
+      <TaskSection title="Дополнительно" tasks={day.optional} progress={progress} updateTask={updateTask} taskFilter={taskFilter} />
+      <TaskSection title="Архив / перепаковка" tasks={day.archive} progress={progress} updateTask={updateTask} taskFilter={taskFilter} />
 
       {!compact && (
         <div className="dayFooter">
@@ -704,9 +699,10 @@ function matchesFilters(day, view, selectedPlatforms, search, progress) {
     view === "ready"
       ? all.some((task) => getTaskProgress(progress, task).status === "done")
       : true;
-  const archiveMatch = view === "archive" ? day.archive.length > 0 : true;
+  const dayProgress = statusForDay(day, progress);
+  const completedDayMatch = view === "archive" ? dayProgress.total > 0 && dayProgress.done === dayProgress.total : true;
   const extraMatch = view === "extra" ? day.optional.length > 0 || day.archive.length > 0 : true;
-  return platformMatch && searchMatch && readyMatch && archiveMatch && extraMatch;
+  return platformMatch && searchMatch && readyMatch && completedDayMatch && extraMatch;
 }
 
 export default function App() {
@@ -796,7 +792,6 @@ export default function App() {
             progress={progress}
             updateTask={updateTask}
             taskFilter={taskFilter}
-            onlyArchive={view === "archive"}
             onlyExtra={view === "extra"}
           />
         ))}
