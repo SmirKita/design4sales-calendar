@@ -52,12 +52,44 @@ const platformClass = {
   Instagram: "instagram",
   "Shorts / Reels / VK Видео / YouTube Shorts / RUTUBE": "video",
   "RUTUBE · нулевое заполнение": "video",
+  YouTube: "video",
+  "VK Видео": "video",
+  RUTUBE: "video",
+  Reels: "instagram",
   Дзен: "dzen",
   "vc.ru": "vc",
   Сетка: "setka",
   Facebook: "facebook",
   Другое: "other",
 };
+
+const videoPlatform = "Shorts / Reels / VK Видео / YouTube Shorts / RUTUBE";
+const rutubeBackfillPlatform = "RUTUBE · нулевое заполнение";
+
+const platformDisplayName = {
+  "Shorts/Reels/VK Видео": "Короткое видео",
+  [videoPlatform]: "Короткое видео",
+  [rutubeBackfillPlatform]: "RUTUBE",
+};
+
+const platformStatName = {
+  "Shorts/Reels/VK Видео": "Видео",
+  [videoPlatform]: "Видео",
+  [rutubeBackfillPlatform]: "RUTUBE",
+};
+
+const platformFilterItems = [
+  { key: "Telegram + VK", label: "Telegram + VK" },
+  { key: "Instagram", label: "Instagram" },
+  { key: "youtube", label: "YouTube" },
+  { key: "vkVideo", label: "VK Видео" },
+  { key: "rutube", label: "RUTUBE" },
+  { key: "reels", label: "Reels" },
+  { key: "Дзен", label: "Дзен" },
+  { key: "vc.ru", label: "vc.ru" },
+  { key: "Сетка", label: "Сетка" },
+  { key: "Facebook", label: "Facebook" },
+];
 
 function parseDate(date) {
   return new Date(`${date}T12:00:00`);
@@ -92,6 +124,22 @@ function isSkipped(progressItem) {
 
 function allTasks(day) {
   return [...day.priority, ...day.optional, ...day.archive];
+}
+
+function getPlatformDisplayName(platform) {
+  return platformDisplayName[platform] || platform;
+}
+
+function getPlatformStatName(platform) {
+  return platformStatName[platform] || getPlatformDisplayName(platform);
+}
+
+function matchesPlatformFilter(task, filterKey) {
+  if (filterKey === "youtube") return task.rutubeMode === "new" && getChecklistForTask(task).includes("publishYoutubeShorts");
+  if (filterKey === "vkVideo") return task.rutubeMode === "new" && getChecklistForTask(task).includes("publishVkVideo");
+  if (filterKey === "rutube") return getChecklistForTask(task).includes("publishRutube") || task.rutubeMode === "backfill";
+  if (filterKey === "reels") return task.rutubeMode === "new" && getChecklistForTask(task).includes("publishReels");
+  return task.platform === filterKey;
 }
 
 function folderIdsForDay(day) {
@@ -333,7 +381,7 @@ function StatsBar({ progress }) {
     const platformTasks = regularTasks.filter((task) => task.platform === platform);
     const activeTasks = platformTasks.filter((task) => !isSkipped(getTaskProgress(progress, task)));
     const completed = activeTasks.filter((task) => isComplete(getTaskProgress(progress, task))).length;
-    return { platform, completed, total: activeTasks.length };
+    return { platform, completed, total: activeTasks.length, label: getPlatformStatName(platform) };
   });
 
   return (
@@ -352,7 +400,7 @@ function StatsBar({ progress }) {
       <div className="platformProgress">
         {platformStats.map((item) => (
           <span key={item.platform}>
-            <PlatformBadge platform={item.platform} />
+            <PlatformBadge platform={item.platform} label={item.label} />
             {item.completed}/{item.total}
           </span>
         ))}
@@ -387,13 +435,13 @@ function Filters({ view, setView, selectedPlatforms, setSelectedPlatforms, searc
         ))}
       </div>
       <div className="platformFilters" aria-label="Фильтр по площадкам">
-        {platformLabels.map((platform) => (
+        {platformFilterItems.map((item) => (
           <button
-            key={platform}
-            className={selectedPlatforms.includes(platform) ? "selected" : ""}
-            onClick={() => togglePlatform(platform)}
+            key={item.key}
+            className={selectedPlatforms.includes(item.key) ? "selected" : ""}
+            onClick={() => togglePlatform(item.key)}
           >
-            <PlatformBadge platform={platform} />
+            <PlatformBadge platform={item.label} label={item.label} />
           </button>
         ))}
       </div>
@@ -532,7 +580,7 @@ function TaskItem({ task, progress, updateTask }) {
         <div className="taskMainText">
           <p>{task.text}</p>
           {task.monthlyFeature && <span className="monthlyBadge">{task.monthlyLabel || "vc.ru · сильная статья месяца"}</span>}
-          {task.videoLabel && <span className="monthlyBadge">{task.videoLabel}</span>}
+          {task.videoLabel && <span className="monthlyBadge">{task.rutubeMode === "backfill" ? "Архивная загрузка" : task.videoLabel}</span>}
           <MaterialRef folderId={task.folderId} folderSource={task.folderSource} folderNote={task.folderNote} />
           {task.warning && <div className="taskWarning">{task.warning}</div>}
         </div>
@@ -563,8 +611,8 @@ function TaskItem({ task, progress, updateTask }) {
   );
 }
 
-function PlatformBadge({ platform }) {
-  return <span className={`platformBadge ${platformClass[platform] || "other"}`}>{platform}</span>;
+function PlatformBadge({ platform, label = null }) {
+  return <span className={`platformBadge ${platformClass[platform] || "other"}`}>{label || getPlatformDisplayName(platform)}</span>;
 }
 
 function CopyButton({ value }) {
@@ -735,7 +783,7 @@ function matchesFilters(day, view, selectedPlatforms, search, progress) {
   const all = allTasks(day);
   const query = search.trim().toLowerCase();
   const platformMatch =
-    !selectedPlatforms.length || all.some((task) => selectedPlatforms.includes(task.platform));
+    !selectedPlatforms.length || all.some((task) => selectedPlatforms.some((platform) => matchesPlatformFilter(task, platform)));
   const textHaystack = [
     day.displayDate,
     day.day,
@@ -745,6 +793,7 @@ function matchesFilters(day, view, selectedPlatforms, search, progress) {
     ...day.cta,
     ...all.flatMap((task) => [
       task.platform,
+      getPlatformDisplayName(task.platform),
       task.text,
       task.taskType,
       task.folderId,

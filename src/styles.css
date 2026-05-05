@@ -216,6 +216,7 @@ h1 {
   display: inline-flex;
   align-items: center;
   gap: 7px;
+  min-width: 0;
   color: var(--muted);
   font-size: 13px;
 }
@@ -236,6 +237,7 @@ h1 {
 .progressTools button,
 .monthNav button,
 .monthNav a {
+  max-width: 100%;
   min-height: 38px;
   border: 1px solid var(--line);
   border-radius: 999px;
@@ -554,6 +556,7 @@ h1 {
   display: inline-flex;
   flex: 0 0 auto;
   align-items: center;
+  max-width: 180px;
   min-height: 25px;
   border-radius: 999px;
   padding: 4px 9px;
@@ -561,6 +564,9 @@ h1 {
   font-size: 12px;
   font-weight: 800;
   white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  overflow-wrap: anywhere;
 }
 
 .platformBadge.tg {
@@ -663,6 +669,7 @@ h1 {
 .monthlyBadge {
   display: inline-flex;
   width: fit-content;
+  max-width: 100%;
   margin: 2px 0 8px;
   border-radius: 999px;
   background: #111318;
@@ -670,6 +677,7 @@ h1 {
   padding: 5px 9px;
   font-size: 12px;
   font-weight: 750;
+  overflow-wrap: anywhere;
 }
 
 .taskWarning {
