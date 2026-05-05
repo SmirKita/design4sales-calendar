@@ -23,13 +23,13 @@ const checkLabels = {
 };
 
 const typeLabels = {
-  all: "Все",
   today: "Сегодня",
+  plan: "План",
   week: "Эта неделя",
+  past: "Прошлые",
   overdue: "Просроченные",
   ready: "Готово к публикации",
   vcMonthly: "Публикация месяца",
-  archive: "Архив",
   extra: "Доп. публикации",
 };
 
@@ -405,7 +405,7 @@ function TodayPanel({ day, progress, updateTask }) {
         <span className="typePill">{day.typeLabel}</span>
         {day.calendarNote && <span className="notePill">{day.calendarNote}</span>}
       </div>
-      <DayCard day={day} progress={progress} updateTask={updateTask} compact highlight />
+      <DayCard day={day} progress={progress} updateTask={updateTask} highlight />
     </section>
   );
 }
@@ -437,7 +437,7 @@ function DayCard({
   const isToday = day.date === todayIso;
 
   return (
-    <article className={`dayCard ${highlight ? "highlight" : ""} ${overdue ? "overdue" : ""}`} id={`date-${day.date}`}>
+    <article className={`dayCard ${highlight ? "highlight" : ""} ${isToday ? "todayCard" : ""} ${overdue ? "overdue" : ""}`} id={`date-${day.date}`}>
       <div className="dayHeader">
         <div>
           <div className="dateLine">
@@ -734,15 +734,13 @@ function matchesFilters(day, view, selectedPlatforms, search, progress) {
       ? all.some((task) => getTaskProgress(progress, task).status === "done")
       : true;
   const vcMonthlyMatch = view === "vcMonthly" ? all.some((task) => task.monthlyFeature && task.platform === "vc.ru") : true;
-  const dayProgress = statusForDay(day, progress);
-  const completedDayMatch = view === "archive" ? dayProgress.total > 0 && dayProgress.done === dayProgress.total : true;
   const extraMatch = view === "extra" ? day.optional.length > 0 || day.archive.length > 0 : true;
-  return platformMatch && searchMatch && readyMatch && vcMonthlyMatch && completedDayMatch && extraMatch;
+  return platformMatch && searchMatch && readyMatch && vcMonthlyMatch && extraMatch;
 }
 
 export default function App() {
   const [progress, setProgress, updateTask] = useCalendarProgress();
-  const [view, setView] = useState("all");
+  const [view, setView] = useState("today");
   const [selectedPlatforms, setSelectedPlatforms] = useState([]);
   const [search, setSearch] = useState("");
   const nearestDay = useMemo(() => getNearestDay(calendarData), []);
@@ -756,7 +754,12 @@ export default function App() {
   const filteredDays = useMemo(() => {
     return calendarData.filter((day) => {
       const date = parseDate(day.date);
+      const dayProgress = statusForDay(day, progress);
+      const isPast = day.date < todayIso;
+      const isCompleted = dayProgress.total > 0 && dayProgress.done === dayProgress.total;
       if (view === "today" && day.date !== nearestDay.date) return false;
+      if (view === "plan" && isPast && isCompleted) return false;
+      if (view === "past" && (!isPast || !isCompleted)) return false;
       if (view === "week" && !sameWeek(date, weekAnchor)) return false;
       if (
         view === "overdue" &&
@@ -816,34 +819,41 @@ export default function App() {
         jumpToDate={jumpToDate}
       />
       <ProgressExportImport progress={progress} setProgress={setProgress} />
-      {view === "all" && <TodayPanel day={nearestDay} progress={progress} updateTask={updateTask} />}
-      <CalendarNav jumpToMonth={jumpToMonth} />
+      {view === "today" ? (
+        <TodayPanel day={nearestDay} progress={progress} updateTask={updateTask} />
+      ) : (
+        <>
+          <CalendarNav jumpToMonth={jumpToMonth} />
 
-      {view === "week" && (
-        <div className="weekBanner">
-          <span>Неделя {weekNumber}</span>
-          <strong>{weekLabel}</strong>
-        </div>
-      )}
+          {view === "week" && (
+            <div className="weekBanner">
+              <span>Неделя {weekNumber}</span>
+              <strong>{weekLabel}</strong>
+            </div>
+          )}
 
-      <main className="calendarGrid">
-        {filteredDays.map((day) => (
-          <DayCard
-            key={day.date}
-            day={day}
-            progress={progress}
-            updateTask={updateTask}
-            taskFilter={taskFilter}
-            onlyExtra={view === "extra"}
-          />
-        ))}
-      </main>
+          <main className="calendarGrid">
+            {filteredDays.map((day) => (
+              <DayCard
+                key={day.date}
+                day={day}
+                progress={progress}
+                updateTask={updateTask}
+                compact
+                highlight={day.date === todayIso}
+                taskFilter={taskFilter}
+                onlyExtra={view === "extra"}
+              />
+            ))}
+          </main>
 
-      {!filteredDays.length && (
-        <div className="emptyState">
-          <h2>Ничего не найдено</h2>
-          <p>Снимите часть фильтров или измените поисковый запрос.</p>
-        </div>
+          {!filteredDays.length && (
+            <div className="emptyState">
+              <h2>Ничего не найдено</h2>
+              <p>Снимите часть фильтров или измените поисковый запрос.</p>
+            </div>
+          )}
+        </>
       )}
     </div>
   );

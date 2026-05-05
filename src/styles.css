@@ -342,6 +342,15 @@ h1 {
   box-shadow: 0 18px 40px rgba(31, 101, 190, 0.14);
 }
 
+.dayCard.todayCard:not(.highlight) {
+  border-color: #7db5ff;
+  background: linear-gradient(180deg, #f5f9ff 0, #fff 220px);
+}
+
+.dayCard.todayCard:not(.highlight) .dayHeader {
+  background: #eef6ff;
+}
+
 .dayCard.overdue {
   border-color: #e6b0a9;
 }
