@@ -20,6 +20,20 @@ const checkLabels = {
   cover: "Обложка готова",
   published: "Выложено",
   tracked: "Записано",
+  videoReady: "Ролик готов",
+  coverReady: "Обложка готова",
+  publishYoutubeShorts: "Опубликовано в YouTube Shorts",
+  publishVkVideo: "Опубликовано в VK Видео",
+  publishRutube: "Опубликовано в RUTUBE",
+  publishReels: "Опубликовано в Reels, если нужно",
+  linksTracked: "Ссылки внесены в контент-таблицу",
+  oldVideoSelected: "Старый ролик выбран",
+  fileFound: "Файл найден",
+  coverChecked: "Обложка проверена",
+  titleRutube: "Название адаптировано под RUTUBE",
+  descriptionAdded: "Описание добавлено",
+  rutubePublished: "Опубликовано",
+  rutubeTracked: "Ссылка внесена в контент-таблицу",
 };
 
 const typeLabels = {
@@ -36,7 +50,8 @@ const typeLabels = {
 const platformClass = {
   "Telegram + VK": "tg",
   Instagram: "instagram",
-  "Shorts/Reels/VK Видео": "video",
+  "Shorts / Reels / VK Видео / YouTube Shorts / RUTUBE": "video",
+  "RUTUBE · нулевое заполнение": "video",
   Дзен: "dzen",
   "vc.ru": "vc",
   Сетка: "setka",
@@ -162,8 +177,14 @@ function statusForDay(day, progress) {
 }
 
 function getChecklistForTask(task) {
-  if (task.platform === "Shorts/Reels/VK Видео" || task.taskType === "video") {
-    return ["text", "video", "cover", "published", "tracked"];
+  if (task.checklist?.length) {
+    return task.checklist;
+  }
+  if (task.rutubeMode === "backfill") {
+    return ["oldVideoSelected", "fileFound", "coverChecked", "titleRutube", "descriptionAdded", "rutubePublished", "rutubeTracked"];
+  }
+  if (task.rutubeMode === "new" || task.platform === "Shorts / Reels / VK Видео / YouTube Shorts / RUTUBE" || task.taskType === "video") {
+    return ["videoReady", "coverReady", "publishYoutubeShorts", "publishVkVideo", "publishRutube", "publishReels", "linksTracked"];
   }
   if (task.platform === "Дзен" || task.platform === "vc.ru" || task.taskType === "article") {
     return ["article", "cover", "published", "tracked"];
@@ -179,13 +200,19 @@ function hasAnyChecked(checks, keys) {
 }
 
 function deriveStatus(task, checks) {
-  if (checks.published) return "published";
+  if (checks.published || checks.rutubeTracked || checks.linksTracked) return "published";
 
   const checklist = getChecklistForTask(task);
-  const stageKeys = checklist.filter((key) => key !== "published" && key !== "tracked");
+  const stageKeys = checklist.filter((key) => !["published", "tracked", "linksTracked", "rutubeTracked"].includes(key));
   if (!hasAnyChecked(checks, stageKeys)) return "not_started";
 
-  if (task.platform === "Shorts/Reels/VK Видео" || task.taskType === "video") {
+  if (task.rutubeMode === "backfill") {
+    return checks.oldVideoSelected && checks.fileFound && checks.coverChecked && checks.titleRutube && checks.descriptionAdded ? "done" : "in_progress";
+  }
+  if (task.rutubeMode === "new") {
+    return checks.videoReady && checks.coverReady ? "done" : "in_progress";
+  }
+  if (task.platform === "Shorts / Reels / VK Видео / YouTube Shorts / RUTUBE" || task.taskType === "video") {
     return checks.video && checks.cover ? "done" : "in_progress";
   }
   if (task.platform === "Дзен" || task.platform === "vc.ru" || task.taskType === "article") {
@@ -505,6 +532,7 @@ function TaskItem({ task, progress, updateTask }) {
         <div className="taskMainText">
           <p>{task.text}</p>
           {task.monthlyFeature && <span className="monthlyBadge">{task.monthlyLabel || "vc.ru · сильная статья месяца"}</span>}
+          {task.videoLabel && <span className="monthlyBadge">{task.videoLabel}</span>}
           <MaterialRef folderId={task.folderId} folderSource={task.folderSource} folderNote={task.folderNote} />
           {task.warning && <div className="taskWarning">{task.warning}</div>}
         </div>
