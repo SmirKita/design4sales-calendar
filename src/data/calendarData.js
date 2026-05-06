@@ -25,7 +25,7 @@ export const calendarData = [
       },
       {
         "id": "2026-04-28_shorts_reels_vk_video_lina_spryatalas_v_peregruzhennom_makete",
-        "platform": "Shorts / Reels / VK Видео / YouTube Shorts / RUTUBE",
+        "platform": "Reels / Shorts / VK Видео",
         "text": "Лина спряталась в перегруженном макете",
         "taskType": "video",
         "checklist": [
@@ -130,7 +130,7 @@ export const calendarData = [
       },
       {
         "id": "2026-04-30_shorts_reels_vk_video_chto_ubrat_iz_bannera_pervym",
-        "platform": "Shorts / Reels / VK Видео / YouTube Shorts / RUTUBE",
+        "platform": "Reels / Shorts / VK Видео",
         "text": "Что убрать из баннера первым?",
         "taskType": "video",
         "checklist": [
@@ -218,7 +218,7 @@ export const calendarData = [
       },
       {
         "id": "2026-05-02_shorts_reels_vk_video_odin_vizualnyy_sovet_pered_prazdnikami",
-        "platform": "Shorts / Reels / VK Видео / YouTube Shorts / RUTUBE",
+        "platform": "Reels / Shorts / VK Видео",
         "text": "Один визуальный совет перед праздниками",
         "taskType": "video",
         "checklist": [
@@ -363,7 +363,7 @@ export const calendarData = [
       },
       {
         "id": "2026-05-05_shorts_reels_vk_video_do_posle_bannera_za_10_sekund",
-        "platform": "Shorts / Reels / VK Видео / YouTube Shorts / RUTUBE",
+        "platform": "Reels / Shorts / VK Видео",
         "text": "До/после баннера за 10 секунд",
         "taskType": "video",
         "checklist": [
@@ -536,7 +536,7 @@ export const calendarData = [
       },
       {
         "id": "2026-05-07_shorts_reels_vk_video_a_b_kakoy_logotip_legche_vspomnit",
-        "platform": "Shorts / Reels / VK Видео / YouTube Shorts / RUTUBE",
+        "platform": "Reels / Shorts / VK Видео",
         "text": "A/B: какой логотип легче вспомнить?",
         "taskType": "video",
         "checklist": [
@@ -645,7 +645,7 @@ export const calendarData = [
       },
       {
         "id": "2026-05-08_shorts_reels_vk_video_reels_logotip_kotoryy_trudno_zapomnit_3_vizualny",
-        "platform": "Shorts / Reels / VK Видео / YouTube Shorts / RUTUBE",
+        "platform": "Reels / Shorts / VK Видео",
         "text": "Видео: почему логотип запоминается только внутри системы бренда",
         "taskType": "video",
         "checklist": [
@@ -769,28 +769,7 @@ export const calendarData = [
         "folderNote": "Архивная перепаковка Excel: гайд по оформлению соцсетей / профиля"
       }
     ],
-    "archive": [
-      {
-        "id": "2026-05-10_rutube_backfill_найди_лину",
-        "platform": "RUTUBE · нулевое заполнение",
-        "text": "RUTUBE · старый ролик: Найди Лину",
-        "taskType": "video",
-        "videoLabel": "RUTUBE · нулевое заполнение",
-        "rutubeMode": "backfill",
-        "checklist": [
-          "oldVideoSelected",
-          "fileFound",
-          "coverChecked",
-          "titleRutube",
-          "descriptionAdded",
-          "rutubePublished",
-          "rutubeTracked"
-        ],
-        "sourceSection": "archive",
-        "folderId": "28_Post_Найди_Лину",
-        "folderSource": "excel"
-      }
-    ],
+    "archive": [],
     "prepare": [
       "Сетка: проф. разбор без A/B-голосования"
     ],
@@ -825,28 +804,7 @@ export const calendarData = [
         "folderNote": "Перенесено с дня, где тема не совпадала с Telegram/VK"
       }
     ],
-    "archive": [
-      {
-        "id": "2026-05-11_rutube_backfill_что_убрать_из_баннера_первым",
-        "platform": "RUTUBE · нулевое заполнение",
-        "text": "RUTUBE · старый ролик: Что убрать из баннера первым?",
-        "taskType": "video",
-        "videoLabel": "RUTUBE · нулевое заполнение",
-        "rutubeMode": "backfill",
-        "checklist": [
-          "oldVideoSelected",
-          "fileFound",
-          "coverChecked",
-          "titleRutube",
-          "descriptionAdded",
-          "rutubePublished",
-          "rutubeTracked"
-        ],
-        "sourceSection": "archive",
-        "folderId": "14_Video_Баннер продает и не продает",
-        "folderSource": "excel"
-      }
-    ],
+    "archive": [],
     "prepare": [
       "Facebook: адаптация старого материала"
     ],
@@ -881,7 +839,7 @@ export const calendarData = [
       },
       {
         "id": "2026-05-12_shorts_reels_vk_video_gde_vash_brend_teryaetsya_oflayn",
-        "platform": "Shorts / Reels / VK Видео / YouTube Shorts / RUTUBE",
+        "platform": "Reels / Shorts / VK Видео",
         "text": "Где ваш бренд теряется офлайн?",
         "taskType": "video",
         "checklist": [
@@ -977,47 +935,6 @@ export const calendarData = [
     ]
   },
   {
-    "date": "2026-05-13",
-    "displayDate": "13.05.2026",
-    "day": "Среда",
-    "dayShort": "Ср",
-    "title": "RUTUBE · старый ролик: Один визуальный совет перед праздниками",
-    "type": "archive",
-    "typeLabel": "RUTUBE · нулевое заполнение",
-    "priority": [],
-    "optional": [],
-    "archive": [
-      {
-        "id": "2026-05-13_rutube_backfill_один_визуальный_совет_перед_праздниками",
-        "platform": "RUTUBE · нулевое заполнение",
-        "text": "RUTUBE · старый ролик: Один визуальный совет перед праздниками",
-        "taskType": "video",
-        "videoLabel": "RUTUBE · нулевое заполнение",
-        "rutubeMode": "backfill",
-        "checklist": [
-          "oldVideoSelected",
-          "fileFound",
-          "coverChecked",
-          "titleRutube",
-          "descriptionAdded",
-          "rutubePublished",
-          "rutubeTracked"
-        ],
-        "sourceSection": "archive",
-        "folderId": "02_Post_Бренд_на_майских",
-        "folderSource": "excel"
-      }
-    ],
-    "prepare": [
-      "найти готовый видеофайл",
-      "проверить обложку",
-      "адаптировать название и описание для RUTUBE"
-    ],
-    "cta": [
-      "Внести ссылку в контент-таблицу"
-    ]
-  },
-  {
     "date": "2026-05-14",
     "displayDate": "14.05.2026",
     "day": "Четверг",
@@ -1063,7 +980,7 @@ export const calendarData = [
       },
       {
         "id": "2026-05-14_shorts_reels_vk_video_do_posle_upakovki_za_10_sekund_reels_upakovka_i_",
-        "platform": "Shorts / Reels / VK Видео / YouTube Shorts / RUTUBE",
+        "platform": "Reels / Shorts / VK Видео",
         "text": "Reels/Shorts: до/после упаковки за 10 секунд — как визуал влияет на ощущение цены",
         "taskType": "video",
         "checklist": [
@@ -1240,7 +1157,7 @@ export const calendarData = [
       },
       {
         "id": "2026-05-16_shorts_reels_vk_video_foto_do_posle_odin_priem_kotoryy_usilil_tovar_re",
-        "platform": "Shorts / Reels / VK Видео / YouTube Shorts / RUTUBE",
+        "platform": "Reels / Shorts / VK Видео",
         "text": "Reels/Shorts: фото до/после — один прием, который усиливает товарный визуал",
         "taskType": "video",
         "checklist": [
@@ -1365,28 +1282,7 @@ export const calendarData = [
         "folderNote": "Перенесено с дня, где тема не совпадала с Telegram/VK"
       }
     ],
-    "archive": [
-      {
-        "id": "2026-05-18_rutube_backfill_до_после_рекламного_баннера",
-        "platform": "RUTUBE · нулевое заполнение",
-        "text": "RUTUBE · старый ролик: До/после рекламного баннера",
-        "taskType": "video",
-        "videoLabel": "RUTUBE · нулевое заполнение",
-        "rutubeMode": "backfill",
-        "checklist": [
-          "oldVideoSelected",
-          "fileFound",
-          "coverChecked",
-          "titleRutube",
-          "descriptionAdded",
-          "rutubePublished",
-          "rutubeTracked"
-        ],
-        "sourceSection": "archive",
-        "folderId": "14_Video_Баннер продает и не продает",
-        "folderSource": "excel"
-      }
-    ],
+    "archive": [],
     "prepare": [
       "Facebook: адаптация старого материала",
       "Сетка: адаптация старого материала"
@@ -1422,7 +1318,7 @@ export const calendarData = [
       },
       {
         "id": "2026-05-19_shorts_reels_vk_video_naydi_oshibku_za_5_sekund",
-        "platform": "Shorts / Reels / VK Видео / YouTube Shorts / RUTUBE",
+        "platform": "Reels / Shorts / VK Видео",
         "text": "Найди ошибку за 5 секунд",
         "taskType": "video",
         "checklist": [
@@ -1486,47 +1382,6 @@ export const calendarData = [
     ]
   },
   {
-    "date": "2026-05-20",
-    "displayDate": "20.05.2026",
-    "day": "Среда",
-    "dayShort": "Ср",
-    "title": "RUTUBE · старый ролик: A/B: какой логотип легче вспомнить?",
-    "type": "archive",
-    "typeLabel": "RUTUBE · нулевое заполнение",
-    "priority": [],
-    "optional": [],
-    "archive": [
-      {
-        "id": "2026-05-20_rutube_backfill_a_b_какой_логотип_легче_вспомнить",
-        "platform": "RUTUBE · нулевое заполнение",
-        "text": "RUTUBE · старый ролик: A/B: какой логотип легче вспомнить?",
-        "taskType": "video",
-        "videoLabel": "RUTUBE · нулевое заполнение",
-        "rutubeMode": "backfill",
-        "checklist": [
-          "oldVideoSelected",
-          "fileFound",
-          "coverChecked",
-          "titleRutube",
-          "descriptionAdded",
-          "rutubePublished",
-          "rutubeTracked"
-        ],
-        "sourceSection": "archive",
-        "folderId": "04_Post_Зачем нужен брендбук",
-        "folderSource": "excel"
-      }
-    ],
-    "prepare": [
-      "найти готовый видеофайл",
-      "проверить обложку",
-      "адаптировать название и описание для RUTUBE"
-    ],
-    "cta": [
-      "Внести ссылку в контент-таблицу"
-    ]
-  },
-  {
     "date": "2026-05-21",
     "displayDate": "21.05.2026",
     "day": "Четверг",
@@ -1567,7 +1422,7 @@ export const calendarData = [
       },
       {
         "id": "2026-05-21_shorts_reels_vk_video_lina_proveryaet_dizayn_5_oshibok",
-        "platform": "Shorts / Reels / VK Видео / YouTube Shorts / RUTUBE",
+        "platform": "Reels / Shorts / VK Видео",
         "text": "Лина проверяет дизайн: 5 ошибок",
         "taskType": "video",
         "checklist": [
@@ -1705,7 +1560,7 @@ export const calendarData = [
       },
       {
         "id": "2026-05-23_shorts_reels_vk_video_odin_vizualnyy_sovet_pered_zapuskom_reklamy",
-        "platform": "Shorts / Reels / VK Видео / YouTube Shorts / RUTUBE",
+        "platform": "Reels / Shorts / VK Видео",
         "text": "Один визуальный совет перед запуском рекламы",
         "taskType": "video",
         "checklist": [
@@ -1803,47 +1658,6 @@ export const calendarData = [
     ]
   },
   {
-    "date": "2026-05-25",
-    "displayDate": "25.05.2026",
-    "day": "Понедельник",
-    "dayShort": "Пн",
-    "title": "RUTUBE · старый ролик: Лина проверяет дизайн: что не так с макетом?",
-    "type": "archive",
-    "typeLabel": "RUTUBE · нулевое заполнение",
-    "priority": [],
-    "optional": [],
-    "archive": [
-      {
-        "id": "2026-05-25_rutube_backfill_лина_проверяет_дизайн_что_не_так_с_макетом",
-        "platform": "RUTUBE · нулевое заполнение",
-        "text": "RUTUBE · старый ролик: Лина проверяет дизайн: что не так с макетом?",
-        "taskType": "video",
-        "videoLabel": "RUTUBE · нулевое заполнение",
-        "rutubeMode": "backfill",
-        "checklist": [
-          "oldVideoSelected",
-          "fileFound",
-          "coverChecked",
-          "titleRutube",
-          "descriptionAdded",
-          "rutubePublished",
-          "rutubeTracked"
-        ],
-        "sourceSection": "archive",
-        "folderId": "05_Post_Реклама купи ноутбук разбор",
-        "folderSource": "excel"
-      }
-    ],
-    "prepare": [
-      "найти готовый видеофайл",
-      "проверить обложку",
-      "адаптировать название и описание для RUTUBE"
-    ],
-    "cta": [
-      "Внести ссылку в контент-таблицу"
-    ]
-  },
-  {
     "date": "2026-05-26",
     "displayDate": "26.05.2026",
     "day": "Вторник",
@@ -1869,7 +1683,7 @@ export const calendarData = [
       },
       {
         "id": "2026-05-26_shorts_reels_vk_video_razberu_vizual_3_podpischikov_reels_kofeynaya_et",
-        "platform": "Shorts / Reels / VK Видео / YouTube Shorts / RUTUBE",
+        "platform": "Reels / Shorts / VK Видео",
         "text": "Reels/Shorts: разбор визуала подписчика за 20 секунд",
         "taskType": "video",
         "checklist": [
@@ -1934,47 +1748,6 @@ export const calendarData = [
     ]
   },
   {
-    "date": "2026-05-27",
-    "displayDate": "27.05.2026",
-    "day": "Среда",
-    "dayShort": "Ср",
-    "title": "RUTUBE · старый ролик: Карточка товара как витрина",
-    "type": "archive",
-    "typeLabel": "RUTUBE · нулевое заполнение",
-    "priority": [],
-    "optional": [],
-    "archive": [
-      {
-        "id": "2026-05-27_rutube_backfill_карточка_товара_как_витрина",
-        "platform": "RUTUBE · нулевое заполнение",
-        "text": "RUTUBE · старый ролик: Карточка товара как витрина",
-        "taskType": "video",
-        "videoLabel": "RUTUBE · нулевое заполнение",
-        "rutubeMode": "backfill",
-        "checklist": [
-          "oldVideoSelected",
-          "fileFound",
-          "coverChecked",
-          "titleRutube",
-          "descriptionAdded",
-          "rutubePublished",
-          "rutubeTracked"
-        ],
-        "sourceSection": "archive",
-        "folderId": "16_Post_Редизайн_упаковки",
-        "folderSource": "excel"
-      }
-    ],
-    "prepare": [
-      "найти готовый видеофайл",
-      "проверить обложку",
-      "адаптировать название и описание для RUTUBE"
-    ],
-    "cta": [
-      "Внести ссылку в контент-таблицу"
-    ]
-  },
-  {
     "date": "2026-05-28",
     "displayDate": "28.05.2026",
     "day": "Четверг",
@@ -2015,7 +1788,7 @@ export const calendarData = [
       },
       {
         "id": "2026-05-28_shorts_reels_vk_video_ai_ili_dizayner",
-        "platform": "Shorts / Reels / VK Видео / YouTube Shorts / RUTUBE",
+        "platform": "Reels / Shorts / VK Видео",
         "text": "AI или дизайнер?",
         "taskType": "video",
         "checklist": [
@@ -2153,7 +1926,7 @@ export const calendarData = [
       },
       {
         "id": "2026-05-30_shorts_reels_vk_video_bystryy_vybor_foto_ai_ili_photoshop_reels_foto_a",
-        "platform": "Shorts / Reels / VK Видео / YouTube Shorts / RUTUBE",
+        "platform": "Reels / Shorts / VK Видео",
         "text": "Reels/Shorts: быстрый выбор — фото, AI или Photoshop для товарного визуала",
         "taskType": "video",
         "checklist": [
@@ -2258,28 +2031,7 @@ export const calendarData = [
         "folderNote": "Перенесено с дня, где тема не совпадала с Telegram/VK"
       }
     ],
-    "archive": [
-      {
-        "id": "2026-06-01_rutube_backfill_упаковка_выглядит_дороже_что_изменилось",
-        "platform": "RUTUBE · нулевое заполнение",
-        "text": "RUTUBE · старый ролик: Упаковка выглядит дороже: что изменилось?",
-        "taskType": "video",
-        "videoLabel": "RUTUBE · нулевое заполнение",
-        "rutubeMode": "backfill",
-        "checklist": [
-          "oldVideoSelected",
-          "fileFound",
-          "coverChecked",
-          "titleRutube",
-          "descriptionAdded",
-          "rutubePublished",
-          "rutubeTracked"
-        ],
-        "sourceSection": "archive",
-        "folderId": "17_Post_Кейс_редизайн_печенья",
-        "folderSource": "excel"
-      }
-    ],
+    "archive": [],
     "prepare": [
       "Facebook: адаптация старого материала",
       "Сетка: адаптация старого материала"
@@ -2330,7 +2082,7 @@ export const calendarData = [
       },
       {
         "id": "2026-06-02_shorts_reels_vk_video_5_veschey_v_vizuale_kotorye_nado_obnovit_do_leta",
-        "platform": "Shorts / Reels / VK Видео / YouTube Shorts / RUTUBE",
+        "platform": "Reels / Shorts / VK Видео",
         "text": "5 вещей в визуале, которые надо обновить до лета",
         "taskType": "video",
         "checklist": [
@@ -2413,47 +2165,6 @@ export const calendarData = [
     ]
   },
   {
-    "date": "2026-06-03",
-    "displayDate": "03.06.2026",
-    "day": "Среда",
-    "dayShort": "Ср",
-    "title": "RUTUBE · старый ролик: Презентация, которая помогает продавать",
-    "type": "archive",
-    "typeLabel": "RUTUBE · нулевое заполнение",
-    "priority": [],
-    "optional": [],
-    "archive": [
-      {
-        "id": "2026-06-03_rutube_backfill_презентация_которая_помогает_продавать",
-        "platform": "RUTUBE · нулевое заполнение",
-        "text": "RUTUBE · старый ролик: Презентация, которая помогает продавать",
-        "taskType": "video",
-        "videoLabel": "RUTUBE · нулевое заполнение",
-        "rutubeMode": "backfill",
-        "checklist": [
-          "oldVideoSelected",
-          "fileFound",
-          "coverChecked",
-          "titleRutube",
-          "descriptionAdded",
-          "rutubePublished",
-          "rutubeTracked"
-        ],
-        "sourceSection": "archive",
-        "folderId": "21_Post_Презентация_которую_не_хочется_закрыть",
-        "folderSource": "excel"
-      }
-    ],
-    "prepare": [
-      "найти готовый видеофайл",
-      "проверить обложку",
-      "адаптировать название и описание для RUTUBE"
-    ],
-    "cta": [
-      "Внести ссылку в контент-таблицу"
-    ]
-  },
-  {
     "date": "2026-06-04",
     "displayDate": "04.06.2026",
     "day": "Четверг",
@@ -2494,7 +2205,7 @@ export const calendarData = [
       },
       {
         "id": "2026-06-04_shorts_reels_vk_video_chto_ubrat_iz_kartochki_pervym",
-        "platform": "Shorts / Reels / VK Видео / YouTube Shorts / RUTUBE",
+        "platform": "Reels / Shorts / VK Видео",
         "text": "Что убрать из карточки первым?",
         "taskType": "video",
         "checklist": [
@@ -2632,7 +2343,7 @@ export const calendarData = [
       },
       {
         "id": "2026-06-06_shorts_reels_vk_video_odna_oshibka_kartochki_iz_za_kotoroy_ee_ne_chita",
-        "platform": "Shorts / Reels / VK Видео / YouTube Shorts / RUTUBE",
+        "platform": "Reels / Shorts / VK Видео",
         "text": "Reels/Shorts: одна ошибка карточки товара, из-за которой ее не читают",
         "taskType": "video",
         "checklist": [
@@ -2713,47 +2424,6 @@ export const calendarData = [
     ]
   },
   {
-    "date": "2026-06-08",
-    "displayDate": "08.06.2026",
-    "day": "Понедельник",
-    "dayShort": "Пн",
-    "title": "RUTUBE · старый ролик: Баннер без визуального мусора",
-    "type": "archive",
-    "typeLabel": "RUTUBE · нулевое заполнение",
-    "priority": [],
-    "optional": [],
-    "archive": [
-      {
-        "id": "2026-06-08_rutube_backfill_баннер_без_визуального_мусора",
-        "platform": "RUTUBE · нулевое заполнение",
-        "text": "RUTUBE · старый ролик: Баннер без визуального мусора",
-        "taskType": "video",
-        "videoLabel": "RUTUBE · нулевое заполнение",
-        "rutubeMode": "backfill",
-        "checklist": [
-          "oldVideoSelected",
-          "fileFound",
-          "coverChecked",
-          "titleRutube",
-          "descriptionAdded",
-          "rutubePublished",
-          "rutubeTracked"
-        ],
-        "sourceSection": "archive",
-        "folderId": "14_Video_Баннер продает и не продает",
-        "folderSource": "excel"
-      }
-    ],
-    "prepare": [
-      "найти готовый видеофайл",
-      "проверить обложку",
-      "адаптировать название и описание для RUTUBE"
-    ],
-    "cta": [
-      "Внести ссылку в контент-таблицу"
-    ]
-  },
-  {
     "date": "2026-06-09",
     "displayDate": "09.06.2026",
     "day": "Вторник",
@@ -2799,7 +2469,7 @@ export const calendarData = [
       },
       {
         "id": "2026-06-09_shorts_reels_vk_video_do_posle_kartochki_za_10_sekund_reels_do_posle_k",
-        "platform": "Shorts / Reels / VK Видео / YouTube Shorts / RUTUBE",
+        "platform": "Reels / Shorts / VK Видео",
         "text": "Reels/Shorts: до/после карточки товара за 10 секунд",
         "taskType": "video",
         "checklist": [
@@ -2878,47 +2548,6 @@ export const calendarData = [
     ]
   },
   {
-    "date": "2026-06-10",
-    "displayDate": "10.06.2026",
-    "day": "Среда",
-    "dayShort": "Ср",
-    "title": "RUTUBE · старый ролик: Фирменный стиль — это не только логотип",
-    "type": "archive",
-    "typeLabel": "RUTUBE · нулевое заполнение",
-    "priority": [],
-    "optional": [],
-    "archive": [
-      {
-        "id": "2026-06-10_rutube_backfill_фирменный_стиль_это_не_только_логотип",
-        "platform": "RUTUBE · нулевое заполнение",
-        "text": "RUTUBE · старый ролик: Фирменный стиль — это не только логотип",
-        "taskType": "video",
-        "videoLabel": "RUTUBE · нулевое заполнение",
-        "rutubeMode": "backfill",
-        "checklist": [
-          "oldVideoSelected",
-          "fileFound",
-          "coverChecked",
-          "titleRutube",
-          "descriptionAdded",
-          "rutubePublished",
-          "rutubeTracked"
-        ],
-        "sourceSection": "archive",
-        "folderId": "04_Post_Зачем нужен брендбук",
-        "folderSource": "excel"
-      }
-    ],
-    "prepare": [
-      "найти готовый видеофайл",
-      "проверить обложку",
-      "адаптировать название и описание для RUTUBE"
-    ],
-    "cta": [
-      "Внести ссылку в контент-таблицу"
-    ]
-  },
-  {
     "date": "2026-06-11",
     "displayDate": "11.06.2026",
     "day": "Четверг",
@@ -2959,7 +2588,7 @@ export const calendarData = [
       },
       {
         "id": "2026-06-11_shorts_reels_vk_video_a_b_kakoy_shrift_sovremennee",
-        "platform": "Shorts / Reels / VK Видео / YouTube Shorts / RUTUBE",
+        "platform": "Reels / Shorts / VK Видео",
         "text": "A/B: какой шрифт современнее?",
         "taskType": "video",
         "checklist": [
@@ -3119,7 +2748,7 @@ export const calendarData = [
       },
       {
         "id": "2026-06-13_shorts_reels_vk_video_logotip_ozhil_chto_vazhno_ne_isportit_reels_anim",
-        "platform": "Shorts / Reels / VK Видео / YouTube Shorts / RUTUBE",
+        "platform": "Reels / Shorts / VK Видео",
         "text": "Reels/Shorts: анимация логотипа без лишних эффектов",
         "taskType": "video",
         "checklist": [
@@ -3215,47 +2844,6 @@ export const calendarData = [
     ]
   },
   {
-    "date": "2026-06-15",
-    "displayDate": "15.06.2026",
-    "day": "Понедельник",
-    "dayShort": "Пн",
-    "title": "RUTUBE · старый ролик: Что собрать бизнесу в единую визуальную систему",
-    "type": "archive",
-    "typeLabel": "RUTUBE · нулевое заполнение",
-    "priority": [],
-    "optional": [],
-    "archive": [
-      {
-        "id": "2026-06-15_rutube_backfill_что_собрать_бизнесу_в_единую_визуальную_систему",
-        "platform": "RUTUBE · нулевое заполнение",
-        "text": "RUTUBE · старый ролик: Что собрать бизнесу в единую визуальную систему",
-        "taskType": "video",
-        "videoLabel": "RUTUBE · нулевое заполнение",
-        "rutubeMode": "backfill",
-        "checklist": [
-          "oldVideoSelected",
-          "fileFound",
-          "coverChecked",
-          "titleRutube",
-          "descriptionAdded",
-          "rutubePublished",
-          "rutubeTracked"
-        ],
-        "sourceSection": "archive",
-        "folderId": "04_Post_Зачем нужен брендбук",
-        "folderSource": "excel"
-      }
-    ],
-    "prepare": [
-      "найти готовый видеофайл",
-      "проверить обложку",
-      "адаптировать название и описание для RUTUBE"
-    ],
-    "cta": [
-      "Внести ссылку в контент-таблицу"
-    ]
-  },
-  {
     "date": "2026-06-16",
     "displayDate": "16.06.2026",
     "day": "Вторник",
@@ -3296,7 +2884,7 @@ export const calendarData = [
       },
       {
         "id": "2026-06-16_shorts_reels_vk_video_chto_vhodit_v_firmennyy_stil_krome_logotipa",
-        "platform": "Shorts / Reels / VK Видео / YouTube Shorts / RUTUBE",
+        "platform": "Reels / Shorts / VK Видео",
         "text": "Что входит в фирменный стиль кроме логотипа",
         "taskType": "video",
         "checklist": [
@@ -3416,7 +3004,7 @@ export const calendarData = [
       },
       {
         "id": "2026-06-18_shorts_reels_vk_video_onlayn_silnyy_oflayn_sluchaynyy",
-        "platform": "Shorts / Reels / VK Видео / YouTube Shorts / RUTUBE",
+        "platform": "Reels / Shorts / VK Видео",
         "text": "Онлайн сильный, офлайн случайный",
         "taskType": "video",
         "checklist": [
@@ -3556,7 +3144,7 @@ export const calendarData = [
       },
       {
         "id": "2026-06-20_shorts_reels_vk_video_chto_sobrat_pod_klyuch_reels_lina_pomogaet_sobra",
-        "platform": "Shorts / Reels / VK Видео / YouTube Shorts / RUTUBE",
+        "platform": "Reels / Shorts / VK Видео",
         "text": "Reels/Shorts: Лина помогает собрать визуал под ключ",
         "taskType": "video",
         "checklist": [
@@ -3694,7 +3282,7 @@ export const calendarData = [
       },
       {
         "id": "2026-06-23_shorts_reels_vk_video_ponyatno_li_chto_zdes_prodayut",
-        "platform": "Shorts / Reels / VK Видео / YouTube Shorts / RUTUBE",
+        "platform": "Reels / Shorts / VK Видео",
         "text": "Понятно ли, что здесь продают?",
         "taskType": "video",
         "checklist": [
@@ -3854,7 +3442,7 @@ export const calendarData = [
       },
       {
         "id": "2026-06-25_shorts_reels_vk_video_a_b_kakaya_kartochka_uslugi_silnee",
-        "platform": "Shorts / Reels / VK Видео / YouTube Shorts / RUTUBE",
+        "platform": "Reels / Shorts / VK Видео",
         "text": "A/B: какая карточка услуги сильнее?",
         "taskType": "video",
         "checklist": [
@@ -3940,7 +3528,7 @@ export const calendarData = [
       },
       {
         "id": "2026-06-27_shorts_reels_vk_video_lina_proveryaet_kartochku_uslugi",
-        "platform": "Shorts / Reels / VK Видео / YouTube Shorts / RUTUBE",
+        "platform": "Reels / Shorts / VK Видео",
         "text": "Лина проверяет карточку услуги",
         "taskType": "video",
         "checklist": [
@@ -4027,7 +3615,7 @@ export const calendarData = [
       },
       {
         "id": "2026-06-30_shorts_reels_vk_video_portfolio_vyglyadit_krasivo_no_prodaet_li",
-        "platform": "Shorts / Reels / VK Видео / YouTube Shorts / RUTUBE",
+        "platform": "Reels / Shorts / VK Видео",
         "text": "Портфолио выглядит красиво, но продает ли?",
         "taskType": "video",
         "checklist": [
@@ -4145,7 +3733,7 @@ export const calendarData = [
       },
       {
         "id": "2026-07-02_shorts_reels_vk_video_keys_za_10_sekund",
-        "platform": "Shorts / Reels / VK Видео / YouTube Shorts / RUTUBE",
+        "platform": "Reels / Shorts / VK Видео",
         "text": "Кейс за 10 секунд",
         "taskType": "video",
         "checklist": [
@@ -4248,7 +3836,7 @@ export const calendarData = [
       },
       {
         "id": "2026-07-04_shorts_reels_vk_video_do_posle_chto_izmenilos",
-        "platform": "Shorts / Reels / VK Видео / YouTube Shorts / RUTUBE",
+        "platform": "Reels / Shorts / VK Видео",
         "text": "До/после: что изменилось?",
         "taskType": "video",
         "checklist": [
@@ -4335,7 +3923,7 @@ export const calendarData = [
       },
       {
         "id": "2026-07-07_shorts_reels_vk_video_u_vas_3_sekundy_chto_prodaet_etot_banner",
-        "platform": "Shorts / Reels / VK Видео / YouTube Shorts / RUTUBE",
+        "platform": "Reels / Shorts / VK Видео",
         "text": "У вас 3 секунды: что продает этот баннер?",
         "taskType": "video",
         "checklist": [
@@ -4452,7 +4040,7 @@ export const calendarData = [
       },
       {
         "id": "2026-07-09_shorts_reels_vk_video_do_posle_bannera_za_10_sekund",
-        "platform": "Shorts / Reels / VK Видео / YouTube Shorts / RUTUBE",
+        "platform": "Reels / Shorts / VK Видео",
         "text": "До/после баннера за 10 секунд",
         "taskType": "video",
         "checklist": [
@@ -4543,7 +4131,7 @@ export const calendarData = [
       },
       {
         "id": "2026-07-11_shorts_reels_vk_video_naydi_slaboe_mesto_v_reklame",
-        "platform": "Shorts / Reels / VK Видео / YouTube Shorts / RUTUBE",
+        "platform": "Reels / Shorts / VK Видео",
         "text": "Найди слабое место в рекламе",
         "taskType": "video",
         "checklist": [
@@ -4666,7 +4254,7 @@ export const calendarData = [
       },
       {
         "id": "2026-07-14_shorts_reels_vk_video_kakaya_etiketka_vyglyadit_dorozhe",
-        "platform": "Shorts / Reels / VK Видео / YouTube Shorts / RUTUBE",
+        "platform": "Reels / Shorts / VK Видео",
         "text": "Какая этикетка выглядит дороже?",
         "taskType": "video",
         "checklist": [
@@ -4824,7 +4412,7 @@ export const calendarData = [
       },
       {
         "id": "2026-07-16_shorts_reels_vk_video_3_oshibki_na_upakovke",
-        "platform": "Shorts / Reels / VK Видео / YouTube Shorts / RUTUBE",
+        "platform": "Reels / Shorts / VK Видео",
         "text": "3 ошибки на упаковке",
         "taskType": "video",
         "checklist": [
@@ -4927,7 +4515,7 @@ export const calendarData = [
       },
       {
         "id": "2026-07-18_shorts_reels_vk_video_a_b_upakovki_s_bystrym_otvetom",
-        "platform": "Shorts / Reels / VK Видео / YouTube Shorts / RUTUBE",
+        "platform": "Reels / Shorts / VK Видео",
         "text": "A/B упаковки с быстрым ответом",
         "taskType": "video",
         "checklist": [
@@ -5014,7 +4602,7 @@ export const calendarData = [
       },
       {
         "id": "2026-07-21_shorts_reels_vk_video_7_tochek_gde_vizual_teryaet_doverie",
-        "platform": "Shorts / Reels / VK Видео / YouTube Shorts / RUTUBE",
+        "platform": "Reels / Shorts / VK Видео",
         "text": "7 точек, где визуал теряет доверие",
         "taskType": "video",
         "checklist": [
@@ -5131,7 +4719,7 @@ export const calendarData = [
       },
       {
         "id": "2026-07-23_shorts_reels_vk_video_chto_sobrat_v_edinuyu_sistemu",
-        "platform": "Shorts / Reels / VK Видео / YouTube Shorts / RUTUBE",
+        "platform": "Reels / Shorts / VK Видео",
         "text": "Что собрать в единую систему?",
         "taskType": "video",
         "checklist": [
@@ -5235,7 +4823,7 @@ export const calendarData = [
       },
       {
         "id": "2026-07-25_shorts_reels_vk_video_s_linoy_vyberite_zadachu_audit_shablon_ili_oform",
-        "platform": "Shorts / Reels / VK Видео / YouTube Shorts / RUTUBE",
+        "platform": "Reels / Shorts / VK Видео",
         "text": "с Линой Выберите задачу: аудит, шаблон или оформление под ключ",
         "taskType": "video",
         "checklist": [
@@ -5282,4 +4870,4 @@ export const calendarData = [
   }
 ];
 
-export const platformLabels = ["Telegram + VK","Instagram","Shorts / Reels / VK Видео / YouTube Shorts / RUTUBE","RUTUBE · нулевое заполнение","Дзен","vc.ru","Сетка","Facebook"];
+export const platformLabels = ["Telegram + VK","Instagram","Reels / Shorts / VK Видео","Дзен","vc.ru","Сетка","Facebook"];

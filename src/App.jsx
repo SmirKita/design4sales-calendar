@@ -27,13 +27,6 @@ const checkLabels = {
   publishRutube: "Опубликовано в RUTUBE",
   publishReels: "Опубликовано в Reels, если нужно",
   linksTracked: "Ссылки внесены в контент-таблицу",
-  oldVideoSelected: "Старый ролик выбран",
-  fileFound: "Файл найден",
-  coverChecked: "Обложка проверена",
-  titleRutube: "Название адаптировано под RUTUBE",
-  descriptionAdded: "Описание добавлено",
-  rutubePublished: "Опубликовано",
-  rutubeTracked: "Ссылка внесена в контент-таблицу",
 };
 
 const typeLabels = {
@@ -50,12 +43,7 @@ const typeLabels = {
 const platformClass = {
   "Telegram + VK": "tg",
   Instagram: "instagram",
-  "Shorts / Reels / VK Видео / YouTube Shorts / RUTUBE": "video",
-  "RUTUBE · нулевое заполнение": "video",
-  YouTube: "video",
-  "VK Видео": "video",
-  RUTUBE: "video",
-  Reels: "instagram",
+  "Reels / Shorts / VK Видео": "video",
   Дзен: "dzen",
   "vc.ru": "vc",
   Сетка: "setka",
@@ -63,28 +51,20 @@ const platformClass = {
   Другое: "other",
 };
 
-const videoPlatform = "Shorts / Reels / VK Видео / YouTube Shorts / RUTUBE";
-const rutubeBackfillPlatform = "RUTUBE · нулевое заполнение";
-
 const platformDisplayName = {
-  "Shorts/Reels/VK Видео": "Короткое видео",
-  [videoPlatform]: "Короткое видео",
-  [rutubeBackfillPlatform]: "RUTUBE",
+  "Shorts/Reels/VK Видео": "Reels / Shorts / VK Видео",
+  "Reels / Shorts / VK Видео": "Reels / Shorts / VK Видео",
 };
 
 const platformStatName = {
   "Shorts/Reels/VK Видео": "Видео",
-  [videoPlatform]: "Видео",
-  [rutubeBackfillPlatform]: "RUTUBE",
+  "Reels / Shorts / VK Видео": "Видео",
 };
 
 const platformFilterItems = [
   { key: "Telegram + VK", label: "Telegram + VK" },
   { key: "Instagram", label: "Instagram" },
-  { key: "youtube", label: "YouTube" },
-  { key: "vkVideo", label: "VK Видео" },
-  { key: "rutube", label: "RUTUBE" },
-  { key: "reels", label: "Reels" },
+  { key: "Reels / Shorts / VK Видео", label: "Reels / Shorts / VK Видео" },
   { key: "Дзен", label: "Дзен" },
   { key: "vc.ru", label: "vc.ru" },
   { key: "Сетка", label: "Сетка" },
@@ -135,10 +115,6 @@ function getPlatformStatName(platform) {
 }
 
 function matchesPlatformFilter(task, filterKey) {
-  if (filterKey === "youtube") return task.rutubeMode === "new" && getChecklistForTask(task).includes("publishYoutubeShorts");
-  if (filterKey === "vkVideo") return task.rutubeMode === "new" && getChecklistForTask(task).includes("publishVkVideo");
-  if (filterKey === "rutube") return getChecklistForTask(task).includes("publishRutube") || task.rutubeMode === "backfill";
-  if (filterKey === "reels") return task.rutubeMode === "new" && getChecklistForTask(task).includes("publishReels");
   return task.platform === filterKey;
 }
 
@@ -228,10 +204,7 @@ function getChecklistForTask(task) {
   if (task.checklist?.length) {
     return task.checklist;
   }
-  if (task.rutubeMode === "backfill") {
-    return ["oldVideoSelected", "fileFound", "coverChecked", "titleRutube", "descriptionAdded", "rutubePublished", "rutubeTracked"];
-  }
-  if (task.rutubeMode === "new" || task.platform === "Shorts / Reels / VK Видео / YouTube Shorts / RUTUBE" || task.taskType === "video") {
+  if (task.rutubeMode === "new" || task.platform === "Reels / Shorts / VK Видео" || task.taskType === "video") {
     return ["videoReady", "coverReady", "publishYoutubeShorts", "publishVkVideo", "publishRutube", "publishReels", "linksTracked"];
   }
   if (task.platform === "Дзен" || task.platform === "vc.ru" || task.taskType === "article") {
@@ -248,19 +221,16 @@ function hasAnyChecked(checks, keys) {
 }
 
 function deriveStatus(task, checks) {
-  if (checks.published || checks.rutubeTracked || checks.linksTracked) return "published";
+  if (checks.published || checks.linksTracked) return "published";
 
   const checklist = getChecklistForTask(task);
-  const stageKeys = checklist.filter((key) => !["published", "tracked", "linksTracked", "rutubeTracked"].includes(key));
+  const stageKeys = checklist.filter((key) => !["published", "tracked", "linksTracked"].includes(key));
   if (!hasAnyChecked(checks, stageKeys)) return "not_started";
 
-  if (task.rutubeMode === "backfill") {
-    return checks.oldVideoSelected && checks.fileFound && checks.coverChecked && checks.titleRutube && checks.descriptionAdded ? "done" : "in_progress";
-  }
   if (task.rutubeMode === "new") {
     return checks.videoReady && checks.coverReady ? "done" : "in_progress";
   }
-  if (task.platform === "Shorts / Reels / VK Видео / YouTube Shorts / RUTUBE" || task.taskType === "video") {
+  if (task.platform === "Reels / Shorts / VK Видео" || task.taskType === "video") {
     return checks.video && checks.cover ? "done" : "in_progress";
   }
   if (task.platform === "Дзен" || task.platform === "vc.ru" || task.taskType === "article") {
@@ -580,7 +550,7 @@ function TaskItem({ task, progress, updateTask }) {
         <div className="taskMainText">
           <p>{task.text}</p>
           {task.monthlyFeature && <span className="monthlyBadge">{task.monthlyLabel || "vc.ru · сильная статья месяца"}</span>}
-          {task.videoLabel && <span className="monthlyBadge">{task.rutubeMode === "backfill" ? "Архивная загрузка" : task.videoLabel}</span>}
+          {task.videoLabel && <span className="monthlyBadge">{task.videoLabel}</span>}
           <MaterialRef folderId={task.folderId} folderSource={task.folderSource} folderNote={task.folderNote} />
           {task.warning && <div className="taskWarning">{task.warning}</div>}
         </div>
