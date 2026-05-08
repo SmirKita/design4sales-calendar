@@ -550,7 +550,7 @@ function TaskItem({ task, progress, updateTask }) {
         <div className="taskMainText">
           <p>{task.text}</p>
           {task.monthlyFeature && <span className="monthlyBadge">{task.monthlyLabel || "vc.ru · сильная статья месяца"}</span>}
-          {task.videoLabel && <span className="monthlyBadge">{task.videoLabel}</span>}
+          {task.videoLabel && task.folderSource !== "excel" && <span className="monthlyBadge">{task.videoLabel}</span>}
           <MaterialRef folderId={task.folderId} folderSource={task.folderSource} folderNote={task.folderNote} />
           {task.warning && <div className="taskWarning">{task.warning}</div>}
         </div>

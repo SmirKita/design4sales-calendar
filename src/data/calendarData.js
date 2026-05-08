@@ -626,7 +626,7 @@ export const calendarData = [
       {
         "id": "2026-05-08_instagram_reels_oblozhka",
         "platform": "Instagram",
-        "text": "Instagram: перепаковка темы брендбука — логотип и запоминаемость в системе бренда",
+        "text": "Instagram: архивная перепаковка темы брендбука — логотип и запоминаемость в системе бренда",
         "taskType": "video",
         "checklist": [
           "videoReady",
@@ -640,13 +640,12 @@ export const calendarData = [
         "sourceSection": "priority",
         "folderId": "04_Post_Зачем нужен брендбук",
         "folderSource": "excel",
-        "videoLabel": "Новое видео",
-        "rutubeMode": "new"
+        "sourceType": "archive_repack"
       },
       {
         "id": "2026-05-08_shorts_reels_vk_video_reels_logotip_kotoryy_trudno_zapomnit_3_vizualny",
         "platform": "Reels / Shorts / VK Видео",
-        "text": "Видео: почему логотип запоминается только внутри системы бренда",
+        "text": "Reels / Shorts / VK Видео: архивное видео — почему логотип запоминается только внутри системы бренда",
         "taskType": "video",
         "checklist": [
           "videoReady",
@@ -660,15 +659,14 @@ export const calendarData = [
         "sourceSection": "priority",
         "folderId": "04_Post_Зачем нужен брендбук",
         "folderSource": "excel",
-        "videoLabel": "Новое видео",
-        "rutubeMode": "new"
+        "sourceType": "archive_repack"
       }
     ],
     "optional": [
       {
         "id": "2026-05-08_facebook_logotip_zapominaetsya_tolko_vnutri_sistemy_brend",
         "platform": "Facebook",
-        "text": "Facebook: деловая версия — логотип работает в системе бренда",
+        "text": "Facebook: архивная деловая версия — логотип работает в системе бренда",
         "taskType": "post",
         "checklist": [
           "text",
@@ -678,7 +676,8 @@ export const calendarData = [
         ],
         "sourceSection": "optional",
         "folderId": "04_Post_Зачем нужен брендбук",
-        "folderSource": "excel"
+        "folderSource": "excel",
+        "sourceType": "archive_repack"
       }
     ],
     "archive": [],
