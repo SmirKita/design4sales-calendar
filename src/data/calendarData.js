@@ -295,7 +295,7 @@ export const calendarData = [
       {
         "id": "2026-05-04_vc_month_work_with_designer",
         "platform": "vc.ru",
-        "text": "Статья vc.ru: Как работать с дизайнером, чтобы не утонуть в правках",
+        "text": "vc.ru: адаптация архивного материала «Как проходит работа с дизайнером»",
         "taskType": "article",
         "checklist": [
           "article",
@@ -310,7 +310,8 @@ export const calendarData = [
         "monthlyLabel": "vc.ru · сильная статья месяца",
         "defaultStatus": "in_progress",
         "warning": "Проверить лимит публикаций перед подготовкой финального текста. Если лимит vc.ru в мае уже потрачен — резерв на следующий месяц.",
-        "folderNote": "Архивная перепаковка для публикации месяца vc.ru"
+        "folderNote": "Архивная перепаковка для публикации месяца vc.ru",
+        "sourceType": "archive_repack"
       }
     ],
     "prepare": [
@@ -453,7 +454,7 @@ export const calendarData = [
       {
         "id": "2026-05-06_instagram_karusel_4_5_karusel_4_5_banner_do_posle_chto_ubr",
         "platform": "Instagram",
-        "text": "Instagram: перепаковка видео «Баннер продает и не продает» в карусель 4:5",
+        "text": "Instagram: адаптация архивного поста «Баннер продает и не продает»",
         "taskType": "carousel",
         "checklist": [
           "text",
@@ -464,14 +465,15 @@ export const calendarData = [
         "sourceSection": "priority",
         "folderId": "14_Video_Баннер продает и не продает",
         "folderSource": "excel",
-        "folderNote": "Архивная перепаковка Excel: 14.07.2025, баннер продает и не продает"
+        "folderNote": "Архивная перепаковка Excel: 14.07.2025, баннер продает и не продает",
+        "sourceType": "archive_repack"
       }
     ],
     "optional": [
       {
         "id": "2026-05-06_facebook_pochemu_fraza_sdelayte_krasivo_meshaet_poluchit_",
         "platform": "Facebook",
-        "text": "Facebook: деловая версия — почему фраза «сделайте красиво» мешает получить рабочий дизайн",
+        "text": "Facebook: адаптация архивного поста ««Сделай красиво» не работает»",
         "taskType": "post",
         "checklist": [
           "text",
@@ -481,7 +483,8 @@ export const calendarData = [
         ],
         "sourceSection": "optional",
         "folderId": "22_Post_Сделай красиво не работает",
-        "folderSource": "excel"
+        "folderSource": "excel",
+        "sourceType": "archive_repack"
       }
     ],
     "archive": [],
@@ -619,42 +622,20 @@ export const calendarData = [
     "displayDate": "08.05.2026",
     "day": "Пятница",
     "dayShort": "Пт",
-    "title": "Логотип, который трудно запомнить: 3 визуальных признака",
-    "type": "video",
-    "typeLabel": "видео",
+    "title": "Архивная адаптация поста по теме брендбука",
+    "type": "archive",
+    "typeLabel": "архивная перепаковка",
     "priority": [
       {
         "id": "2026-05-08_instagram_reels_oblozhka",
         "platform": "Instagram",
-        "text": "Instagram: архивная перепаковка темы брендбука — логотип и запоминаемость в системе бренда",
-        "taskType": "video",
+        "text": "Instagram: адаптация архивного поста «Почему важно делать дизайн по брендбуку»",
+        "taskType": "carousel",
         "checklist": [
-          "videoReady",
-          "coverReady",
-          "publishYoutubeShorts",
-          "publishVkVideo",
-          "publishRutube",
-          "publishReels",
-          "linksTracked"
-        ],
-        "sourceSection": "priority",
-        "folderId": "04_Post_Зачем нужен брендбук",
-        "folderSource": "excel",
-        "sourceType": "archive_repack"
-      },
-      {
-        "id": "2026-05-08_shorts_reels_vk_video_reels_logotip_kotoryy_trudno_zapomnit_3_vizualny",
-        "platform": "Reels / Shorts / VK Видео",
-        "text": "Reels / Shorts / VK Видео: архивное видео — почему логотип запоминается только внутри системы бренда",
-        "taskType": "video",
-        "checklist": [
-          "videoReady",
-          "coverReady",
-          "publishYoutubeShorts",
-          "publishVkVideo",
-          "publishRutube",
-          "publishReels",
-          "linksTracked"
+          "text",
+          "visual",
+          "published",
+          "tracked"
         ],
         "sourceSection": "priority",
         "folderId": "04_Post_Зачем нужен брендбук",
@@ -666,7 +647,7 @@ export const calendarData = [
       {
         "id": "2026-05-08_facebook_logotip_zapominaetsya_tolko_vnutri_sistemy_brend",
         "platform": "Facebook",
-        "text": "Facebook: архивная деловая версия — логотип работает в системе бренда",
+        "text": "Facebook: адаптация архивного поста «Почему важно делать дизайн по брендбуку»",
         "taskType": "post",
         "checklist": [
           "text",
@@ -682,12 +663,13 @@ export const calendarData = [
     ],
     "archive": [],
     "prepare": [
-      "IG: Коллаж логотипов, 3 карточки с признаками, обложка Reels 9:16 с",
-      "FB: Убрать прямой оффер, объяснить связь логотипа с носителями"
+      "IG: адаптировать визуал поста под формат Instagram",
+      "FB: адаптировать текст и визуал под формат Facebook",
+      "При необходимости: немного упростить / обновить старый визуал без смены сути"
     ],
     "cta": [
-      "Комментарии: какой легче вспомнить?",
-      "Telegram/VK за примерами"
+      "Полный пост / примеры — в Telegram и VK",
+      "Написать в комментариях, нужен ли брендбук бизнесу"
     ],
     "calendarNote": "Доп. публикация"
   },
@@ -754,7 +736,7 @@ export const calendarData = [
       {
         "id": "2026-05-10_setka_oshibka_biznesa_v_vizuale_silnyy_profil_eto_iera",
         "platform": "Сетка",
-        "text": "Сетка: ошибка бизнеса в визуале — сильный профиль держится на иерархии, ясности и едином тоне",
+        "text": "Сетка: адаптация архивного поста «Гайд по оформлению соцсетей»",
         "taskType": "post",
         "checklist": [
           "text",
@@ -765,7 +747,8 @@ export const calendarData = [
         "sourceSection": "optional",
         "folderId": "24_Post_Гайд соцпрофиль",
         "folderSource": "excel",
-        "folderNote": "Архивная перепаковка Excel: гайд по оформлению соцсетей / профиля"
+        "folderNote": "Архивная перепаковка Excel: гайд по оформлению соцсетей / профиля",
+        "sourceType": "archive_repack"
       }
     ],
     "archive": [],
@@ -789,7 +772,7 @@ export const calendarData = [
       {
         "id": "2026-05-11_facebook_banner_prodaet_i_ne_prodaet",
         "platform": "Facebook",
-        "text": "Facebook: деловая версия — баннер, который продает, и баннер, который просто занимает место",
+        "text": "Facebook: адаптация архивного поста «Баннер продает и не продает»",
         "taskType": "post",
         "checklist": [
           "text",
@@ -800,7 +783,8 @@ export const calendarData = [
         "sourceSection": "optional",
         "folderId": "14_Video_Баннер продает и не продает",
         "folderSource": "excel",
-        "folderNote": "Перенесено с дня, где тема не совпадала с Telegram/VK"
+        "folderNote": "Перенесено с дня, где тема не совпадала с Telegram/VK",
+        "sourceType": "archive_repack"
       }
     ],
     "archive": [],
@@ -1071,7 +1055,7 @@ export const calendarData = [
       {
         "id": "2026-05-15_facebook_upakovka_i_sredniy_chek_pochemu_tovar_dolzhen_vy",
         "platform": "Facebook",
-        "text": "Упаковка и средний чек: почему товар должен выглядеть дороже",
+        "text": "Facebook: адаптация архивного поста «Кейс: редизайн этикетки печенья»",
         "taskType": "post",
         "checklist": [
           "text",
@@ -1082,12 +1066,13 @@ export const calendarData = [
         "sourceSection": "optional",
         "folderId": "17_Post_Кейс_редизайн_печенья",
         "folderSource": "excel",
-        "folderNote": "Архивная перепаковка Excel: кейс редизайна этикетки печенья"
+        "folderNote": "Архивная перепаковка Excel: кейс редизайна этикетки печенья",
+        "sourceType": "archive_repack"
       },
       {
         "id": "2026-05-15_setka_shablony_snizhayut_haos",
         "platform": "Сетка",
-        "text": "Сетка: заметка — как шаблоны снижают хаос в регулярном контенте",
+        "text": "Сетка: адаптация архивного поста «Шаблоны постов, чтобы не собирать каждый пост с нуля»",
         "taskType": "post",
         "checklist": [
           "text",
@@ -1098,7 +1083,8 @@ export const calendarData = [
         "sourceSection": "optional",
         "folderId": "07_Post_Шаблоны_постов",
         "folderSource": "excel",
-        "folderNote": "Перенесено с дня, где тема не совпадала с Telegram/VK"
+        "folderNote": "Перенесено с дня, где тема не совпадала с Telegram/VK",
+        "sourceType": "archive_repack"
       }
     ],
     "archive": [],
@@ -1217,7 +1203,7 @@ export const calendarData = [
       {
         "id": "2026-05-17_setka_kak_ya_dumayu_kak_dizayner_retush_dolzhna_usiliv",
         "platform": "Сетка",
-        "text": "Сетка: товарный визуал как часть упаковки продукта",
+        "text": "Сетка: адаптация архивного поста «Редизайн упаковки: что меняем, чтобы товар не терялся на полке»",
         "taskType": "post",
         "checklist": [
           "text",
@@ -1227,7 +1213,8 @@ export const calendarData = [
         ],
         "sourceSection": "optional",
         "folderId": "16_Post_Редизайн_упаковки",
-        "folderSource": "excel"
+        "folderSource": "excel",
+        "sourceType": "archive_repack"
       }
     ],
     "archive": [],
@@ -1251,7 +1238,7 @@ export const calendarData = [
       {
         "id": "2026-05-18_facebook_shrift_vliyaet_na_brend",
         "platform": "Facebook",
-        "text": "Facebook: экспертная заметка — как шрифт влияет на ощущение бренда",
+        "text": "Facebook: адаптация архивного поста «Топ 5 шрифтов»",
         "taskType": "post",
         "checklist": [
           "text",
@@ -1262,12 +1249,13 @@ export const calendarData = [
         "sourceSection": "optional",
         "folderId": "25_Post_Топ 5 шрифтов",
         "folderSource": "excel",
-        "folderNote": "Перенесено с дня, где тема не совпадала с Telegram/VK"
+        "folderNote": "Перенесено с дня, где тема не совпадала с Telegram/VK",
+        "sourceType": "archive_repack"
       },
       {
         "id": "2026-05-18_setka_shrift_golos_brenda",
         "platform": "Сетка",
-        "text": "Сетка: как я думаю как дизайнер — шрифт задает голос бренда",
+        "text": "Сетка: адаптация архивного поста «Топ 5 шрифтов»",
         "taskType": "post",
         "checklist": [
           "text",
@@ -1278,7 +1266,8 @@ export const calendarData = [
         "sourceSection": "optional",
         "folderId": "25_Post_Топ 5 шрифтов",
         "folderSource": "excel",
-        "folderNote": "Перенесено с дня, где тема не совпадала с Telegram/VK"
+        "folderNote": "Перенесено с дня, где тема не совпадала с Telegram/VK",
+        "sourceType": "archive_repack"
       }
     ],
     "archive": [],
@@ -1512,7 +1501,7 @@ export const calendarData = [
       {
         "id": "2026-05-22_facebook_5_oshibok_v_reklamnom_makete_iz_za_kotoryh_ego_n",
         "platform": "Facebook",
-        "text": "Facebook: деловой разбор рекламного макета без игровой механики",
+        "text": "Facebook: адаптация архивного поста «Разбор рекламы «купи ноутбук»»",
         "taskType": "post",
         "checklist": [
           "text",
@@ -1522,7 +1511,8 @@ export const calendarData = [
         ],
         "sourceSection": "optional",
         "folderId": "05_Post_Реклама купи ноутбук разбор",
-        "folderSource": "excel"
+        "folderSource": "excel",
+        "sourceType": "archive_repack"
       }
     ],
     "archive": [],
@@ -1618,7 +1608,7 @@ export const calendarData = [
       {
         "id": "2026-05-24_setka_redizayn_etiketki_kofe_zametnost_nachinaetsya_do",
         "platform": "Сетка",
-        "text": "Редизайн этикетки кофе: заметность начинается до чтения текста",
+        "text": "Сетка: адаптация архивного поста «Кейс: редизайн этикетки кофе»",
         "taskType": "post",
         "checklist": [
           "text",
@@ -1628,12 +1618,13 @@ export const calendarData = [
         ],
         "sourceSection": "optional",
         "folderId": "21_Post_Кейс_редизайн_кофе",
-        "folderSource": "excel"
+        "folderSource": "excel",
+        "sourceType": "archive_repack"
       },
       {
         "id": "2026-05-24_facebook_redizayn_etiketki_kofe",
         "platform": "Facebook",
-        "text": "Facebook: мини-кейс — редизайн этикетки кофе и заметность товара на полке",
+        "text": "Facebook: адаптация архивного поста «Кейс: редизайн этикетки кофе»",
         "taskType": "case",
         "checklist": [
           "text",
@@ -1644,7 +1635,8 @@ export const calendarData = [
         "sourceSection": "optional",
         "folderId": "21_Post_Кейс_редизайн_кофе",
         "folderSource": "excel",
-        "folderNote": "Перенесено с дня, где тема не совпадала с Telegram/VK"
+        "folderNote": "Перенесено с дня, где тема не совпадала с Telegram/VK",
+        "sourceType": "archive_repack"
       }
     ],
     "archive": [],
@@ -1878,7 +1870,7 @@ export const calendarData = [
       {
         "id": "2026-05-29_facebook_ekspertnaya_zametka_gde_ai_pomogaet_biznesu_v_vi",
         "platform": "Facebook",
-        "text": "Facebook: AI как инструмент дизайнера без хайпа",
+        "text": "Facebook: адаптация архивного поста «AI или не AI»",
         "taskType": "post",
         "checklist": [
           "text",
@@ -1888,7 +1880,8 @@ export const calendarData = [
         ],
         "sourceSection": "optional",
         "folderId": "10_Post_Игра_Ai или не Ai",
-        "folderSource": "excel"
+        "folderSource": "excel",
+        "sourceType": "archive_repack"
       }
     ],
     "archive": [],
@@ -2000,7 +1993,7 @@ export const calendarData = [
       {
         "id": "2026-06-01_facebook_cheklist_tz_dizayneru",
         "platform": "Facebook",
-        "text": "Facebook: чек-лист — как объяснить дизайнеру задачу без «сделайте красиво»",
+        "text": "Facebook: адаптация архивного поста «Как объяснить дизайнеру задачу без фразы «сделайте красиво»»",
         "taskType": "checklist",
         "checklist": [
           "text",
@@ -2011,12 +2004,13 @@ export const calendarData = [
         "sourceSection": "optional",
         "folderId": "02_Post_Как_объяснить_дизайнеру_задачу",
         "folderSource": "excel",
-        "folderNote": "Перенесено с дня, где тема не совпадала с Telegram/VK"
+        "folderNote": "Перенесено с дня, где тема не совпадала с Telegram/VK",
+        "sourceType": "archive_repack"
       },
       {
         "id": "2026-06-01_setka_chto_vazhno_v_tz",
         "platform": "Сетка",
-        "text": "Сетка: заметка — что важно в ТЗ: задача, аудитория, ограничения, критерий успеха",
+        "text": "Сетка: адаптация архивного поста «Как объяснить дизайнеру задачу без фразы «сделайте красиво»»",
         "taskType": "post",
         "checklist": [
           "text",
@@ -2027,7 +2021,8 @@ export const calendarData = [
         "sourceSection": "optional",
         "folderId": "02_Post_Как_объяснить_дизайнеру_задачу",
         "folderSource": "excel",
-        "folderNote": "Перенесено с дня, где тема не совпадала с Telegram/VK"
+        "folderNote": "Перенесено с дня, где тема не совпадала с Telegram/VK",
+        "sourceType": "archive_repack"
       }
     ],
     "archive": [],
@@ -2295,7 +2290,7 @@ export const calendarData = [
       {
         "id": "2026-06-05_facebook_kartochka_tovara_kak_vitrina_chto_pokupatel_dolz",
         "platform": "Facebook",
-        "text": "Facebook: карточка товара как витрина продукта",
+        "text": "Facebook: адаптация архивного поста «Редизайн упаковки: что меняем, чтобы товар не терялся на полке»",
         "taskType": "post",
         "checklist": [
           "text",
@@ -2305,7 +2300,8 @@ export const calendarData = [
         ],
         "sourceSection": "optional",
         "folderId": "16_Post_Редизайн_упаковки",
-        "folderSource": "excel"
+        "folderSource": "excel",
+        "sourceType": "archive_repack"
       }
     ],
     "archive": [],
@@ -2401,7 +2397,7 @@ export const calendarData = [
       {
         "id": "2026-06-07_setka_zadacha_reshenie_rezultat_kartochka_tovara",
         "platform": "Сетка",
-        "text": "Сетка: мини-кейс по товарному визуалу — задача, решение, результат",
+        "text": "Сетка: адаптация архивного поста «Кейс: редизайн этикетки печенья»",
         "taskType": "post",
         "checklist": [
           "text",
@@ -2411,7 +2407,8 @@ export const calendarData = [
         ],
         "sourceSection": "optional",
         "folderId": "17_Post_Кейс_редизайн_печенья",
-        "folderSource": "excel"
+        "folderSource": "excel",
+        "sourceType": "archive_repack"
       }
     ],
     "archive": [],
@@ -2610,7 +2607,7 @@ export const calendarData = [
       {
         "id": "2026-06-11_dzen_gayd_kak_vybrat_shrift_dlya_brenda",
         "platform": "Дзен",
-        "text": "Дзен: гайд — как выбрать шрифт для бренда",
+        "text": "Дзен: адаптация архивного материала «Топ 5 шрифтов»",
         "taskType": "article",
         "checklist": [
           "text",
@@ -2621,7 +2618,8 @@ export const calendarData = [
         ],
         "sourceSection": "optional",
         "folderId": "25_Post_Топ 5 шрифтов",
-        "folderSource": "excel"
+        "folderSource": "excel",
+        "sourceType": "archive_repack"
       },
       {
         "id": "2026-06-11_setka_zametka_shrift_zadaet_golos_brenda_kak_ya_dumayu",
@@ -2680,7 +2678,7 @@ export const calendarData = [
       {
         "id": "2026-06-12_facebook_do_posle_kartochki_tovara_kakie_izmeneniya_deyst",
         "platform": "Facebook",
-        "text": "Facebook: до/после товарного визуала на примере упаковки",
+        "text": "Facebook: адаптация архивного поста «Кейс: редизайн этикетки кофе»",
         "taskType": "post",
         "checklist": [
           "text",
@@ -2690,7 +2688,8 @@ export const calendarData = [
         ],
         "sourceSection": "optional",
         "folderId": "21_Post_Кейс_редизайн_кофе",
-        "folderSource": "excel"
+        "folderSource": "excel",
+        "sourceType": "archive_repack"
       }
     ],
     "archive": [],
@@ -2821,7 +2820,7 @@ export const calendarData = [
       {
         "id": "2026-06-14_setka_kak_ya_dumayu_kak_dizayner_animaciya_logotipa_do",
         "platform": "Сетка",
-        "text": "Сетка: анимация логотипа как часть работающего дизайна",
+        "text": "Сетка: адаптация архивного поста «Почему дизайн продает»",
         "taskType": "post",
         "checklist": [
           "text",
@@ -2831,7 +2830,8 @@ export const calendarData = [
         ],
         "sourceSection": "optional",
         "folderId": "13_Post_Почему дизайн продает",
-        "folderSource": "excel"
+        "folderSource": "excel",
+        "sourceType": "archive_repack"
       }
     ],
     "archive": [],
@@ -3095,7 +3095,7 @@ export const calendarData = [
       {
         "id": "2026-06-19_facebook_firmennyy_stil_eto_sistema_a_ne_tolko_logotip",
         "platform": "Facebook",
-        "text": "Фирменный стиль - это система, а не только логотип",
+        "text": "Facebook: адаптация архивного поста «Почему важно делать дизайн по брендбуку»",
         "taskType": "post",
         "checklist": [
           "text",
@@ -3106,7 +3106,8 @@ export const calendarData = [
         "sourceSection": "optional",
         "folderId": "04_Post_Зачем нужен брендбук",
         "folderSource": "excel",
-        "folderNote": "Архивная перепаковка Excel: зачем нужен брендбук"
+        "folderNote": "Архивная перепаковка Excel: зачем нужен брендбук",
+        "sourceType": "archive_repack"
       }
     ],
     "archive": [],
@@ -3219,7 +3220,7 @@ export const calendarData = [
       {
         "id": "2026-06-21_setka_oflayn_nositeli_dolzhny_prodolzhat_tu_zhe_vizual",
         "platform": "Сетка",
-        "text": "Сетка: офлайн-носители как часть единой бренд-системы",
+        "text": "Сетка: адаптация архивного поста «Почему важно делать дизайн по брендбуку»",
         "taskType": "post",
         "checklist": [
           "text",
@@ -3229,7 +3230,8 @@ export const calendarData = [
         ],
         "sourceSection": "optional",
         "folderId": "04_Post_Зачем нужен брендбук",
-        "folderSource": "excel"
+        "folderSource": "excel",
+        "sourceType": "archive_repack"
       }
     ],
     "archive": [],
@@ -3374,7 +3376,7 @@ export const calendarData = [
       {
         "id": "2026-06-24_vc_month_service_packaging",
         "platform": "vc.ru",
-        "text": "статья vc.ru: как упаковать услугу в соцсетях — оффер, визуал, доверие",
+        "text": "vc.ru: адаптация архивного материала «Гайд по оформлению соцсетей»",
         "taskType": "article",
         "checklist": [
           "article",
@@ -3388,7 +3390,8 @@ export const calendarData = [
         "monthlyFeature": true,
         "monthlyLabel": "vc.ru · сильная статья месяца",
         "defaultStatus": "planned",
-        "warning": "Проверить лимит публикаций перед подготовкой финального текста."
+        "warning": "Проверить лимит публикаций перед подготовкой финального текста.",
+        "sourceType": "archive_repack"
       }
     ],
     "prepare": [
@@ -3480,7 +3483,7 @@ export const calendarData = [
       {
         "id": "2026-06-26_facebook_myagkiy_offer_poligrafiya_i_naruzhka_pochemu_ofl",
         "platform": "Facebook",
-        "text": "Facebook: полиграфия и наружка как часть бренд-системы",
+        "text": "Facebook: адаптация архивного поста «Почему важно делать дизайн по брендбуку»",
         "taskType": "post",
         "checklist": [
           "text",
@@ -3490,7 +3493,8 @@ export const calendarData = [
         ],
         "sourceSection": "optional",
         "folderId": "04_Post_Зачем нужен брендбук",
-        "folderSource": "excel"
+        "folderSource": "excel",
+        "sourceType": "archive_repack"
       }
     ],
     "archive": [],
@@ -4082,7 +4086,7 @@ export const calendarData = [
       {
         "id": "2026-07-10_facebook_prezentaciya_ne_zakryvayut",
         "platform": "Facebook",
-        "text": "Facebook: деловая версия — презентация, которую не хочется закрывать",
+        "text": "Facebook: адаптация архивного поста «Презентация, которую не хочется закрыть на втором слайде»",
         "taskType": "post",
         "checklist": [
           "text",
@@ -4093,7 +4097,8 @@ export const calendarData = [
         "sourceSection": "optional",
         "folderId": "21_Post_Презентация_которую_не_хочется_закрыть",
         "folderSource": "excel",
-        "folderNote": "Перенесено с дня, где тема не совпадала с Telegram/VK"
+        "folderNote": "Перенесено с дня, где тема не совпадала с Telegram/VK",
+        "sourceType": "archive_repack"
       }
     ],
     "archive": [],
@@ -4189,7 +4194,7 @@ export const calendarData = [
       {
         "id": "2026-07-13_facebook_faq_dizayneru",
         "platform": "Facebook",
-        "text": "Facebook: деловая версия FAQ дизайнеру — 3 вопроса, которые лучше задать до старта",
+        "text": "Facebook: адаптация архивного поста «3 вопроса дизайнеру, которые обычно стесняются задать»",
         "taskType": "post",
         "checklist": [
           "text",
@@ -4200,7 +4205,8 @@ export const calendarData = [
         "sourceSection": "optional",
         "folderId": "23_Post_FAQ_3_вопроса_дизайнеру",
         "folderSource": "excel",
-        "folderNote": "Перенесено с дня, где тема не совпадала с Telegram/VK"
+        "folderNote": "Перенесено с дня, где тема не совпадала с Telegram/VK",
+        "sourceType": "archive_repack"
       }
     ],
     "archive": [],
@@ -4343,7 +4349,7 @@ export const calendarData = [
       {
         "id": "2026-07-15_vc_month_label_price_perception",
         "platform": "vc.ru",
-        "text": "Статья vc.ru: Как дизайн этикетки влияет на ощущение цены продукта",
+        "text": "vc.ru: адаптация архивного материала «Кейс: редизайн этикетки печенья»",
         "taskType": "article",
         "checklist": [
           "article",
@@ -4358,7 +4364,8 @@ export const calendarData = [
         "monthlyFeature": true,
         "monthlyLabel": "vc.ru · сильная статья месяца",
         "defaultStatus": "planned",
-        "warning": "Проверить лимит публикаций перед подготовкой финального текста."
+        "warning": "Проверить лимит публикаций перед подготовкой финального текста.",
+        "sourceType": "archive_repack"
       }
     ],
     "prepare": [

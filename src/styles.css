@@ -247,11 +247,75 @@ h1 {
   text-decoration: none;
 }
 
+.buttonRow .viewButton {
+  --view-accent: #8a919e;
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  color: #252932;
+  transition:
+    border-color 160ms ease,
+    background 160ms ease,
+    color 160ms ease;
+}
+
+.buttonRow .viewButton::before {
+  content: "";
+  width: 9px;
+  height: 9px;
+  flex: 0 0 auto;
+  border-radius: 999px;
+  background: var(--view-accent);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--view-accent) 14%, transparent);
+}
+
+.buttonRow .viewButton:hover,
+.buttonRow .viewButton:focus-visible {
+  border-color: color-mix(in srgb, var(--view-accent) 58%, var(--line));
+  background: color-mix(in srgb, var(--view-accent) 7%, #fff);
+}
+
+.buttonRow .viewToday {
+  --view-accent: #2271d8;
+}
+
+.buttonRow .viewPlan {
+  --view-accent: #11a7a0;
+}
+
+.buttonRow .viewWeek {
+  --view-accent: #7c55d9;
+}
+
+.buttonRow .viewPast {
+  --view-accent: #8a919e;
+}
+
+.buttonRow .viewOverdue {
+  --view-accent: #d84232;
+}
+
+.buttonRow .viewReady {
+  --view-accent: #20a464;
+}
+
+.buttonRow .viewMonthly {
+  --view-accent: #d49b0f;
+}
+
+.buttonRow .viewExtra {
+  --view-accent: #e9832c;
+}
+
 .buttonRow button.active,
 .platformFilters button.selected {
   border-color: #111318;
   background: #111318;
   color: #fff;
+}
+
+.buttonRow .viewButton.active::before {
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--view-accent) 28%, transparent);
 }
 
 .platformFilters,

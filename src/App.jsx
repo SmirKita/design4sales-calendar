@@ -40,6 +40,17 @@ const typeLabels = {
   extra: "Доп. публикации",
 };
 
+const viewAccentClass = {
+  today: "viewToday",
+  plan: "viewPlan",
+  week: "viewWeek",
+  past: "viewPast",
+  overdue: "viewOverdue",
+  ready: "viewReady",
+  vcMonthly: "viewMonthly",
+  extra: "viewExtra",
+};
+
 const platformClass = {
   "Telegram + VK": "tg",
   Instagram: "instagram",
@@ -399,7 +410,11 @@ function Filters({ view, setView, selectedPlatforms, setSelectedPlatforms, searc
     <section className="filters">
       <div className="buttonRow">
         {Object.entries(typeLabels).map(([key, label]) => (
-          <button key={key} className={view === key ? "active" : ""} onClick={() => setView(key)}>
+          <button
+            key={key}
+            className={`viewButton ${viewAccentClass[key] || ""} ${view === key ? "active" : ""}`}
+            onClick={() => setView(key)}
+          >
             {label}
           </button>
         ))}
