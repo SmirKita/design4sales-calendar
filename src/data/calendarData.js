@@ -679,35 +679,45 @@ export const calendarData = [
     "day": "Суббота",
     "dayShort": "Сб",
     "title": "День Победы",
-    "type": "video",
-    "typeLabel": "видео-сторис",
+    "type": "stories",
+    "typeLabel": "сторис",
     "priority": [
       {
         "id": "2026-05-09_telegram_vk_strogaya_prazdnichnaya_storis_bez_prodazh",
         "platform": "Telegram + VK",
-        "text": "Праздничное сторис-видео без продаж для TG/VK/Instagram Stories",
-        "taskType": "video",
+        "text": "Строгая праздничная сторис без продаж",
+        "taskType": "stories",
         "checklist": [
-          "videoReady",
-          "coverReady",
-          "publishYoutubeShorts",
-          "publishVkVideo",
-          "publishRutube",
-          "publishReels",
-          "linksTracked"
+          "text",
+          "visual",
+          "published",
+          "tracked"
         ],
         "sourceSection": "priority",
         "folderId": "09_Stories_Праздничная_сторис",
-        "folderSource": "generated",
-        "videoLabel": "Новое видео",
-        "rutubeMode": "new"
+        "folderSource": "generated"
       }
     ],
     "optional": [
       {
         "id": "2026-05-09_instagram_stories_interaktiv",
         "platform": "Instagram",
-        "text": "Instagram Stories: публикация праздничного сторис-видео без продаж",
+        "text": "Спокойная праздничная сторис",
+        "taskType": "stories",
+        "checklist": [
+          "text",
+          "visual",
+          "published",
+          "tracked"
+        ],
+        "sourceSection": "optional",
+        "folderId": "09_Stories_Праздничная_сторис",
+        "folderSource": "generated"
+      },
+      {
+        "id": "2026-05-09_reels_shorts_vk_video_prazdnichnoe_video_ko_dnyu_pobedy",
+        "platform": "Reels / Shorts / VK Видео",
+        "text": "Праздничное видео ко Дню Победы",
         "taskType": "video",
         "checklist": [
           "videoReady",
@@ -719,7 +729,7 @@ export const calendarData = [
           "linksTracked"
         ],
         "sourceSection": "optional",
-        "folderId": "09_Stories_Праздничная_сторис",
+        "folderId": "09_Post_День_Победы",
         "folderSource": "generated",
         "videoLabel": "Новое видео",
         "rutubeMode": "new"
@@ -727,11 +737,8 @@ export const calendarData = [
     ],
     "archive": [],
     "prepare": [
-      "Вертикальное видео 9:16",
-      "Обложка / первый кадр",
-      "Текст для сторис",
-      "Публикация в TG/VK/Instagram Stories",
-      "Публикация в Shorts / VK Видео / RUTUBE / Reels, если нужно"
+      "Строгая сторис, единый визуальный тон",
+      "Если нужен ролик: отдельное вертикальное видео 9:16 и обложка"
     ],
     "cta": [
       "Без CTA"
