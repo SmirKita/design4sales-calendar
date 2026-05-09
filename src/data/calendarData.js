@@ -679,45 +679,59 @@ export const calendarData = [
     "day": "Суббота",
     "dayShort": "Сб",
     "title": "День Победы",
-    "type": "stories",
-    "typeLabel": "сторис",
+    "type": "video",
+    "typeLabel": "видео-сторис",
     "priority": [
       {
         "id": "2026-05-09_telegram_vk_strogaya_prazdnichnaya_storis_bez_prodazh",
         "platform": "Telegram + VK",
-        "text": "Строгая праздничная сторис без продаж",
-        "taskType": "stories",
+        "text": "Праздничное сторис-видео без продаж для TG/VK/Instagram Stories",
+        "taskType": "video",
         "checklist": [
-          "text",
-          "visual",
-          "published",
-          "tracked"
+          "videoReady",
+          "coverReady",
+          "publishYoutubeShorts",
+          "publishVkVideo",
+          "publishRutube",
+          "publishReels",
+          "linksTracked"
         ],
         "sourceSection": "priority",
         "folderId": "09_Stories_Праздничная_сторис",
-        "folderSource": "generated"
+        "folderSource": "generated",
+        "videoLabel": "Новое видео",
+        "rutubeMode": "new"
       }
     ],
     "optional": [
       {
         "id": "2026-05-09_instagram_stories_interaktiv",
         "platform": "Instagram",
-        "text": "Stories / интерактив",
-        "taskType": "stories",
+        "text": "Instagram Stories: публикация праздничного сторис-видео без продаж",
+        "taskType": "video",
         "checklist": [
-          "text",
-          "visual",
-          "published",
-          "tracked"
+          "videoReady",
+          "coverReady",
+          "publishYoutubeShorts",
+          "publishVkVideo",
+          "publishRutube",
+          "publishReels",
+          "linksTracked"
         ],
         "sourceSection": "optional",
         "folderId": "09_Stories_Праздничная_сторис",
-        "folderSource": "generated"
+        "folderSource": "generated",
+        "videoLabel": "Новое видео",
+        "rutubeMode": "new"
       }
     ],
     "archive": [],
     "prepare": [
-      "Строгая сторис, единый визуальный тон"
+      "Вертикальное видео 9:16",
+      "Обложка / первый кадр",
+      "Текст для сторис",
+      "Публикация в TG/VK/Instagram Stories",
+      "Публикация в Shorts / VK Видео / RUTUBE / Reels, если нужно"
     ],
     "cta": [
       "Без CTA"
