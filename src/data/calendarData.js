@@ -4,14 +4,14 @@ export const calendarData = [
     "displayDate": "11.04.2026",
     "day": "Суббота",
     "dayShort": "Сб",
-    "title": "Видео-долг: 11.11",
+    "title": "Видео-долг: 3 ошибки в шапке канала",
     "type": "video_debt",
     "typeLabel": "видео-долг",
     "priority": [
       {
-        "id": "2026-04-11_video_debt_11_Video_11_11",
+        "id": "2026-04-11_video_debt_11_video_razbor_3_oshibki_v_shapke_kanala",
         "platform": "Reels / Shorts / VK Видео",
-        "text": "Доделать и выложить ролик: 11.11",
+        "text": "Доделать и выложить ролик: 3 ошибки в шапке канала",
         "taskType": "video",
         "checklist": [
           "videoReady",
@@ -23,7 +23,7 @@ export const calendarData = [
           "linksTracked"
         ],
         "sourceSection": "priority",
-        "folderId": "11_Video_11.11",
+        "folderId": "11_Видео-Разбор_3-ошибки-в-шапке-канала",
         "folderSource": "excel",
         "sourceType": "old_video_debt",
         "isBacklog": true,
@@ -51,14 +51,14 @@ export const calendarData = [
     "displayDate": "25.04.2026",
     "day": "Суббота",
     "dayShort": "Сб",
-    "title": "Видео-долг: Снегурочка приглашение на канал",
+    "title": "Видео-долг: как подача в КП тормозит сделку",
     "type": "video_debt",
     "typeLabel": "видео-долг",
     "priority": [
       {
-        "id": "2026-04-25_video_debt_25_Video_Снегурочка_приглашение_на_канал",
+        "id": "2026-04-25_video_debt_25_video_keys_kp_tormozit_sdelku",
         "platform": "Reels / Shorts / VK Видео",
-        "text": "Доделать и выложить ролик: Снегурочка приглашение на канал",
+        "text": "Доделать и выложить ролик: как подача в КП тормозит сделку",
         "taskType": "video",
         "checklist": [
           "videoReady",
@@ -70,7 +70,7 @@ export const calendarData = [
           "linksTracked"
         ],
         "sourceSection": "priority",
-        "folderId": "25_Video_Снегурочка приглашение на канал",
+        "folderId": "25_Видео-Кейс_Как-подача-в-КП-тормозит-сделку",
         "folderSource": "excel",
         "sourceType": "old_video_debt",
         "isBacklog": true,
