@@ -965,22 +965,17 @@ export const calendarData = [
       {
         "id": "2026-05-14_instagram_reels_oblozhka",
         "platform": "Instagram",
-        "text": "Reels + обложка",
-        "taskType": "video",
+        "text": "Карусель: до/после упаковки",
+        "taskType": "carousel",
         "checklist": [
-          "videoReady",
-          "coverReady",
-          "publishYoutubeShorts",
-          "publishVkVideo",
-          "publishRutube",
-          "publishReels",
-          "linksTracked"
+          "text",
+          "visual",
+          "published",
+          "tracked"
         ],
         "sourceSection": "priority",
         "folderId": "14_Post_Упаковка_и_средний_чек",
-        "folderSource": "generated",
-        "videoLabel": "Новое видео",
-        "rutubeMode": "new"
+        "folderSource": "generated"
       },
       {
         "id": "2026-05-14_shorts_reels_vk_video_do_posle_upakovki_za_10_sekund_reels_upakovka_i_",
@@ -1144,22 +1139,17 @@ export const calendarData = [
       {
         "id": "2026-05-16_instagram_reels_oblozhka",
         "platform": "Instagram",
-        "text": "Reels + обложка",
-        "taskType": "video",
+        "text": "Карусель: фото в товарный визуал",
+        "taskType": "carousel",
         "checklist": [
-          "videoReady",
-          "coverReady",
-          "publishYoutubeShorts",
-          "publishVkVideo",
-          "publishRutube",
-          "publishReels",
-          "linksTracked"
+          "text",
+          "visual",
+          "published",
+          "tracked"
         ],
         "sourceSection": "priority",
         "folderId": "16_Post_Фото_в_товарный_визуал",
-        "folderSource": "generated",
-        "videoLabel": "Новое видео",
-        "rutubeMode": "new"
+        "folderSource": "generated"
       },
       {
         "id": "2026-05-16_shorts_reels_vk_video_foto_do_posle_odin_priem_kotoryy_usilil_tovar_re",
@@ -2467,22 +2457,17 @@ export const calendarData = [
       {
         "id": "2026-06-09_instagram_reels_oblozhka",
         "platform": "Instagram",
-        "text": "Reels + обложка",
-        "taskType": "video",
+        "text": "Карусель: до/после карточки товара",
+        "taskType": "carousel",
         "checklist": [
-          "videoReady",
-          "coverReady",
-          "publishYoutubeShorts",
-          "publishVkVideo",
-          "publishRutube",
-          "publishReels",
-          "linksTracked"
+          "text",
+          "visual",
+          "published",
+          "tracked"
         ],
         "sourceSection": "priority",
         "folderId": "09_Post_после_карточки_товара",
-        "folderSource": "generated",
-        "videoLabel": "Новое видео",
-        "rutubeMode": "new"
+        "folderSource": "generated"
       },
       {
         "id": "2026-06-09_shorts_reels_vk_video_do_posle_kartochki_za_10_sekund_reels_do_posle_k",
@@ -2748,22 +2733,17 @@ export const calendarData = [
       {
         "id": "2026-06-13_instagram_reels_oblozhka",
         "platform": "Instagram",
-        "text": "Reels + обложка",
-        "taskType": "video",
+        "text": "Карусель: анимация логотипа без лишних эффектов",
+        "taskType": "carousel",
         "checklist": [
-          "videoReady",
-          "coverReady",
-          "publishYoutubeShorts",
-          "publishVkVideo",
-          "publishRutube",
-          "publishReels",
-          "linksTracked"
+          "text",
+          "visual",
+          "published",
+          "tracked"
         ],
         "sourceSection": "priority",
         "folderId": "13_Post_Анимация_логотипа",
-        "folderSource": "generated",
-        "videoLabel": "Новое видео",
-        "rutubeMode": "new"
+        "folderSource": "generated"
       },
       {
         "id": "2026-06-13_shorts_reels_vk_video_logotip_ozhil_chto_vazhno_ne_isportit_reels_anim",
