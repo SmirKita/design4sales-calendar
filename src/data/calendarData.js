@@ -1,5 +1,99 @@
 export const calendarData = [
   {
+    "date": "2026-04-11",
+    "displayDate": "11.04.2026",
+    "day": "Суббота",
+    "dayShort": "Сб",
+    "title": "Видео-долг: 11.11",
+    "type": "video_debt",
+    "typeLabel": "видео-долг",
+    "priority": [
+      {
+        "id": "2026-04-11_video_debt_11_Video_11_11",
+        "platform": "Reels / Shorts / VK Видео",
+        "text": "Доделать и выложить ролик: 11.11",
+        "taskType": "video",
+        "checklist": [
+          "videoReady",
+          "coverReady",
+          "publishYoutubeShorts",
+          "publishVkVideo",
+          "publishRutube",
+          "publishReels",
+          "linksTracked"
+        ],
+        "sourceSection": "priority",
+        "folderId": "11_Video_11.11",
+        "folderSource": "excel",
+        "sourceType": "old_video_debt",
+        "isBacklog": true,
+        "isVideoDebt": true,
+        "videoLabel": "Видео-долг",
+        "defaultStatus": "not_started"
+      }
+    ],
+    "optional": [],
+    "archive": [],
+    "prepare": [
+      "Доделать монтаж ролика",
+      "Проверить обложку / первый кадр",
+      "Подготовить название и описание",
+      "Выложить в YouTube Shorts / VK Видео / RUTUBE / Reels, если нужно",
+      "Внести ссылки в контент-таблицу"
+    ],
+    "cta": [
+      "Доделать и закрыть видео-долг"
+    ],
+    "calendarNote": "Старое недоделанное видео до старта 90-дневного плана"
+  },
+  {
+    "date": "2026-04-25",
+    "displayDate": "25.04.2026",
+    "day": "Суббота",
+    "dayShort": "Сб",
+    "title": "Видео-долг: Снегурочка приглашение на канал",
+    "type": "video_debt",
+    "typeLabel": "видео-долг",
+    "priority": [
+      {
+        "id": "2026-04-25_video_debt_25_Video_Снегурочка_приглашение_на_канал",
+        "platform": "Reels / Shorts / VK Видео",
+        "text": "Доделать и выложить ролик: Снегурочка приглашение на канал",
+        "taskType": "video",
+        "checklist": [
+          "videoReady",
+          "coverReady",
+          "publishYoutubeShorts",
+          "publishVkVideo",
+          "publishRutube",
+          "publishReels",
+          "linksTracked"
+        ],
+        "sourceSection": "priority",
+        "folderId": "25_Video_Снегурочка приглашение на канал",
+        "folderSource": "excel",
+        "sourceType": "old_video_debt",
+        "isBacklog": true,
+        "isVideoDebt": true,
+        "videoLabel": "Видео-долг",
+        "defaultStatus": "not_started"
+      }
+    ],
+    "optional": [],
+    "archive": [],
+    "prepare": [
+      "Доделать монтаж ролика",
+      "Проверить обложку / первый кадр",
+      "Подготовить название и описание",
+      "Выложить в YouTube Shorts / VK Видео / RUTUBE / Reels, если нужно",
+      "Внести ссылки в контент-таблицу"
+    ],
+    "cta": [
+      "Доделать и закрыть видео-долг"
+    ],
+    "calendarNote": "Старое недоделанное видео до старта 90-дневного плана"
+  },
+  {
     "date": "2026-04-28",
     "displayDate": "28.04.2026",
     "day": "Вторник",

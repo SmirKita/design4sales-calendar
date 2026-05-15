@@ -821,7 +821,7 @@ export default function App() {
       const isCompleted = dayProgress.total > 0 && dayProgress.done === dayProgress.total;
       if (view === "today" && day.date !== nearestDay.date) return false;
       if (view === "plan" && isPast && isCompleted) return false;
-      if (view === "past" && (!isPast || !isCompleted)) return false;
+      if (view === "past" && !isPast) return false;
       if (view === "week" && !sameWeek(date, weekAnchor)) return false;
       if (
         view === "overdue" &&
