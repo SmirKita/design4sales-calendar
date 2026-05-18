@@ -847,25 +847,7 @@ export const calendarData = [
     "type": "post",
     "typeLabel": "основной пост",
     "priority": [],
-    "optional": [
-      {
-        "id": "2026-05-10_setka_oshibka_biznesa_v_vizuale_silnyy_profil_eto_iera",
-        "platform": "Сетка",
-        "text": "Сетка: адаптация архивного поста «Гайд по оформлению соцсетей»",
-        "taskType": "post",
-        "checklist": [
-          "text",
-          "visual",
-          "published",
-          "tracked"
-        ],
-        "sourceSection": "optional",
-        "folderId": "24_Post_Гайд соцпрофиль",
-        "folderSource": "excel",
-        "folderNote": "Архивная перепаковка Excel: гайд по оформлению соцсетей / профиля",
-        "sourceType": "archive_repack"
-      }
-    ],
+    "optional": [],
     "archive": [],
     "prepare": [
       "Сетка: проф. разбор без A/B-голосования"
@@ -1304,24 +1286,7 @@ export const calendarData = [
     "type": "post",
     "typeLabel": "основной пост",
     "priority": [],
-    "optional": [
-      {
-        "id": "2026-05-17_setka_kak_ya_dumayu_kak_dizayner_retush_dolzhna_usiliv",
-        "platform": "Сетка",
-        "text": "Сетка: адаптация архивного поста «Редизайн упаковки: что меняем, чтобы товар не терялся на полке»",
-        "taskType": "post",
-        "checklist": [
-          "text",
-          "visual",
-          "published",
-          "tracked"
-        ],
-        "sourceSection": "optional",
-        "folderId": "16_Post_Редизайн_упаковки",
-        "folderSource": "excel",
-        "sourceType": "archive_repack"
-      }
-    ],
+    "optional": [],
     "archive": [],
     "prepare": [
       "Сетка: ход мысли дизайнера — что усилить в фото и где граница ретуши"
@@ -1709,41 +1674,7 @@ export const calendarData = [
     "type": "post",
     "typeLabel": "основной пост",
     "priority": [],
-    "optional": [
-      {
-        "id": "2026-05-24_setka_redizayn_etiketki_kofe_zametnost_nachinaetsya_do",
-        "platform": "Сетка",
-        "text": "Сетка: адаптация архивного поста «Кейс: редизайн этикетки кофе»",
-        "taskType": "post",
-        "checklist": [
-          "text",
-          "visual",
-          "published",
-          "tracked"
-        ],
-        "sourceSection": "optional",
-        "folderId": "21_Post_Кейс_редизайн_кофе",
-        "folderSource": "excel",
-        "sourceType": "archive_repack"
-      },
-      {
-        "id": "2026-05-24_facebook_redizayn_etiketki_kofe",
-        "platform": "Facebook",
-        "text": "Facebook: адаптация архивного поста «Кейс: редизайн этикетки кофе»",
-        "taskType": "case",
-        "checklist": [
-          "text",
-          "visual",
-          "published",
-          "tracked"
-        ],
-        "sourceSection": "optional",
-        "folderId": "21_Post_Кейс_редизайн_кофе",
-        "folderSource": "excel",
-        "folderNote": "Перенесено с дня, где тема не совпадала с Telegram/VK",
-        "sourceType": "archive_repack"
-      }
-    ],
+    "optional": [],
     "archive": [],
     "prepare": [
       "Сетка: заметка — задача, проблема старой этикетки, что изменили",
@@ -2498,24 +2429,7 @@ export const calendarData = [
     "type": "post",
     "typeLabel": "основной пост",
     "priority": [],
-    "optional": [
-      {
-        "id": "2026-06-07_setka_zadacha_reshenie_rezultat_kartochka_tovara",
-        "platform": "Сетка",
-        "text": "Сетка: адаптация архивного поста «Кейс: редизайн этикетки печенья»",
-        "taskType": "post",
-        "checklist": [
-          "text",
-          "visual",
-          "published",
-          "tracked"
-        ],
-        "sourceSection": "optional",
-        "folderId": "17_Post_Кейс_редизайн_печенья",
-        "folderSource": "excel",
-        "sourceType": "archive_repack"
-      }
-    ],
+    "optional": [],
     "archive": [],
     "prepare": [
       "Сетка: Подготовить заранее как кейс: что было непонятно, что изменили"
@@ -2911,24 +2825,7 @@ export const calendarData = [
     "type": "post",
     "typeLabel": "основной пост",
     "priority": [],
-    "optional": [
-      {
-        "id": "2026-06-14_setka_kak_ya_dumayu_kak_dizayner_animaciya_logotipa_do",
-        "platform": "Сетка",
-        "text": "Сетка: адаптация архивного поста «Почему дизайн продает»",
-        "taskType": "post",
-        "checklist": [
-          "text",
-          "visual",
-          "published",
-          "tracked"
-        ],
-        "sourceSection": "optional",
-        "folderId": "13_Post_Почему дизайн продает",
-        "folderSource": "excel",
-        "sourceType": "archive_repack"
-      }
-    ],
+    "optional": [],
     "archive": [],
     "prepare": [
       "Сетка: профессиональная заметка о критериях уместной анимации"
@@ -3311,24 +3208,7 @@ export const calendarData = [
     "type": "post",
     "typeLabel": "основной пост",
     "priority": [],
-    "optional": [
-      {
-        "id": "2026-06-21_setka_oflayn_nositeli_dolzhny_prodolzhat_tu_zhe_vizual",
-        "platform": "Сетка",
-        "text": "Сетка: адаптация архивного поста «Почему важно делать дизайн по брендбуку»",
-        "taskType": "post",
-        "checklist": [
-          "text",
-          "visual",
-          "published",
-          "tracked"
-        ],
-        "sourceSection": "optional",
-        "folderId": "04_Post_Зачем нужен брендбук",
-        "folderSource": "excel",
-        "sourceType": "archive_repack"
-      }
-    ],
+    "optional": [],
     "archive": [],
     "prepare": [
       "Сетка: вывод о связке онлайн-визуала и офлайн-носителей"
