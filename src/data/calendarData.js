@@ -1689,14 +1689,14 @@ export const calendarData = [
     "displayDate": "26.05.2026",
     "day": "Вторник",
     "dayShort": "Вт",
-    "title": "Мини-консалтинг по визуалу",
-    "type": "video",
-    "typeLabel": "видео",
+    "title": "Мини-разбор визуала подписчика",
+    "type": "interactive_review",
+    "typeLabel": "интерактив / разбор",
     "priority": [
       {
         "id": "2026-05-26_telegram_vk_post_akciya_mini_konsalting_po_vizualu_dlya_3_po",
         "platform": "Telegram + VK",
-        "text": "Пост-акция Мини-консалтинг по визуалу для 3 подписчиков",
+        "text": "Пост-интерактив: мини-разбор визуала для 3 подписчиков — пришли макет, карточку или баннер",
         "taskType": "post",
         "checklist": [
           "text",
@@ -1711,7 +1711,7 @@ export const calendarData = [
       {
         "id": "2026-05-26_shorts_reels_vk_video_razberu_vizual_3_podpischikov_reels_kofeynaya_et",
         "platform": "Reels / Shorts / VK Видео",
-        "text": "Reels/Shorts: разбор визуала подписчика за 20 секунд",
+        "text": "Reels/Shorts: Лина проверяет визуал подписчика за 20 секунд",
         "taskType": "video",
         "checklist": [
           "videoReady",
@@ -1733,7 +1733,7 @@ export const calendarData = [
       {
         "id": "2026-05-26_instagram_stories_interaktiv",
         "platform": "Instagram",
-        "text": "Stories / интерактив",
+        "text": "Stories: стикер-вопрос — пришли визуал на мини-разбор",
         "taskType": "stories",
         "checklist": [
           "text",
@@ -1748,7 +1748,7 @@ export const calendarData = [
       {
         "id": "2026-05-26_facebook_delovoy_anons_mini_konsaltinga_mini_keys_redizay",
         "platform": "Facebook",
-        "text": "Facebook: мягкий оффер — мини-консалтинг по визуалу",
+        "text": "Facebook: деловой анонс мини-разбора с примером до/после",
         "taskType": "post",
         "checklist": [
           "text",
@@ -1764,29 +1764,31 @@ export const calendarData = [
     ],
     "archive": [],
     "prepare": [
-      "мини-консалтинг: 3 примера",
-      "короткий ролик",
-      "Facebook: кейс этикетки кофе"
+      "баннер акции с форматом: пришли макет — выберу 3 на мини-разбор",
+      "1 пример до/после или мини-разбор на своём макете",
+      "короткий ролик: Лина выбирает, что проверить первым",
+      "Facebook: спокойный оффер без игры, с примером результата"
     ],
     "cta": [
-      "Комментарий + заявка",
-      "Какой вариант заметнее?",
-      "Telegram/VK с визуалами"
-    ]
+      "Написать: РАЗБОР",
+      "Прислать макет / карточку / баннер",
+      "Мини-разбор для 3 подписчиков"
+    ],
+    "calendarNote": "Скорректировано после анализа эффективности: сильный первый кадр → конкретный визуальный пример → один понятный CTA в личку/комментарии."
   },
   {
     "date": "2026-05-28",
     "displayDate": "28.05.2026",
     "day": "Четверг",
     "dayShort": "Чт",
-    "title": "AI как инструмент",
-    "type": "video",
-    "typeLabel": "видео",
+    "title": "AI или дизайнер: где инструмент не справился",
+    "type": "ab_review",
+    "typeLabel": "A/B / разбор",
     "priority": [
       {
         "id": "2026-05-28_telegram_vk_post_offer_ai_kak_rabochiy_instrument",
         "platform": "Telegram + VK",
-        "text": "Пост-оффер: AI как рабочий инструмент",
+        "text": "Пост-разбор: AI или дизайнер — где инструмент помогает, а где ломает визуал",
         "taskType": "post",
         "checklist": [
           "text",
@@ -1801,7 +1803,7 @@ export const calendarData = [
       {
         "id": "2026-05-28_instagram_karusel_4_5_ai_podhodit_ai_ne_podhodit_karusel_4",
         "platform": "Instagram",
-        "text": "карусель 4:5: AI подходит / AI не подходит — где дизайнер все равно нужен",
+        "text": "Карусель 4:5: AI подходит / AI не подходит — примеры, где нужен дизайнерский контроль",
         "taskType": "carousel",
         "checklist": [
           "text",
@@ -1816,7 +1818,7 @@ export const calendarData = [
       {
         "id": "2026-05-28_shorts_reels_vk_video_ai_ili_dizayner",
         "platform": "Reels / Shorts / VK Видео",
-        "text": "AI или дизайнер?",
+        "text": "A/B ролик: AI или дизайнер — найди, где визуал выглядит слабее",
         "taskType": "video",
         "checklist": [
           "videoReady",
@@ -1838,7 +1840,7 @@ export const calendarData = [
       {
         "id": "2026-05-28_dzen_gayd_gde_ai_pomogaet_biznesu_a_gde_nuzhen_dizayn",
         "platform": "Дзен",
-        "text": "Гайд: Где AI помогает бизнесу, а где нужен дизайнер",
+        "text": "Дзен: гайд — где AI помогает бизнесу, а где нужен дизайнерский контроль",
         "taskType": "article",
         "checklist": [
           "text",
@@ -1854,7 +1856,7 @@ export const calendarData = [
       {
         "id": "2026-05-28_setka_prof_zametka_ai_uskoryaet_varianty_no_ne_zamenya",
         "platform": "Сетка",
-        "text": "Сетка: профессиональная заметка — AI ускоряет варианты, но не заменяет задачу, вкус и контроль",
+        "text": "Сетка: проф. заметка — AI ускоряет варианты, но не заменяет задачу, вкус и контроль качества",
         "taskType": "post",
         "checklist": [
           "text",
@@ -1869,7 +1871,7 @@ export const calendarData = [
       {
         "id": "2026-05-28_facebook_ekspertnyy_post_pro_ai_bez_haypa",
         "platform": "Facebook",
-        "text": "Экспертный пост про AI без хайпа",
+        "text": "Facebook: экспертный пост про AI без хайпа, с конкретными примерами применения",
         "taskType": "post",
         "checklist": [
           "text",
@@ -1884,14 +1886,17 @@ export const calendarData = [
     ],
     "archive": [],
     "prepare": [
-      "5 карточек AI/дизайнер",
-      "ролик"
+      "2-3 пары визуалов: AI-вариант и дизайнерская доработка",
+      "карусель: где AI помогает, а где нужен контроль дизайнера",
+      "ролик A/B: зритель выбирает, где ошибка",
+      "Сетка/Facebook: без хайпа — вывод про задачу, вкус и контроль качества"
     ],
     "cta": [
-      "Напишите: AI",
-      "Написать «AI»",
-      "Обсудить задачу"
-    ]
+      "Выбери A или B",
+      "Написать: AI",
+      "Прислать задачу — подскажу, нужен AI, Photoshop или полноценный дизайн"
+    ],
+    "calendarNote": "Скорректировано после анализа эффективности: сильный первый кадр → конкретный визуальный пример → один понятный CTA в личку/комментарии."
   },
   {
     "date": "2026-05-29",
@@ -1933,14 +1938,14 @@ export const calendarData = [
     "displayDate": "30.05.2026",
     "day": "Суббота",
     "dayShort": "Сб",
-    "title": "Фото, AI или Photoshop",
-    "type": "video",
-    "typeLabel": "видео",
+    "title": "Фото, AI или Photoshop: что выбрать для товарного визуала",
+    "type": "choice_video",
+    "typeLabel": "выбор / видео",
     "priority": [
       {
         "id": "2026-05-30_telegram_vk_post_s_video_foto_ai_ili_photoshop",
         "platform": "Telegram + VK",
-        "text": "Пост с видео Фото, AI или Photoshop",
+        "text": "Пост с видео: Фото, AI или Photoshop — что выбрать для товарного визуала",
         "taskType": "post",
         "checklist": [
           "text",
@@ -1977,7 +1982,7 @@ export const calendarData = [
       {
         "id": "2026-05-30_instagram_stories_interaktiv",
         "platform": "Instagram",
-        "text": "Stories / интерактив",
+        "text": "Stories: опрос — что лучше для этой задачи: фото, AI или Photoshop?",
         "taskType": "stories",
         "checklist": [
           "text",
@@ -1992,7 +1997,7 @@ export const calendarData = [
       {
         "id": "2026-05-30_facebook_s_kriteriyami_vybora_podhoda",
         "platform": "Facebook",
-        "text": "с критериями выбора подхода",
+        "text": "Facebook: критерии выбора подхода — фото, AI или Photoshop",
         "taskType": "post",
         "checklist": [
           "text",
@@ -2007,14 +2012,17 @@ export const calendarData = [
     ],
     "archive": [],
     "prepare": [
-      "Сравнение 3 подходов, субтитры, опрос",
-      "IG: Вертикальное сравнение 3 подходов, титры, обложка",
-      "сторис-голосование"
+      "3 визуальных примера: фото, AI, Photoshop-доработка",
+      "опрос: какой подход подходит для задачи?",
+      "ролик с одной мыслью: не каждый товарный визуал надо генерировать",
+      "обложка с вопросом: Фото, AI или Photoshop?"
     ],
     "cta": [
-      "Напишите задачу",
-      "Написать задачу"
-    ]
+      "Написать задачу",
+      "Выбрать подход в опросе",
+      "Прислать фото товара на быстрый совет"
+    ],
+    "calendarNote": "Скорректировано после анализа эффективности: сильный первый кадр → конкретный визуальный пример → один понятный CTA в личку/комментарии."
   },
   {
     "date": "2026-06-01",
@@ -2076,14 +2084,14 @@ export const calendarData = [
     "displayDate": "02.06.2026",
     "day": "Вторник",
     "dayShort": "Вт",
-    "title": "Летний визуал",
-    "type": "video",
-    "typeLabel": "видео",
+    "title": "5 мест, где визуал устарел за 3 секунды",
+    "type": "checklist_video",
+    "typeLabel": "чек-лист / видео",
     "priority": [
       {
         "id": "2026-06-02_telegram_vk_chek_list_5_obnovleniy_vizuala_k_letu",
         "platform": "Telegram + VK",
-        "text": "Чек-лист 5 обновлений визуала к лету",
+        "text": "Чек-лист: 5 мест, где визуал устарел за 3 секунды",
         "taskType": "checklist",
         "checklist": [
           "text",
@@ -2098,7 +2106,7 @@ export const calendarData = [
       {
         "id": "2026-06-02_instagram_karusel_4_5_yarkaya_karusel_chek_list_karusel_4_",
         "platform": "Instagram",
-        "text": "карусель 4:5: Летний визуал — что обновить в дизайне без хаоса",
+        "text": "Карусель 4:5: летний визуал — что обновить без хаоса и потери бренда",
         "taskType": "carousel",
         "checklist": [
           "text",
@@ -2113,7 +2121,7 @@ export const calendarData = [
       {
         "id": "2026-06-02_shorts_reels_vk_video_5_veschey_v_vizuale_kotorye_nado_obnovit_do_leta",
         "platform": "Reels / Shorts / VK Видео",
-        "text": "5 вещей в визуале, которые надо обновить до лета",
+        "text": "Ролик: 5 вещей в визуале, которые надо обновить до лета",
         "taskType": "video",
         "checklist": [
           "videoReady",
@@ -2135,7 +2143,7 @@ export const calendarData = [
       {
         "id": "2026-06-02_dzen_gayd_kak_sdelat_vizual_biznesa_k_letu",
         "platform": "Дзен",
-        "text": "Гайд: Как сделать визуал бизнеса к лету",
+        "text": "Дзен: гайд — как обновить визуал бизнеса к лету без визуального шума",
         "taskType": "article",
         "checklist": [
           "text",
@@ -2151,7 +2159,7 @@ export const calendarData = [
       {
         "id": "2026-06-02_setka_rabochiy_vyvod_pro_sezonnoe_obnovlenie_vizuala_r",
         "platform": "Сетка",
-        "text": "Сетка: рабочий вывод — сезонное обновление визуала должно сохранять узнаваемость бренда",
+        "text": "Сетка: рабочий вывод — сезонное обновление должно усиливать, а не ломать узнаваемость",
         "taskType": "post",
         "checklist": [
           "text",
@@ -2166,7 +2174,7 @@ export const calendarData = [
       {
         "id": "2026-06-02_facebook_poleznyy_delovoy_chek_list_chek_list_kak_obyasni",
         "platform": "Facebook",
-        "text": "Facebook: чек-лист — 5 обновлений визуала к лету",
+        "text": "Facebook: деловой чек-лист — 5 точек визуала, которые стоит обновить",
         "taskType": "checklist",
         "checklist": [
           "text",
@@ -2182,31 +2190,31 @@ export const calendarData = [
     ],
     "archive": [],
     "prepare": [
-      "4-6 карточек летнего визуала",
-      "ролик",
-      "Facebook: чек-лист ТЗ",
-      "Сетка: заметка про узнаваемость"
+      "5 карточек: обложка, баннер, карточка товара, профиль, сторис",
+      "первый слайд с проблемой: где визуал выглядит устаревшим?",
+      "ролик: 5 точек визуала, которые надо обновить к лету",
+      "Facebook/Сетка: деловой вывод про сезонное обновление без потери узнаваемости"
     ],
     "cta": [
-      "Напишите: ЛЕТО",
-      "Сохранить / написать «УПАКОВКА»",
-      "Написать «ТЗ»",
-      "Сохранить чек-лист"
-    ]
+      "Написать: ЛЕТО",
+      "Сохранить чек-лист",
+      "Прислать профиль / баннер на быстрый совет"
+    ],
+    "calendarNote": "Скорректировано после анализа эффективности: сильный первый кадр → конкретный визуальный пример → один понятный CTA в личку/комментарии."
   },
   {
     "date": "2026-06-04",
     "displayDate": "04.06.2026",
     "day": "Четверг",
     "dayShort": "Чт",
-    "title": "Карточка товара",
-    "type": "video",
-    "typeLabel": "видео",
+    "title": "Карточка товара: что покупатель должен понять сразу",
+    "type": "offer_review",
+    "typeLabel": "оффер через разбор",
     "priority": [
       {
         "id": "2026-06-04_telegram_vk_offer_kartochka_tovara_kak_vitrina",
         "platform": "Telegram + VK",
-        "text": "Оффер Карточка товара как витрина",
+        "text": "Оффер через разбор: карточка товара как витрина — что покупатель должен понять сразу",
         "taskType": "post",
         "checklist": [
           "text",
@@ -2221,7 +2229,7 @@ export const calendarData = [
       {
         "id": "2026-06-04_instagram_karusel_4_5_kartochka_kak_vitrina_karusel_4_5_ka",
         "platform": "Instagram",
-        "text": "карусель 4:5: Карточка товара как витрина — что покупатель должен понять сразу",
+        "text": "Карусель 4:5: карточка товара как витрина — что видно сразу, а что мешает покупке",
         "taskType": "carousel",
         "checklist": [
           "text",
@@ -2236,7 +2244,7 @@ export const calendarData = [
       {
         "id": "2026-06-04_shorts_reels_vk_video_chto_ubrat_iz_kartochki_pervym",
         "platform": "Reels / Shorts / VK Видео",
-        "text": "Что убрать из карточки первым?",
+        "text": "Ролик: что убрать из карточки товара первым?",
         "taskType": "video",
         "checklist": [
           "videoReady",
@@ -2258,7 +2266,7 @@ export const calendarData = [
       {
         "id": "2026-06-04_dzen_seo_statya_kak_oformit_kartochku_tovara",
         "platform": "Дзен",
-        "text": "SEO-Статья: Как оформить карточку товара",
+        "text": "Дзен: SEO-статья — как оформить карточку товара, чтобы её читали",
         "taskType": "article",
         "checklist": [
           "text",
@@ -2274,7 +2282,7 @@ export const calendarData = [
       {
         "id": "2026-06-04_setka_oshibka_biznesa_v_vizuale_kartochka_ne_dolzhna_s",
         "platform": "Сетка",
-        "text": "Сетка: ошибка бизнеса в визуале — карточка товара не должна спорить за внимание",
+        "text": "Сетка: ошибка бизнеса — карточка товара не должна спорить за внимание",
         "taskType": "post",
         "checklist": [
           "text",
@@ -2289,7 +2297,7 @@ export const calendarData = [
       {
         "id": "2026-06-04_facebook_pro_kartochku_tovara",
         "platform": "Facebook",
-        "text": "про карточку товара",
+        "text": "Facebook: деловой пост — карточка товара как витрина, а не склад текста",
         "taskType": "post",
         "checklist": [
           "text",
@@ -2304,14 +2312,17 @@ export const calendarData = [
     ],
     "archive": [],
     "prepare": [
-      "карточка товара до/после",
-      "ролик"
+      "карточка товара до/после с явной визуальной иерархией",
+      "первый кадр: что убрать из карточки первым?",
+      "карусель: обложка, УТП, доверие, характеристики, CTA",
+      "Дзен: SEO-статья с практической структурой карточки"
     ],
     "cta": [
-      "Напишите: КАРТОЧКА",
-      "Написать «КАРТОЧКА»",
-      "Перейти в канал"
-    ]
+      "Написать: КАРТОЧКА",
+      "Прислать карточку на мини-разбор",
+      "Сохранить структуру карточки"
+    ],
+    "calendarNote": "Скорректировано после анализа эффективности: сильный первый кадр → конкретный визуальный пример → один понятный CTA в личку/комментарии."
   },
   {
     "date": "2026-06-05",
@@ -2353,14 +2364,14 @@ export const calendarData = [
     "displayDate": "06.06.2026",
     "day": "Суббота",
     "dayShort": "Сб",
-    "title": "Боль карточек товара",
-    "type": "video",
-    "typeLabel": "видео",
+    "title": "Одна ошибка карточки, из-за которой её не читают",
+    "type": "stories_video",
+    "typeLabel": "сторис / видео",
     "priority": [
       {
         "id": "2026-06-06_telegram_vk_storis_opros_melkiy_tekst_ili_haos",
         "platform": "Telegram + VK",
-        "text": "Сторис-опрос Мелкий текст или хаос?",
+        "text": "Сторис-опрос: что сильнее убивает карточку — мелкий текст или визуальный хаос?",
         "taskType": "stories",
         "checklist": [
           "text",
@@ -2375,7 +2386,7 @@ export const calendarData = [
       {
         "id": "2026-06-06_shorts_reels_vk_video_odna_oshibka_kartochki_iz_za_kotoroy_ee_ne_chita",
         "platform": "Reels / Shorts / VK Видео",
-        "text": "Reels/Shorts: одна ошибка карточки товара, из-за которой ее не читают",
+        "text": "Reels/Shorts: одна ошибка карточки товара, из-за которой её не читают",
         "taskType": "video",
         "checklist": [
           "videoReady",
@@ -2397,7 +2408,7 @@ export const calendarData = [
       {
         "id": "2026-06-06_instagram_stories_interaktiv",
         "platform": "Instagram",
-        "text": "Stories / интерактив",
+        "text": "Instagram Stories: голосование — мелкий текст или хаос?",
         "taskType": "stories",
         "checklist": [
           "text",
@@ -2412,13 +2423,16 @@ export const calendarData = [
     ],
     "archive": [],
     "prepare": [
-      "2 сторис, примеры, голосование",
-      "ролик",
-      "IG: 2 сторис с голосованием, один короткий ролик с ошибкой карточки и"
+      "2 варианта карточки: мелкий текст vs визуальный хаос",
+      "сторис-опрос с выбором проблемы",
+      "короткий ролик с ответом и переходом в разбор"
     ],
     "cta": [
-      "Переход в пост"
-    ]
+      "Выбрать в опросе",
+      "Переход в пост-разбор",
+      "Прислать карточку на мини-аудит"
+    ],
+    "calendarNote": "Скорректировано после анализа эффективности: сильный первый кадр → конкретный визуальный пример → один понятный CTA в личку/комментарии."
   },
   {
     "date": "2026-06-07",
@@ -2443,14 +2457,14 @@ export const calendarData = [
     "displayDate": "09.06.2026",
     "day": "Вторник",
     "dayShort": "Вт",
-    "title": "До/после карточки товара",
-    "type": "video",
-    "typeLabel": "видео",
+    "title": "До/после карточки товара: что изменилось и зачем",
+    "type": "case_before_after",
+    "typeLabel": "кейс / до-после",
     "priority": [
       {
         "id": "2026-06-09_telegram_vk_keys_do_i_posle_kartochki_tovara",
         "platform": "Telegram + VK",
-        "text": "Кейс До и после карточки товара",
+        "text": "Кейс: до/после карточки товара — что изменилось и зачем",
         "taskType": "case",
         "checklist": [
           "text",
@@ -2465,7 +2479,7 @@ export const calendarData = [
       {
         "id": "2026-06-09_instagram_reels_oblozhka",
         "platform": "Instagram",
-        "text": "Карусель: до/после карточки товара",
+        "text": "Карусель: до/после карточки товара с выносками по иерархии",
         "taskType": "carousel",
         "checklist": [
           "text",
@@ -2502,7 +2516,7 @@ export const calendarData = [
       {
         "id": "2026-06-09_dzen_keys_kak_uluchshit_kartochku_tovara",
         "platform": "Дзен",
-        "text": "Дзен: кейс — как улучшить карточку товара",
+        "text": "Дзен: кейс — как улучшить карточку товара без визуального шума",
         "taskType": "article",
         "checklist": [
           "text",
@@ -2518,7 +2532,7 @@ export const calendarData = [
       {
         "id": "2026-06-09_setka_mini_keys_po_kartochke_tovara",
         "platform": "Сетка",
-        "text": "Мини-кейс по карточке товара",
+        "text": "Сетка: мини-кейс — задача, решение, результат по карточке товара",
         "taskType": "case",
         "checklist": [
           "text",
@@ -2533,7 +2547,7 @@ export const calendarData = [
       {
         "id": "2026-06-09_facebook_delovoy_keys_po_kartochke_mini_keys_oformlenie_p",
         "platform": "Facebook",
-        "text": "Facebook: мини-кейс по карточке товара — что изменили в визуальной иерархии",
+        "text": "Facebook: деловой мини-кейс по карточке товара — что изменили в визуальной иерархии",
         "taskType": "case",
         "checklist": [
           "text",
@@ -2548,28 +2562,30 @@ export const calendarData = [
     ],
     "archive": [],
     "prepare": [
-      "до/после карточки товара",
-      "ролик",
-      "Facebook: мини-кейс карточки"
+      "до/после карточки товара с 3 выносками",
+      "ролик 10 секунд: было непонятно → стало читаемо",
+      "Дзен/Сетка/Facebook: один кейс, но разная подача по площадкам"
     ],
     "cta": [
-      "Разбор карточки",
-      "Мини-аудит профиля"
-    ]
+      "Прислать карточку на разбор",
+      "Написать: КАРТОЧКА",
+      "Сохранить пример структуры"
+    ],
+    "calendarNote": "Скорректировано после анализа эффективности: сильный первый кадр → конкретный визуальный пример → один понятный CTA в личку/комментарии."
   },
   {
     "date": "2026-06-11",
     "displayDate": "11.06.2026",
     "day": "Четверг",
     "dayShort": "Чт",
-    "title": "Современные шрифты",
-    "type": "post",
-    "typeLabel": "основной пост",
+    "title": "A/B: какой шрифт выглядит дороже?",
+    "type": "ab_fonts",
+    "typeLabel": "A/B / шрифты",
     "priority": [
       {
         "id": "2026-06-11_telegram_vk_podborka_5_sovremennyh_shriftov",
         "platform": "Telegram + VK",
-        "text": "Подборка 5 современных шрифтов",
+        "text": "A/B-подборка: 5 современных шрифтов — какой вариант выглядит дороже?",
         "taskType": "post",
         "checklist": [
           "text",
@@ -2584,7 +2600,7 @@ export const calendarData = [
       {
         "id": "2026-06-11_instagram_karusel_4_5_5_shriftov_gde_ispolzovat_karusel_4_",
         "platform": "Instagram",
-        "text": "карусель 4:5: 5 шрифтов — где использовать и каких ошибок избегать",
+        "text": "Карусель 4:5: 5 шрифтов — где использовать и каких ошибок избегать",
         "taskType": "carousel",
         "checklist": [
           "text",
@@ -2599,7 +2615,7 @@ export const calendarData = [
       {
         "id": "2026-06-11_shorts_reels_vk_video_a_b_kakoy_shrift_sovremennee",
         "platform": "Reels / Shorts / VK Видео",
-        "text": "A/B: какой шрифт современнее?",
+        "text": "A/B ролик: какой шрифт выглядит современнее и дороже?",
         "taskType": "video",
         "checklist": [
           "videoReady",
@@ -2621,7 +2637,7 @@ export const calendarData = [
       {
         "id": "2026-06-11_dzen_gayd_kak_vybrat_shrift_dlya_brenda",
         "platform": "Дзен",
-        "text": "Дзен: адаптация архивного материала «Топ 5 шрифтов»",
+        "text": "Дзен: гайд — как выбрать шрифт для бренда без дизайнерского снобизма",
         "taskType": "article",
         "checklist": [
           "text",
@@ -2638,7 +2654,7 @@ export const calendarData = [
       {
         "id": "2026-06-11_setka_zametka_shrift_zadaet_golos_brenda_kak_ya_dumayu",
         "platform": "Сетка",
-        "text": "Сетка: заметка — современные шрифты задают голос бренда",
+        "text": "Сетка: заметка — шрифт задаёт голос бренда",
         "taskType": "post",
         "checklist": [
           "text",
@@ -2654,7 +2670,7 @@ export const calendarData = [
       {
         "id": "2026-06-11_facebook_ekspertnaya_zametka_pro_shrift",
         "platform": "Facebook",
-        "text": "Facebook: экспертная заметка — как современные шрифты меняют ощущение бренда",
+        "text": "Facebook: экспертная заметка — как шрифт меняет ощущение бренда",
         "taskType": "post",
         "checklist": [
           "text",
@@ -2670,14 +2686,17 @@ export const calendarData = [
     ],
     "archive": [],
     "prepare": [
-      "5 карточек типографики",
-      "Дзен: статья про выбор шрифта",
-      "Facebook/Сетка: короткие адаптации"
+      "5 пар шрифтов: устаревший vs современный",
+      "первый слайд: какой вариант выглядит дороже?",
+      "ролик A/B с быстрым объяснением победителя",
+      "Сетка/Facebook: вывод про голос бренда без игровой подачи"
     ],
     "cta": [
-      "Сохранить / запросить подбор",
-      "Сохранить мысль"
-    ]
+      "Выбрать A или B",
+      "Сохранить подборку",
+      "Запросить подбор шрифта под бренд"
+    ],
+    "calendarNote": "Скорректировано после анализа эффективности: сильный первый кадр → конкретный визуальный пример → один понятный CTA в личку/комментарии."
   },
   {
     "date": "2026-06-12",
