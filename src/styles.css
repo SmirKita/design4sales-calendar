@@ -744,6 +744,33 @@ h1 {
   overflow-wrap: anywhere;
 }
 
+.videoPriorityBadge {
+  display: inline-flex;
+  width: fit-content;
+  max-width: 100%;
+  margin: 2px 6px 8px 0;
+  border-radius: 999px;
+  padding: 5px 9px;
+  font-size: 12px;
+  font-weight: 800;
+  overflow-wrap: anywhere;
+}
+
+.videoPriorityBadge.priorityA {
+  background: #e9f7ef;
+  color: #11633d;
+}
+
+.videoPriorityBadge.priorityB {
+  background: #fff5d6;
+  color: #7a5500;
+}
+
+.videoPriorityBadge.priorityC {
+  background: #f1f2f4;
+  color: #626b78;
+}
+
 .taskWarning {
   width: fit-content;
   max-width: 100%;

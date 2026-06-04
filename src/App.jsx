@@ -82,6 +82,12 @@ const platformFilterItems = [
   { key: "Facebook", label: "Facebook" },
 ];
 
+const videoPriorityLabels = {
+  A: "A · делать",
+  B: "B · быстро",
+  C: "C · списать",
+};
+
 function parseDate(date) {
   return new Date(`${date}T12:00:00`);
 }
@@ -242,7 +248,7 @@ function deriveStatus(task, checks) {
     return checks.videoReady && checks.coverReady ? "done" : "in_progress";
   }
   if (task.platform === "Reels / Shorts / VK Видео" || task.taskType === "video") {
-    return checks.video && checks.cover ? "done" : "in_progress";
+    return (checks.videoReady || checks.video) && (checks.coverReady || checks.cover) ? "done" : "in_progress";
   }
   if (task.platform === "Дзен" || task.platform === "vc.ru" || task.taskType === "article") {
     return checks.article ? "done" : "in_progress";
@@ -332,6 +338,9 @@ function CalendarGuide() {
       </div>
       <p>
         vc.ru — 1 публикация в месяц. Публикуем только сильные экспертные материалы: кейсы, большие разборы, статьи про процесс работы, упаковку услуги, визуальную систему бренда. Игры, сторис, легкие офферы и короткие посты на vc.ru не ведем.
+      </p>
+      <p>
+        Видео больше не обязательное приложение к каждому посту. A — сильный ролик, стоит делать даже с опозданием. B — быстрая версия без сложного монтажа. C — ролик списан: тему ведем постом, каруселью или сторис.
       </p>
     </section>
   );
@@ -566,6 +575,11 @@ function TaskItem({ task, progress, updateTask }) {
           <p>{task.text}</p>
           {task.monthlyFeature && <span className="monthlyBadge">{task.monthlyLabel || "vc.ru · сильная статья месяца"}</span>}
           {task.videoLabel && task.folderSource !== "excel" && <span className="monthlyBadge">{task.videoLabel}</span>}
+          {task.videoPriority && (
+            <span className={`videoPriorityBadge priority${task.videoPriority}`}>
+              {videoPriorityLabels[task.videoPriority] || `Видео ${task.videoPriority}`}
+            </span>
+          )}
           <MaterialRef folderId={task.folderId} folderSource={task.folderSource} folderNote={task.folderNote} />
           {task.warning && <div className="taskWarning">{task.warning}</div>}
         </div>
@@ -784,6 +798,9 @@ function matchesFilters(day, view, selectedPlatforms, search, progress) {
       task.folderId,
       task.folderNote,
       task.monthlyLabel,
+      task.videoPriority,
+      task.videoStrategy,
+      task.videoPriorityNote,
       task.warning,
       task.defaultStatus,
     ]),
