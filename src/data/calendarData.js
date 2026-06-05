@@ -32,7 +32,7 @@ export const calendarData = [
         "defaultStatus": "not_started",
         "videoPriority": "A",
         "videoStrategy": "do_even_late",
-        "videoPriorityNote": "Тема выигрывает от видео: есть сильный крючок, интерактив, до/после, A/B, Лина или визуальная трансформация."
+        "videoPriorityNote": "Сильная самостоятельная видеоидея: интерактив, A/B, найди ошибку, Лина, до/после или визуальная трансформация. Оставить как ролик недели."
       }
     ],
     "optional": [],
@@ -82,7 +82,7 @@ export const calendarData = [
         "defaultStatus": "not_started",
         "videoPriority": "A",
         "videoStrategy": "do_even_late",
-        "videoPriorityNote": "Тема выигрывает от видео: есть сильный крючок, интерактив, до/после, A/B, Лина или визуальная трансформация."
+        "videoPriorityNote": "Сильная самостоятельная видеоидея: интерактив, A/B, найди ошибку, Лина, до/после или визуальная трансформация. Оставить как ролик недели."
       }
     ],
     "optional": [],
@@ -144,7 +144,7 @@ export const calendarData = [
         "rutubeMode": "new",
         "videoPriority": "A",
         "videoStrategy": "do_even_late",
-        "videoPriorityNote": "Тема выигрывает от видео: есть сильный крючок, интерактив, до/после, A/B, Лина или визуальная трансформация."
+        "videoPriorityNote": "Сильная самостоятельная видеоидея: интерактив, A/B, найди ошибку, Лина, до/после или визуальная трансформация. Оставить как ролик недели."
       }
     ],
     "optional": [
@@ -248,11 +248,11 @@ export const calendarData = [
         "sourceSection": "priority",
         "folderId": "30_Post_Баннеры_без_визуального_шума",
         "folderSource": "generated",
-        "videoLabel": "Сильный ролик",
+        "videoLabel": "Быстрый формат",
         "rutubeMode": "new",
-        "videoPriority": "A",
-        "videoStrategy": "do_even_late",
-        "videoPriorityNote": "Тема выигрывает от видео: есть сильный крючок, интерактив, до/после, A/B, Лина или визуальная трансформация."
+        "videoPriority": "B",
+        "videoStrategy": "quick_if_time",
+        "videoPriorityNote": "Быстрый формат, если есть время: готовый визуал, zoom/pan, 2-3 текстовые плашки, минимум монтажа."
       }
     ],
     "optional": [
@@ -339,11 +339,11 @@ export const calendarData = [
         "sourceSection": "priority",
         "folderId": "02_Post_Бренд_на_майских",
         "folderSource": "generated",
-        "videoLabel": "Ролик списан",
+        "videoLabel": "Списано / не делаем",
         "rutubeMode": "new",
         "videoPriority": "C",
         "videoStrategy": "skip_video",
-        "videoPriorityNote": "Видео не обязательно: тема лучше работает постом, статьёй, каруселью или сторис без отдельного ролика.",
+        "videoPriorityNote": "Списано: ролик не обязателен, тему ведем постом, каруселью, сторис или статьей без отдельного видео.",
         "defaultStatus": "skipped",
         "warning": "Видео списано: не делать отдельный ролик, использовать основной пост/карусель/сторис."
       }
@@ -494,7 +494,7 @@ export const calendarData = [
         "rutubeMode": "new",
         "videoPriority": "A",
         "videoStrategy": "do_even_late",
-        "videoPriorityNote": "Тема выигрывает от видео: есть сильный крючок, интерактив, до/после, A/B, Лина или визуальная трансформация."
+        "videoPriorityNote": "Сильная самостоятельная видеоидея: интерактив, A/B, найди ошибку, Лина, до/после или визуальная трансформация. Оставить как ролик недели."
       }
     ],
     "optional": [
@@ -668,11 +668,11 @@ export const calendarData = [
         "sourceSection": "priority",
         "folderId": "07_Post_Логотип_и_запоминаемость",
         "folderSource": "generated",
-        "videoLabel": "Сильный ролик",
+        "videoLabel": "Быстрый формат",
         "rutubeMode": "new",
-        "videoPriority": "A",
-        "videoStrategy": "do_even_late",
-        "videoPriorityNote": "Тема выигрывает от видео: есть сильный крючок, интерактив, до/после, A/B, Лина или визуальная трансформация."
+        "videoPriority": "B",
+        "videoStrategy": "quick_if_time",
+        "videoPriorityNote": "Быстрый формат, если есть время: готовый визуал, zoom/pan, 2-3 текстовые плашки, минимум монтажа."
       }
     ],
     "optional": [
@@ -848,11 +848,11 @@ export const calendarData = [
         "sourceSection": "optional",
         "folderId": "09_Post_День_Победы",
         "folderSource": "generated",
-        "videoLabel": "Ролик списан",
+        "videoLabel": "Списано / не делаем",
         "rutubeMode": "new",
         "videoPriority": "C",
         "videoStrategy": "skip_video",
-        "videoPriorityNote": "Видео не обязательно: тема лучше работает постом, статьёй, каруселью или сторис без отдельного ролика.",
+        "videoPriorityNote": "Списано: ролик не обязателен, тему ведем постом, каруселью, сторис или статьей без отдельного видео.",
         "defaultStatus": "skipped",
         "warning": "Видео списано: не делать отдельный ролик, использовать основной пост/карусель/сторис."
       }
@@ -944,11 +944,11 @@ export const calendarData = [
         "sourceSection": "priority",
         "folderId": "12_Post_Офлайн_носители_бренда",
         "folderSource": "generated",
-        "videoLabel": "Ролик списан",
+        "videoLabel": "Списано / не делаем",
         "rutubeMode": "new",
         "videoPriority": "C",
         "videoStrategy": "skip_video",
-        "videoPriorityNote": "Видео не обязательно: тема лучше работает постом, статьёй, каруселью или сторис без отдельного ролика.",
+        "videoPriorityNote": "Списано: ролик не обязателен, тему ведем постом, каруселью, сторис или статьей без отдельного видео.",
         "defaultStatus": "skipped",
         "warning": "Видео списано: не делать отдельный ролик, использовать основной пост/карусель/сторис."
       },
@@ -1089,7 +1089,7 @@ export const calendarData = [
         "rutubeMode": "new",
         "videoPriority": "A",
         "videoStrategy": "do_even_late",
-        "videoPriorityNote": "Тема выигрывает от видео: есть сильный крючок, интерактив, до/после, A/B, Лина или визуальная трансформация."
+        "videoPriorityNote": "Сильная самостоятельная видеоидея: интерактив, A/B, найди ошибку, Лина, до/после или визуальная трансформация. Оставить как ролик недели."
       }
     ],
     "optional": [
@@ -1262,11 +1262,11 @@ export const calendarData = [
         "sourceSection": "priority",
         "folderId": "16_Post_Фото_в_товарный_визуал",
         "folderSource": "generated",
-        "videoLabel": "Ролик списан",
+        "videoLabel": "Списано / не делаем",
         "rutubeMode": "new",
         "videoPriority": "C",
         "videoStrategy": "skip_video",
-        "videoPriorityNote": "Видео не обязательно: тема лучше работает постом, статьёй, каруселью или сторис без отдельного ролика.",
+        "videoPriorityNote": "Списано: ролик не обязателен, тему ведем постом, каруселью, сторис или статьей без отдельного видео.",
         "defaultStatus": "skipped",
         "warning": "Видео списано: не делать отдельный ролик, использовать основной пост/карусель/сторис."
       }
@@ -1400,7 +1400,7 @@ export const calendarData = [
         "rutubeMode": "new",
         "videoPriority": "A",
         "videoStrategy": "do_even_late",
-        "videoPriorityNote": "Тема выигрывает от видео: есть сильный крючок, интерактив, до/после, A/B, Лина или визуальная трансформация."
+        "videoPriorityNote": "Сильная самостоятельная видеоидея: интерактив, A/B, найди ошибку, Лина, до/после или визуальная трансформация. Оставить как ролик недели."
       }
     ],
     "optional": [
@@ -1503,11 +1503,11 @@ export const calendarData = [
         "sourceSection": "priority",
         "folderId": "21_Post_Разбор_ошибок_в_макете",
         "folderSource": "generated",
-        "videoLabel": "Сильный ролик",
+        "videoLabel": "Быстрый формат",
         "rutubeMode": "new",
-        "videoPriority": "A",
-        "videoStrategy": "do_even_late",
-        "videoPriorityNote": "Тема выигрывает от видео: есть сильный крючок, интерактив, до/после, A/B, Лина или визуальная трансформация."
+        "videoPriority": "B",
+        "videoStrategy": "quick_if_time",
+        "videoPriorityNote": "Быстрый формат, если есть время: готовый визуал, zoom/pan, 2-3 текстовые плашки, минимум монтажа."
       }
     ],
     "optional": [
@@ -1645,11 +1645,11 @@ export const calendarData = [
         "sourceSection": "priority",
         "folderId": "23_Post_Проверка_перед_рекламой",
         "folderSource": "generated",
-        "videoLabel": "Ролик списан",
+        "videoLabel": "Списано / не делаем",
         "rutubeMode": "new",
         "videoPriority": "C",
         "videoStrategy": "skip_video",
-        "videoPriorityNote": "Видео не обязательно: тема лучше работает постом, статьёй, каруселью или сторис без отдельного ролика.",
+        "videoPriorityNote": "Списано: ролик не обязателен, тему ведем постом, каруселью, сторис или статьей без отдельного видео.",
         "defaultStatus": "skipped",
         "warning": "Видео списано: не делать отдельный ролик, использовать основной пост/карусель/сторис."
       }
@@ -1722,11 +1722,11 @@ export const calendarData = [
         "sourceSection": "priority",
         "folderId": "26_Post_Мини_консалтинг_по_визуалу",
         "folderSource": "generated",
-        "videoLabel": "Сильный ролик",
+        "videoLabel": "Быстрый формат",
         "rutubeMode": "new",
-        "videoPriority": "A",
-        "videoStrategy": "do_even_late",
-        "videoPriorityNote": "Тема выигрывает от видео: есть сильный крючок, интерактив, до/после, A/B, Лина или визуальная трансформация."
+        "videoPriority": "B",
+        "videoStrategy": "quick_if_time",
+        "videoPriorityNote": "Быстрый формат, если есть время: готовый визуал, zoom/pan, 2-3 текстовые плашки, минимум монтажа."
       }
     ],
     "optional": [
@@ -1836,7 +1836,7 @@ export const calendarData = [
         "rutubeMode": "new",
         "videoPriority": "A",
         "videoStrategy": "do_even_late",
-        "videoPriorityNote": "Тема выигрывает от видео: есть сильный крючок, интерактив, до/после, A/B, Лина или визуальная трансформация."
+        "videoPriorityNote": "Сильная самостоятельная видеоидея: интерактив, A/B, найди ошибку, Лина, до/после или визуальная трансформация. Оставить как ролик недели."
       }
     ],
     "optional": [
@@ -1977,11 +1977,11 @@ export const calendarData = [
         "sourceSection": "priority",
         "folderId": "30_Post_Фото_AI_или_Photoshop",
         "folderSource": "generated",
-        "videoLabel": "Быстрый ролик",
+        "videoLabel": "Быстрый формат",
         "rutubeMode": "new",
         "videoPriority": "B",
-        "videoStrategy": "quick_version",
-        "videoPriorityNote": "Можно сделать упрощённо: один кадр, один тезис, минимум монтажа."
+        "videoStrategy": "quick_if_time",
+        "videoPriorityNote": "Быстрый формат, если есть время: готовый визуал, zoom/pan, 2-3 текстовые плашки, минимум монтажа."
       }
     ],
     "optional": [
@@ -2141,11 +2141,13 @@ export const calendarData = [
         "sourceSection": "priority",
         "folderId": "02_Post_Летний_визуал",
         "folderSource": "generated",
-        "videoLabel": "Быстрый ролик",
+        "videoLabel": "Списано / не делаем",
         "rutubeMode": "new",
-        "videoPriority": "B",
-        "videoStrategy": "quick_version",
-        "videoPriorityNote": "Можно сделать упрощённо: один кадр, один тезис, минимум монтажа."
+        "videoPriority": "C",
+        "videoStrategy": "skip_video",
+        "videoPriorityNote": "Списано: ролик не обязателен, тему ведем постом, каруселью, сторис или статьей без отдельного видео.",
+        "defaultStatus": "skipped",
+        "warning": "Видео списано: не делать отдельный ролик, использовать основной пост/карусель/сторис."
       }
     ],
     "optional": [
@@ -2271,7 +2273,7 @@ export const calendarData = [
         "rutubeMode": "new",
         "videoPriority": "A",
         "videoStrategy": "do_even_late",
-        "videoPriorityNote": "Тема выигрывает от видео: есть сильный крючок, интерактив, до/после, A/B, Лина или визуальная трансформация."
+        "videoPriorityNote": "Сильная самостоятельная видеоидея: интерактив, A/B, найди ошибку, Лина, до/после или визуальная трансформация. Оставить как ролик недели."
       }
     ],
     "optional": [
@@ -2412,11 +2414,11 @@ export const calendarData = [
         "sourceSection": "priority",
         "folderId": "06_Video_Боль_карточек_товара",
         "folderSource": "generated",
-        "videoLabel": "Сильный ролик",
+        "videoLabel": "Быстрый формат",
         "rutubeMode": "new",
-        "videoPriority": "A",
-        "videoStrategy": "do_even_late",
-        "videoPriorityNote": "Тема выигрывает от видео: есть сильный крючок, интерактив, до/после, A/B, Лина или визуальная трансформация."
+        "videoPriority": "B",
+        "videoStrategy": "quick_if_time",
+        "videoPriorityNote": "Быстрый формат, если есть время: готовый визуал, zoom/pan, 2-3 текстовые плашки, минимум монтажа."
       }
     ],
     "optional": [
@@ -2509,7 +2511,7 @@ export const calendarData = [
         "rutubeMode": "new",
         "videoPriority": "A",
         "videoStrategy": "do_even_late",
-        "videoPriorityNote": "Тема выигрывает от видео: есть сильный крючок, интерактив, до/после, A/B, Лина или визуальная трансформация."
+        "videoPriorityNote": "Сильная самостоятельная видеоидея: интерактив, A/B, найди ошибку, Лина, до/после или визуальная трансформация. Оставить как ролик недели."
       }
     ],
     "optional": [
@@ -2629,11 +2631,11 @@ export const calendarData = [
         "sourceSection": "priority",
         "folderId": "11_Post_Современные_шрифты",
         "folderSource": "generated",
-        "videoLabel": "Сильный ролик",
+        "videoLabel": "Быстрый формат",
         "rutubeMode": "new",
-        "videoPriority": "A",
-        "videoStrategy": "do_even_late",
-        "videoPriorityNote": "Тема выигрывает от видео: есть сильный крючок, интерактив, до/после, A/B, Лина или визуальная трансформация."
+        "videoPriority": "B",
+        "videoStrategy": "quick_if_time",
+        "videoPriorityNote": "Быстрый формат, если есть время: готовый визуал, zoom/pan, 2-3 текстовые плашки, минимум монтажа."
       }
     ],
     "optional": [
@@ -2792,11 +2794,13 @@ export const calendarData = [
         "sourceSection": "priority",
         "folderId": "13_Post_Анимация_логотипа",
         "folderSource": "generated",
-        "videoLabel": "Быстрый ролик",
+        "videoLabel": "Списано / не делаем",
         "rutubeMode": "new",
-        "videoPriority": "B",
-        "videoStrategy": "quick_version",
-        "videoPriorityNote": "Можно сделать упрощённо: один кадр, один тезис, минимум монтажа."
+        "videoPriority": "C",
+        "videoStrategy": "skip_video",
+        "videoPriorityNote": "Списано: ролик не обязателен, тему ведем постом, каруселью, сторис или статьей без отдельного видео.",
+        "defaultStatus": "skipped",
+        "warning": "Видео списано: не делать отдельный ролик, использовать основной пост/карусель/сторис."
       }
     ],
     "optional": [
@@ -2897,11 +2901,11 @@ export const calendarData = [
         "sourceSection": "priority",
         "folderId": "16_Post_Фирменный_стиль_система",
         "folderSource": "generated",
-        "videoLabel": "Ролик списан",
+        "videoLabel": "Списано / не делаем",
         "rutubeMode": "new",
         "videoPriority": "C",
         "videoStrategy": "skip_video",
-        "videoPriorityNote": "Видео не обязательно: тема лучше работает постом, статьёй, каруселью или сторис без отдельного ролика.",
+        "videoPriorityNote": "Списано: ролик не обязателен, тему ведем постом, каруселью, сторис или статьей без отдельного видео.",
         "defaultStatus": "skipped",
         "warning": "Видео списано: не делать отдельный ролик, использовать основной пост/карусель/сторис."
       }
@@ -3022,11 +3026,11 @@ export const calendarData = [
         "sourceSection": "priority",
         "folderId": "18_Post_Полиграфия_наружка",
         "folderSource": "generated",
-        "videoLabel": "Быстрый ролик",
+        "videoLabel": "Быстрый формат",
         "rutubeMode": "new",
         "videoPriority": "B",
-        "videoStrategy": "quick_version",
-        "videoPriorityNote": "Можно сделать упрощённо: один кадр, один тезис, минимум монтажа."
+        "videoStrategy": "quick_if_time",
+        "videoPriorityNote": "Быстрый формат, если есть время: готовый визуал, zoom/pan, 2-3 текстовые плашки, минимум монтажа."
       }
     ],
     "optional": [
@@ -3166,11 +3170,11 @@ export const calendarData = [
         "sourceSection": "priority",
         "folderId": "20_Video_Финальный_оффер_Линой",
         "folderSource": "generated",
-        "videoLabel": "Быстрый ролик",
+        "videoLabel": "Сильный ролик",
         "rutubeMode": "new",
-        "videoPriority": "B",
-        "videoStrategy": "quick_version",
-        "videoPriorityNote": "Можно сделать упрощённо: один кадр, один тезис, минимум монтажа."
+        "videoPriority": "A",
+        "videoStrategy": "do_even_late",
+        "videoPriorityNote": "Сильная самостоятельная видеоидея: интерактив, A/B, найди ошибку, Лина, до/после или визуальная трансформация. Оставить как ролик недели."
       }
     ],
     "optional": [
@@ -3273,11 +3277,11 @@ export const calendarData = [
         "sourceSection": "priority",
         "folderId": "23_Post_Услуга_понятна_5_секунд",
         "folderSource": "generated",
-        "videoLabel": "Сильный ролик",
+        "videoLabel": "Быстрый формат",
         "rutubeMode": "new",
-        "videoPriority": "A",
-        "videoStrategy": "do_even_late",
-        "videoPriorityNote": "Тема выигрывает от видео: есть сильный крючок, интерактив, до/после, A/B, Лина или визуальная трансформация."
+        "videoPriority": "B",
+        "videoStrategy": "quick_if_time",
+        "videoPriorityNote": "Быстрый формат, если есть время: готовый визуал, zoom/pan, 2-3 текстовые плашки, минимум монтажа."
       }
     ],
     "optional": [
@@ -3441,7 +3445,7 @@ export const calendarData = [
         "rutubeMode": "new",
         "videoPriority": "A",
         "videoStrategy": "do_even_late",
-        "videoPriorityNote": "Тема выигрывает от видео: есть сильный крючок, интерактив, до/после, A/B, Лина или визуальная трансформация."
+        "videoPriorityNote": "Сильная самостоятельная видеоидея: интерактив, A/B, найди ошибку, Лина, до/после или визуальная трансформация. Оставить как ролик недели."
       }
     ],
     "optional": [],
@@ -3527,11 +3531,13 @@ export const calendarData = [
         "sourceSection": "priority",
         "folderId": "27_Video_Лина_проверяет_карточку_услуги",
         "folderSource": "generated",
-        "videoLabel": "Сильный ролик",
+        "videoLabel": "Списано / не делаем",
         "rutubeMode": "new",
-        "videoPriority": "A",
-        "videoStrategy": "do_even_late",
-        "videoPriorityNote": "Тема выигрывает от видео: есть сильный крючок, интерактив, до/после, A/B, Лина или визуальная трансформация."
+        "videoPriority": "C",
+        "videoStrategy": "skip_video",
+        "videoPriorityNote": "Списано: ролик не обязателен, тему ведем постом, каруселью, сторис или статьей без отдельного видео.",
+        "defaultStatus": "skipped",
+        "warning": "Видео списано: не делать отдельный ролик, использовать основной пост/карусель/сторис."
       }
     ],
     "optional": [
@@ -3617,11 +3623,13 @@ export const calendarData = [
         "sourceSection": "priority",
         "folderId": "30_Post_Портфолио_которому_верят",
         "folderSource": "generated",
-        "videoLabel": "Быстрый ролик",
+        "videoLabel": "Списано / не делаем",
         "rutubeMode": "new",
-        "videoPriority": "B",
-        "videoStrategy": "quick_version",
-        "videoPriorityNote": "Можно сделать упрощённо: один кадр, один тезис, минимум монтажа."
+        "videoPriority": "C",
+        "videoStrategy": "skip_video",
+        "videoPriorityNote": "Списано: ролик не обязателен, тему ведем постом, каруселью, сторис или статьей без отдельного видео.",
+        "defaultStatus": "skipped",
+        "warning": "Видео списано: не делать отдельный ролик, использовать основной пост/карусель/сторис."
       }
     ],
     "optional": [
@@ -3738,11 +3746,11 @@ export const calendarData = [
         "sourceSection": "priority",
         "folderId": "02_Post_показать_кейс",
         "folderSource": "generated",
-        "videoLabel": "Быстрый ролик",
+        "videoLabel": "Быстрый формат",
         "rutubeMode": "new",
         "videoPriority": "B",
-        "videoStrategy": "quick_version",
-        "videoPriorityNote": "Можно сделать упрощённо: один кадр, один тезис, минимум монтажа."
+        "videoStrategy": "quick_if_time",
+        "videoPriorityNote": "Быстрый формат, если есть время: готовый визуал, zoom/pan, 2-3 текстовые плашки, минимум монтажа."
       }
     ],
     "optional": [
@@ -3848,7 +3856,7 @@ export const calendarData = [
         "rutubeMode": "new",
         "videoPriority": "A",
         "videoStrategy": "do_even_late",
-        "videoPriorityNote": "Тема выигрывает от видео: есть сильный крючок, интерактив, до/после, A/B, Лина или визуальная трансформация."
+        "videoPriorityNote": "Сильная самостоятельная видеоидея: интерактив, A/B, найди ошибку, Лина, до/после или визуальная трансформация. Оставить как ролик недели."
       }
     ],
     "optional": [
@@ -3934,11 +3942,13 @@ export const calendarData = [
         "sourceSection": "priority",
         "folderId": "07_Post_Первый_экран_решает",
         "folderSource": "generated",
-        "videoLabel": "Сильный ролик",
+        "videoLabel": "Списано / не делаем",
         "rutubeMode": "new",
-        "videoPriority": "A",
-        "videoStrategy": "do_even_late",
-        "videoPriorityNote": "Тема выигрывает от видео: есть сильный крючок, интерактив, до/после, A/B, Лина или визуальная трансформация."
+        "videoPriority": "C",
+        "videoStrategy": "skip_video",
+        "videoPriorityNote": "Списано: ролик не обязателен, тему ведем постом, каруселью, сторис или статьей без отдельного видео.",
+        "defaultStatus": "skipped",
+        "warning": "Видео списано: не делать отдельный ролик, использовать основной пост/карусель/сторис."
       }
     ],
     "optional": [
@@ -4054,11 +4064,11 @@ export const calendarData = [
         "sourceSection": "priority",
         "folderId": "09_Post_Баннер_мусора",
         "folderSource": "generated",
-        "videoLabel": "Сильный ролик",
+        "videoLabel": "Быстрый формат",
         "rutubeMode": "new",
-        "videoPriority": "A",
-        "videoStrategy": "do_even_late",
-        "videoPriorityNote": "Тема выигрывает от видео: есть сильный крючок, интерактив, до/после, A/B, Лина или визуальная трансформация."
+        "videoPriority": "B",
+        "videoStrategy": "quick_if_time",
+        "videoPriorityNote": "Быстрый формат, если есть время: готовый визуал, zoom/pan, 2-3 текстовые плашки, минимум монтажа."
       }
     ],
     "optional": [],
@@ -4153,7 +4163,7 @@ export const calendarData = [
         "rutubeMode": "new",
         "videoPriority": "A",
         "videoStrategy": "do_even_late",
-        "videoPriorityNote": "Тема выигрывает от видео: есть сильный крючок, интерактив, до/после, A/B, Лина или визуальная трансформация."
+        "videoPriorityNote": "Сильная самостоятельная видеоидея: интерактив, A/B, найди ошибку, Лина, до/после или визуальная трансформация. Оставить как ролик недели."
       }
     ],
     "optional": [
@@ -4276,11 +4286,11 @@ export const calendarData = [
         "sourceSection": "priority",
         "folderId": "14_Post_Этикетка_которая_выглядит_дороже",
         "folderSource": "generated",
-        "videoLabel": "Сильный ролик",
+        "videoLabel": "Быстрый формат",
         "rutubeMode": "new",
-        "videoPriority": "A",
-        "videoStrategy": "do_even_late",
-        "videoPriorityNote": "Тема выигрывает от видео: есть сильный крючок, интерактив, до/после, A/B, Лина или визуальная трансформация."
+        "videoPriority": "B",
+        "videoStrategy": "quick_if_time",
+        "videoPriorityNote": "Быстрый формат, если есть время: готовый визуал, zoom/pan, 2-3 текстовые плашки, минимум монтажа."
       }
     ],
     "optional": [
@@ -4438,11 +4448,13 @@ export const calendarData = [
         "sourceSection": "priority",
         "folderId": "16_Post_должно_быть_упаковке",
         "folderSource": "generated",
-        "videoLabel": "Быстрый ролик",
+        "videoLabel": "Списано / не делаем",
         "rutubeMode": "new",
-        "videoPriority": "B",
-        "videoStrategy": "quick_version",
-        "videoPriorityNote": "Можно сделать упрощённо: один кадр, один тезис, минимум монтажа."
+        "videoPriority": "C",
+        "videoStrategy": "skip_video",
+        "videoPriorityNote": "Списано: ролик не обязателен, тему ведем постом, каруселью, сторис или статьей без отдельного видео.",
+        "defaultStatus": "skipped",
+        "warning": "Видео списано: не делать отдельный ролик, использовать основной пост/карусель/сторис."
       }
     ],
     "optional": [
@@ -4548,7 +4560,7 @@ export const calendarData = [
         "rutubeMode": "new",
         "videoPriority": "A",
         "videoStrategy": "do_even_late",
-        "videoPriorityNote": "Тема выигрывает от видео: есть сильный крючок, интерактив, до/после, A/B, Лина или визуальная трансформация."
+        "videoPriorityNote": "Сильная самостоятельная видеоидея: интерактив, A/B, найди ошибку, Лина, до/после или визуальная трансформация. Оставить как ролик недели."
       }
     ],
     "optional": [
@@ -4634,11 +4646,11 @@ export const calendarData = [
         "sourceSection": "priority",
         "folderId": "21_Post_Визуальный_аудит_бренда",
         "folderSource": "generated",
-        "videoLabel": "Быстрый ролик",
+        "videoLabel": "Быстрый формат",
         "rutubeMode": "new",
         "videoPriority": "B",
-        "videoStrategy": "quick_version",
-        "videoPriorityNote": "Можно сделать упрощённо: один кадр, один тезис, минимум монтажа."
+        "videoStrategy": "quick_if_time",
+        "videoPriorityNote": "Быстрый формат, если есть время: готовый визуал, zoom/pan, 2-3 текстовые плашки, минимум монтажа."
       }
     ],
     "optional": [
@@ -4754,11 +4766,11 @@ export const calendarData = [
         "sourceSection": "priority",
         "folderId": "23_Post_собрать_единую_систему",
         "folderSource": "generated",
-        "videoLabel": "Ролик списан",
+        "videoLabel": "Списано / не делаем",
         "rutubeMode": "new",
         "videoPriority": "C",
         "videoStrategy": "skip_video",
-        "videoPriorityNote": "Видео не обязательно: тема лучше работает постом, статьёй, каруселью или сторис без отдельного ролика.",
+        "videoPriorityNote": "Списано: ролик не обязателен, тему ведем постом, каруселью, сторис или статьей без отдельного видео.",
         "defaultStatus": "skipped",
         "warning": "Видео списано: не делать отдельный ролик, использовать основной пост/карусель/сторис."
       }
@@ -4867,7 +4879,7 @@ export const calendarData = [
         "rutubeMode": "new",
         "videoPriority": "A",
         "videoStrategy": "do_even_late",
-        "videoPriorityNote": "Тема выигрывает от видео: есть сильный крючок, интерактив, до/после, A/B, Лина или визуальная трансформация."
+        "videoPriorityNote": "Сильная самостоятельная видеоидея: интерактив, A/B, найди ошибку, Лина, до/после или визуальная трансформация. Оставить как ролик недели."
       }
     ],
     "optional": [

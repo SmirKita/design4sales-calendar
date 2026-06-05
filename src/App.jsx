@@ -85,7 +85,7 @@ const platformFilterItems = [
 const videoPriorityLabels = {
   A: "A · делать",
   B: "B · быстро",
-  C: "C · списать",
+  C: "C · списано",
 };
 
 function parseDate(date) {
@@ -105,6 +105,9 @@ function formatShortRange(start, end) {
 function getTaskProgress(progress, task) {
   const item = progress[task.id] || { status: task.defaultStatus || "not_started", checks: {} };
   const checks = { ...(item.checks || {}) };
+  if (task.videoPriority === "C" && item.status !== "published") {
+    return { status: "skipped", checks };
+  }
   if (item.status === "published") {
     checks.published = true;
   }
@@ -117,6 +120,16 @@ function isComplete(progressItem) {
 
 function isSkipped(progressItem) {
   return progressItem.status === "skipped";
+}
+
+function isVideoTask(task) {
+  return task.platform === "Reels / Shorts / VK Видео" || task.taskType === "video";
+}
+
+function countsAsOverdueTask(task) {
+  if (!isVideoTask(task)) return true;
+  if (task.isVideoDebt) return true;
+  return task.videoPriority === "A";
 }
 
 function allTasks(day) {
@@ -247,7 +260,7 @@ function deriveStatus(task, checks) {
   if (task.rutubeMode === "new") {
     return checks.videoReady && checks.coverReady ? "done" : "in_progress";
   }
-  if (task.platform === "Reels / Shorts / VK Видео" || task.taskType === "video") {
+  if (isVideoTask(task)) {
     return (checks.videoReady || checks.video) && (checks.coverReady || checks.cover) ? "done" : "in_progress";
   }
   if (task.platform === "Дзен" || task.platform === "vc.ru" || task.taskType === "article") {
@@ -502,7 +515,13 @@ function DayCard({
   const dayProgress = statusForDay(day, progress);
   const completePercent = dayProgress.total ? Math.round((dayProgress.done / dayProgress.total) * 100) : 0;
   const todayIso = getTodayIso();
-  const overdue = day.date < todayIso && dayProgress.done < dayProgress.total;
+  const overdue =
+    day.date < todayIso &&
+    allTasks(day).some((task) => {
+      if (!countsAsOverdueTask(task)) return false;
+      const status = getTaskProgress(progress, task).status;
+      return status !== "published" && status !== "skipped";
+    });
   const isToday = day.date === todayIso;
 
   return (
@@ -845,7 +864,7 @@ export default function App() {
         (day.date >= todayIso ||
           !allTasks(day).some((task) => {
             const status = getTaskProgress(progress, task).status;
-            return status !== "published" && status !== "skipped";
+            return countsAsOverdueTask(task) && status !== "published" && status !== "skipped";
           }))
       ) {
         return false;
@@ -858,7 +877,7 @@ export default function App() {
     if (view === "overdue") {
       return (task) => {
         const status = getTaskProgress(progress, task).status;
-        return status !== "published" && status !== "skipped";
+        return countsAsOverdueTask(task) && status !== "published" && status !== "skipped";
       };
     }
     if (view === "ready") {
