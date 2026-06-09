@@ -2493,7 +2493,7 @@ export const calendarData = [
       {
         "id": "2026-06-09_shorts_reels_vk_video_do_posle_kartochki_za_10_sekund_reels_do_posle_k",
         "platform": "Reels / Shorts / VK Видео",
-        "text": "Reels/Shorts: до/после карточки товара за 10 секунд",
+        "text": "Ролик: Покупатель понял карточку за 3 секунды? Лина показывает до/после: товар крупнее, выгода яснее, шум меньше. Финал: «А вы бы купили по первому варианту?»",
         "taskType": "video",
         "checklist": [
           "videoReady",
@@ -2617,7 +2617,7 @@ export const calendarData = [
       {
         "id": "2026-06-11_shorts_reels_vk_video_a_b_kakoy_shrift_sovremennee",
         "platform": "Reels / Shorts / VK Видео",
-        "text": "A/B ролик: какой шрифт выглядит современнее и дороже?",
+        "text": "Ролик: Какой шрифт выглядит дороже? Выбор глазами клиента: два варианта одного бренда и быстрый разбор доверия. Финал: «A или B?»",
         "taskType": "video",
         "checklist": [
           "videoReady",
@@ -2780,7 +2780,7 @@ export const calendarData = [
       {
         "id": "2026-06-13_shorts_reels_vk_video_logotip_ozhil_chto_vazhno_ne_isportit_reels_anim",
         "platform": "Reels / Shorts / VK Видео",
-        "text": "Reels/Shorts: анимация логотипа без лишних эффектов",
+        "text": "Ролик-идея: Логотип ожил или попал в заставку из 2007-го? Две версии анимации, Лина отмечает, где эффект помогает бренду. Финал: «Дорого или шумно?»",
         "taskType": "video",
         "checklist": [
           "videoReady",
@@ -2887,7 +2887,7 @@ export const calendarData = [
       {
         "id": "2026-06-16_shorts_reels_vk_video_chto_vhodit_v_firmennyy_stil_krome_logotipa",
         "platform": "Reels / Shorts / VK Видео",
-        "text": "Что входит в фирменный стиль кроме логотипа",
+        "text": "Ролик-идея: Клиент просит «просто логотип», а бизнесу нужна система. Быстрый чек: цвета, шрифты, шаблоны, носители. Финал: «Что разваливается первым?»",
         "taskType": "video",
         "checklist": [
           "videoReady",
@@ -3012,7 +3012,7 @@ export const calendarData = [
       {
         "id": "2026-06-18_shorts_reels_vk_video_onlayn_silnyy_oflayn_sluchaynyy",
         "platform": "Reels / Shorts / VK Видео",
-        "text": "Онлайн сильный, офлайн случайный",
+        "text": "Ролик: Онлайн выглядит сильно, а вывеска будто из другого бизнеса. Кот-дизайн-директор сверяет баннер, визитку и профиль. Финал: «Где бренд потерялся?»",
         "taskType": "video",
         "checklist": [
           "videoReady",
@@ -3156,7 +3156,7 @@ export const calendarData = [
       {
         "id": "2026-06-20_shorts_reels_vk_video_chto_sobrat_pod_klyuch_reels_lina_pomogaet_sobra",
         "platform": "Reels / Shorts / VK Видео",
-        "text": "Reels/Shorts: Лина помогает собрать визуал под ключ",
+        "text": "Ролик: Лина получает хаос — баннер, карточка, профиль, презентация. Собирает всё в одну систему под ключ. Финал: «Что спасать первым?»",
         "taskType": "video",
         "checklist": [
           "videoReady",
@@ -3263,7 +3263,7 @@ export const calendarData = [
       {
         "id": "2026-06-23_shorts_reels_vk_video_ponyatno_li_chto_zdes_prodayut",
         "platform": "Reels / Shorts / VK Видео",
-        "text": "Понятно ли, что здесь продают?",
+        "text": "Ролик: Обычный человек открыл карточку услуги и не понял, что продают. Лина убирает туман: оффер, цена, доверие. Финал: «Понятно за 5 секунд?»",
         "taskType": "video",
         "checklist": [
           "videoReady",
@@ -3427,7 +3427,7 @@ export const calendarData = [
       {
         "id": "2026-06-25_shorts_reels_vk_video_a_b_kakaya_kartochka_uslugi_silnee",
         "platform": "Reels / Shorts / VK Видео",
-        "text": "A/B: какая карточка услуги сильнее?",
+        "text": "Ролик: Какую карточку услуги выберет клиент за 3 секунды? A/B: одна красивая, другая понятная. Финал: «A или B?»",
         "taskType": "video",
         "checklist": [
           "videoReady",
@@ -3517,7 +3517,7 @@ export const calendarData = [
       {
         "id": "2026-06-27_shorts_reels_vk_video_lina_proveryaet_kartochku_uslugi",
         "platform": "Reels / Shorts / VK Видео",
-        "text": "Лина проверяет карточку услуги",
+        "text": "Ролик-идея: Лина проверяет карточку услуги: где оффер, кому это нужно и почему доверять. Финал: «Прислать свою карточку?»",
         "taskType": "video",
         "checklist": [
           "videoReady",
@@ -3609,7 +3609,7 @@ export const calendarData = [
       {
         "id": "2026-06-30_shorts_reels_vk_video_portfolio_vyglyadit_krasivo_no_prodaet_li",
         "platform": "Reels / Shorts / VK Видео",
-        "text": "Портфолио выглядит красиво, но продает ли?",
+        "text": "Ролик-идея: Портфолио красивое, но клиент не понял уровень. Показываем, где нет задачи, результата и смысла. Финал: «Красиво или убедительно?»",
         "taskType": "video",
         "checklist": [
           "videoReady",
@@ -3732,7 +3732,7 @@ export const calendarData = [
       {
         "id": "2026-07-02_shorts_reels_vk_video_keys_za_10_sekund",
         "platform": "Reels / Shorts / VK Видео",
-        "text": "Кейс за 10 секунд",
+        "text": "Ролик: Кейс за 10 секунд — была задача, стало решение, появился результат. Лина выкидывает воду из описания. Финал: «Понятно, зачем это сделали?»",
         "taskType": "video",
         "checklist": [
           "videoReady",
@@ -3838,7 +3838,7 @@ export const calendarData = [
       {
         "id": "2026-07-04_shorts_reels_vk_video_do_posle_chto_izmenilos",
         "platform": "Reels / Shorts / VK Видео",
-        "text": "До/после: что изменилось?",
+        "text": "Ролик: До/после без воды. Покупатель видит старый макет и новый — что изменилось первым? Финал: «Какая правка продала идею?»",
         "taskType": "video",
         "checklist": [
           "videoReady",
@@ -3928,7 +3928,7 @@ export const calendarData = [
       {
         "id": "2026-07-07_shorts_reels_vk_video_u_vas_3_sekundy_chto_prodaet_etot_banner",
         "platform": "Reels / Shorts / VK Видео",
-        "text": "У вас 3 секунды: что продает этот баннер?",
+        "text": "Ролик-идея: У баннера 3 секунды, а он показывает всё сразу. Маркетолог ищет оффер как квест. Финал: «Что прочитали первым?»",
         "taskType": "video",
         "checklist": [
           "videoReady",
@@ -4050,7 +4050,7 @@ export const calendarData = [
       {
         "id": "2026-07-09_shorts_reels_vk_video_do_posle_bannera_za_10_sekund",
         "platform": "Reels / Shorts / VK Видео",
-        "text": "До/после баннера за 10 секунд",
+        "text": "Ролик: Баннер без мусора. Лина за 20 секунд убирает лишний текст, шумный фон и слабый CTA. Финал: «Что убрать первым?»",
         "taskType": "video",
         "checklist": [
           "videoReady",
@@ -4145,7 +4145,7 @@ export const calendarData = [
       {
         "id": "2026-07-11_shorts_reels_vk_video_naydi_slaboe_mesto_v_reklame",
         "platform": "Reels / Shorts / VK Видео",
-        "text": "Найди слабое место в рекламе",
+        "text": "Ролик: Найди слабое место в рекламе за 5 секунд. Показываем макет, пауза для ответа, потом разбор Лины. Финал: «Угадали?»",
         "taskType": "video",
         "checklist": [
           "videoReady",
@@ -4272,7 +4272,7 @@ export const calendarData = [
       {
         "id": "2026-07-14_shorts_reels_vk_video_kakaya_etiketka_vyglyadit_dorozhe",
         "platform": "Reels / Shorts / VK Видео",
-        "text": "Какая этикетка выглядит дороже?",
+        "text": "Ролик: Какая этикетка выглядит дороже? Покупатель выбирает A/B до чтения состава. Финал: «За какую заплатили бы больше?»",
         "taskType": "video",
         "checklist": [
           "videoReady",
@@ -4434,7 +4434,7 @@ export const calendarData = [
       {
         "id": "2026-07-16_shorts_reels_vk_video_3_oshibki_na_upakovke",
         "platform": "Reels / Shorts / VK Видео",
-        "text": "3 ошибки на упаковке",
+        "text": "Ролик-идея: Упаковка проходит проверку: товар видно, выгода понятна, текст читается, CTA не потерян. Финал: «Сколько пунктов прошло?»",
         "taskType": "video",
         "checklist": [
           "videoReady",
@@ -4542,7 +4542,7 @@ export const calendarData = [
       {
         "id": "2026-07-18_shorts_reels_vk_video_a_b_upakovki_s_bystrym_otvetom",
         "platform": "Reels / Shorts / VK Видео",
-        "text": "A/B упаковки с быстрым ответом",
+        "text": "Ролик: A/B упаковки глазами покупателя — какая выглядит дороже за 3 секунды? Разбор цвета, иерархии и доверия. Финал: «A или B?»",
         "taskType": "video",
         "checklist": [
           "videoReady",
@@ -4632,7 +4632,7 @@ export const calendarData = [
       {
         "id": "2026-07-21_shorts_reels_vk_video_7_tochek_gde_vizual_teryaet_doverie",
         "platform": "Reels / Shorts / VK Видео",
-        "text": "7 точек, где визуал теряет доверие",
+        "text": "Ролик: 7 мест, где визуал теряет доверие. Лина быстро проверяет профиль, баннер, карточку и презентацию. Финал: «Что проверить первым?»",
         "taskType": "video",
         "checklist": [
           "videoReady",
@@ -4752,7 +4752,7 @@ export const calendarData = [
       {
         "id": "2026-07-23_shorts_reels_vk_video_chto_sobrat_v_edinuyu_sistemu",
         "platform": "Reels / Shorts / VK Видео",
-        "text": "Что собрать в единую систему?",
+        "text": "Ролик-идея: Каждый макет начинается с нуля, потому что системы нет. Собираем визуальный набор: профиль, баннеры, карточки, презентации. Финал: «Где хаос сильнее?»",
         "taskType": "video",
         "checklist": [
           "videoReady",
@@ -4861,7 +4861,7 @@ export const calendarData = [
       {
         "id": "2026-07-25_shorts_reels_vk_video_s_linoy_vyberite_zadachu_audit_shablon_ili_oform",
         "platform": "Reels / Shorts / VK Видео",
-        "text": "с Линой Выберите задачу: аудит, шаблон или оформление под ключ",
+        "text": "Ролик: Лина открывает визуальный хаос бизнеса и предлагает три пути: аудит, шаблон или оформление под ключ. Финал: «Что спасаем первым?»",
         "taskType": "video",
         "checklist": [
           "videoReady",
