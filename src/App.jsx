@@ -1,20 +1,8 @@
 import React, { useMemo, useRef, useState } from "react";
 import { contentTypes, reviewWindows, statusOptions, telegramPlan } from "./data/telegramPlan.js";
+import { loadCalendarState, normalizeState, saveCalendarState, STORAGE_SCHEMA_VERSION } from "./storage.js";
 
-const STORAGE_KEY = "design4sales-telegram-calendar-v2";
 const emptyMetrics = { views: "", reactions: "", comments: "", forwards: "", clicks: "" };
-
-function loadState() {
-  try {
-    return JSON.parse(localStorage.getItem(STORAGE_KEY) || "{}") || {};
-  } catch {
-    return {};
-  }
-}
-
-function saveState(state) {
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
-}
 
 function number(value) {
   const parsed = Number(value);
@@ -33,7 +21,8 @@ function shortDate(iso) {
 
 function getRecord(state, id) {
   const saved = state[id] || {};
-  return { ...saved, status: saved.status || "planned", note: saved.note || "", metrics: { ...emptyMetrics, ...(saved.metrics || {}) } };
+  const defaultStatus = telegramPlan.find((post) => post.id === id)?.defaultStatus || "planned";
+  return { ...saved, status: saved.status || defaultStatus, note: saved.note || "", metrics: { ...emptyMetrics, ...(saved.metrics || {}) } };
 }
 
 function engagement(metrics) {
@@ -48,7 +37,7 @@ function responseRate(metrics) {
 }
 
 function App() {
-  const [state, setState] = useState(loadState);
+  const [state, setState] = useState(loadCalendarState);
   const [typeFilter, setTypeFilter] = useState("all");
   const [statusFilter, setStatusFilter] = useState("all");
   const [weekFilter, setWeekFilter] = useState("all");
@@ -59,7 +48,7 @@ function App() {
   const update = (id, patch) => {
     setState((current) => {
       const next = { ...current, [id]: { ...getRecord(current, id), ...patch } };
-      saveState(next);
+      saveCalendarState(next);
       return next;
     });
   };
@@ -79,7 +68,7 @@ function App() {
   const progress = Math.round((published / telegramPlan.length) * 100);
 
   const exportProgress = () => {
-    const blob = new Blob([JSON.stringify({ exportedAt: new Date().toISOString(), state }, null, 2)], { type: "application/json" });
+    const blob = new Blob([JSON.stringify({ exportedAt: new Date().toISOString(), schemaVersion: STORAGE_SCHEMA_VERSION, state }, null, 2)], { type: "application/json" });
     const link = document.createElement("a");
     link.href = URL.createObjectURL(blob);
     link.download = "Design4Sales_Telegram_progress.json";
@@ -92,9 +81,9 @@ function App() {
     if (!file) return;
     try {
       const parsed = JSON.parse(await file.text());
-      const next = parsed.state || parsed;
+      const next = normalizeState(parsed);
       setState(next);
-      saveState(next);
+      saveCalendarState(next);
     } catch {
       alert("Не удалось прочитать файл прогресса.");
     }
@@ -103,8 +92,9 @@ function App() {
 
   const resetProgress = () => {
     if (!window.confirm("Сбросить все статусы, метрики и заметки этого цикла?")) return;
-    setState({});
-    saveState({});
+    const next = normalizeState({});
+    setState(next);
+    saveCalendarState(next);
   };
 
   return (
@@ -116,7 +106,7 @@ function App() {
             <h1>Живой контент-календарь</h1>
             <p className="heroText">22 августа — 3 октября 2026 · реальные решения, сомнения, разборы и эксперименты вместо конвейера чек-листов.</p>
           </div>
-          <div className="cycleBadge"><strong>6 недель</strong><span>19 основных публикаций</span></div>
+          <div className="cycleBadge"><strong>6 недель</strong><span>{telegramPlan.length} основных публикаций</span></div>
         </div>
 
         <div className="progressRail"><span style={{ width: `${progress}%` }} /></div>
@@ -195,6 +185,7 @@ function PostCard({ post, record, update }) {
           {post.checkpoint && <span className="checkpoint">контрольная точка</span>}
         </div>
         <h2>{post.title}</h2>
+        {post.subtitle && <p className="subtitle">{post.subtitle}</p>}
         <p className="thought">{post.thought}</p>
         <div className="quickFacts">
           <div><span>Формат</span><strong>{post.format}</strong></div>

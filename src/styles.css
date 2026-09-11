@@ -73,6 +73,7 @@ h1 { margin: 14px 0 12px; font-size: clamp(38px, 5vw, 72px); line-height: .98; l
 .typePill, .checkpoint { border-radius: 999px; padding: 6px 9px; background: #edf1f5; color: #46515d; }
 .checkpoint { background: #fff0cb; color: #765400; }
 .postMain h2 { margin: 13px 0 8px; font-size: clamp(24px, 3vw, 38px); line-height: 1.08; letter-spacing: -.035em; }
+.subtitle { margin: -2px 0 10px; color: #697482; font-size: 14px; font-weight: 750; }
 .thought { margin: 0; max-width: 900px; color: #4d5763; line-height: 1.56; font-size: 16px; }
 .quickFacts { display: grid; grid-template-columns: 1.1fr 1fr 1fr; gap: 10px; margin: 21px 0 18px; }
 .quickFacts div { padding: 12px 14px; background: #f6f8fa; border-radius: 12px; display: grid; gap: 5px; }
