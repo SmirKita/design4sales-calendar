@@ -13,11 +13,27 @@ const publishedExpected = [
 
 const archived = telegramPlan.filter((post) => post.cycle === "archive");
 const active = telegramPlan.filter((post) => post.cycle === "oct-dec");
+const october = active.filter((post) => post.date.startsWith("2026-10"));
 assert.deepEqual(archived.map((post) => [post.date, post.title]), publishedExpected);
 assert.equal(archived.every((post) => post.defaultPhases.publication === "published"), true);
 assert.equal(active[0].date, "2026-10-01");
-assert.deepEqual(active.slice(0, 7).map((post) => post.date), ["2026-10-01", "2026-10-02", "2026-10-03", "2026-10-04", "2026-10-05", "2026-10-06", "2026-10-07"]);
-assert.equal(active.some((post) => post.title.includes("Авторский ответ")), true);
+assert.deepEqual(october.map((post) => post.date), [
+  "2026-10-01",
+  "2026-10-03",
+  "2026-10-06",
+  "2026-10-09",
+  "2026-10-13",
+  "2026-10-16",
+  "2026-10-20",
+  "2026-10-23",
+  "2026-10-27",
+  "2026-10-30",
+]);
+assert.equal(october.length, 10);
+assert.equal(october.every((post) => post.kind === "publication"), true);
+assert.equal(active.some((post) => post.title.includes("Авторский ответ") || post.title.includes("Что убираем первым?")), false);
+assert.equal(archived.some((post) => post.title === "Что убираем первым?"), true);
+for (const week of [1, 2, 3, 4, 5]) assert.equal(october.filter((post) => post.week === week).length, 2);
 assert.equal(active.some((post) => post.date.startsWith("2026-11")), true);
 assert.equal(active.some((post) => post.date.startsWith("2026-12")), true);
 assert.equal(new Set(telegramPlan.map((post) => post.id)).size, telegramPlan.length);
@@ -49,5 +65,18 @@ assert.equal(migrated["2026-08-22-channel-reset"].metrics.replies, "4");
 assert.equal(migrated["2026-09-11-remove-first"].phases.publication, "published");
 assert.equal(migrated["legacy-idea"].note, "не удалять");
 assert.equal(JSON.parse(values.get(STORAGE_KEY)).version, STORAGE_SCHEMA_VERSION);
+
+values.set(STORAGE_KEY, JSON.stringify({
+  version: STORAGE_SCHEMA_VERSION,
+  state: {
+    "2026-10-02-author-answer": {
+      phases: { preparation: "ready", publication: "planned", distribution: "planned", measurement: "planned" },
+      resultNote: "сохранить скрытые данные удалённой карточки",
+    },
+  },
+}));
+const preservedCurrentState = loadCalendarState(storage);
+assert.equal(preservedCurrentState["2026-10-02-author-answer"].phases.preparation, "ready");
+assert.equal(preservedCurrentState["2026-10-02-author-answer"].resultNote, "сохранить скрытые данные удалённой карточки");
 
 console.log(`Calendar checks passed: ${archived.length} published archive entries, ${active.length} active entries, schema v${STORAGE_SCHEMA_VERSION}.`);
