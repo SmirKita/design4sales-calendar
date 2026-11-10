@@ -43,6 +43,11 @@ enum Tests {
         precondition(planChanges([first], existing: [saved], now: first.alarmDate!).isEmpty)
         precondition(planChanges([first], existing: [ManagedReminder(key: saved.key, notes: notes,
             completed: false, matchesFields: false)!], now: now) == [.upsert(id: first.id, key: saved.key, atPublication: false)])
+        let stats = DesiredReminder(id: "post:tg:v24", title: "Statistics", notes: "",
+            due: first.due, alarm: first.due)
+        let oldManifest = Manifest(version: 1, reminders: [first, stats])
+        let oldStats = ManagedReminder(key: "stats", notes: stats.marker, completed: false, matchesFields: true)!
+        precondition(planChanges(oldManifest.publicationReminders, existing: [saved, oldStats], now: now) == [.remove(key: "stats")])
         do {
             try validate(Manifest(version: 1, reminders: [first, moved]))
             fatalError("Accepted duplicate ID")

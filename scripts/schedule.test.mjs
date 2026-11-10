@@ -52,12 +52,11 @@ test("cancel, publish, disable one and disable all remove the correct alarms", (
   assert.equal(rows(plan({ tg: enabled }, { morning: false })).size, 1);
 });
 
-test("optional measurement reminders start after actual publication, with independent switches", () => {
+test("previous statistics preferences stay in backups without scheduling statistics alerts", () => {
   const state = plan({ tg: { ...enabled, status: "published", publishedAt: "2026-11-12T05:00:00.000Z", v24: true, v72: true } });
-  const result = rows(state);
-  assert.deepEqual([...result.keys()], [id("tg") + ":v24", id("tg") + ":v72"]);
-  assert.equal(result.get(id("tg") + ":v24").due, "2026-11-13T05:00:00.000Z");
-  assert.equal(result.get(id("tg") + ":v72").due, "2026-11-15T05:00:00.000Z");
+  assert.equal(rows(state).size, 0);
+  assert.equal(readBackup({ schemaVersion: 5, state })[post.id].placements.tg.v24, true);
+  assert.equal(readBackup({ schemaVersion: 5, state })[post.id].placements.tg.v72, true);
 });
 
 test("custom publication, preferences and existing notes survive backup/import and reload", () => {

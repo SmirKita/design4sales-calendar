@@ -72,9 +72,6 @@ export function platformSlot(post, record, platform, settings) {
     format: platform.id === "ig" && FORMATS.includes(saved.format) ? saved.format : platform.format,
     reminder: saved.reminder === true,
     lead: LEADS.includes(saved.lead) ? saved.lead : null,
-    v24: saved.v24 === true,
-    v72: saved.v72 === true,
-    publishedAt: typeof saved.publishedAt === "string" ? saved.publishedAt : null,
   };
 }
 
@@ -113,18 +110,10 @@ export function makeManifest(posts, state) {
   for (const post of posts) {
     if (!validId.test(post.id)) continue;
     for (const slot of scheduledSlots(post, state[post.id] || {}, settings)) {
-      if (!slot.reminder || slot.status === "cancelled") continue;
+      if (!slot.reminder || ["cancelled", "published"].includes(slot.status)) continue;
       const platform = slot.platform.name;
       const id = post.id + ":" + slot.platform.id;
       const due = moscowInstant(slot.date, slot.time);
-      if (slot.status === "published") {
-        const actual = Date.parse(slot.publishedAt);
-        if (!Number.isFinite(actual)) continue;
-        for (const hours of [24, 72]) if (slot["v" + hours]) {
-          add(id + ":v" + hours, `Статистика ${hours} ч · ${platform} | ${post.title}`, "Сохрани результаты публикации в карточке календаря.", Math.ceil(actual / minute) * minute + hours * 60 * minute);
-        }
-        continue;
-      }
       const lead = slot.lead ?? settings.lead;
       add(id, `${platform} | ${post.title}`, `Проверь текст, визуал и ссылку. Выход: ${slot.date}, ${slot.time} МСК.`, due, due - lead * minute);
       if (settings.morning && Number.isFinite(due)) {

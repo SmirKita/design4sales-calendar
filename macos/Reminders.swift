@@ -10,6 +10,10 @@ struct CalendarIssue: LocalizedError {
 struct Manifest: Decodable {
     let version: Int
     let reminders: [DesiredReminder]
+
+    var publicationReminders: [DesiredReminder] {
+        reminders.filter { !$0.id.hasSuffix(":v24") && !$0.id.hasSuffix(":v72") }
+    }
 }
 
 struct DesiredReminder: Decodable {
@@ -229,7 +233,9 @@ final class AppleReminders {
         guard isCurrent() else { return false }
         let destination = try self.list(for: binding)
         let byKey = Dictionary(found.map { ($0.calendarItemIdentifier, $0) }, uniquingKeysWith: { a, _ in a })
-        let desiredByID = Dictionary(uniqueKeysWithValues: desired.reminders.map { ($0.id, $0) })
+        // Existing disk snapshots can still contain statistics tasks from 1.1.
+        let rows = desired.publicationReminders
+        let desiredByID = Dictionary(uniqueKeysWithValues: rows.map { ($0.id, $0) })
         let existing = byKey.values.compactMap { item -> ManagedReminder? in
             guard let mark = ManagedReminder(key: item.calendarItemIdentifier, notes: item.notes,
                                              completed: item.isCompleted, matchesFields: false) else { return nil }
@@ -241,7 +247,7 @@ final class AppleReminders {
             } ?? false
             return ManagedReminder(key: mark.key, notes: item.notes, completed: mark.completed, matchesFields: match)
         }
-        let changes = planChanges(desired.reminders, existing: existing, now: Date())
+        let changes = planChanges(rows, existing: existing, now: Date())
         guard !changes.isEmpty else { return true }
         do {
             for change in changes {

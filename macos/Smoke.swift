@@ -29,7 +29,7 @@ extension CalendarApp {
                       const [id, row] = entry;
                       const archive = saved.state[archiveID];
                       return archive?.metrics?.v72 === 52 && archive.resultNote === "Архивная заметка"
-                        && row.placements?.tg?.time === "11:42" && row.placements.tg.reminder === true
+                        && row.phases?.preparation === "ready" && row.placements?.tg?.time === "11:42" && row.placements.tg.reminder === true
                         && (expectLead === undefined || row.placements.tg.lead === expectLead)
                         && id.startsWith("user-");
                     };
@@ -45,23 +45,22 @@ extension CalendarApp {
                       input.files = transfer.files;
                       input.dispatchEvent(new Event("change", { bubbles: true }));
                       await wait(async () => (await load()).state[archiveID]?.metrics?.v72 === 52);
-                      const form = document.querySelector(".newPublication form");
-                      form.closest("details").open = true;
+                      [...document.querySelectorAll(".appHeader button")].find(button => button.textContent.includes("Новая публикация")).click();
+                      const form = await wait(() => document.querySelector("form.newPublication"));
                       form.elements.title.value = topic;
                       form.elements.date.value = "2027-02-20";
                       form.requestSubmit();
-                      const article = await wait(() => [...document.querySelectorAll(".postCard")].find(node => node.querySelector("h2")?.textContent === topic));
-                      const editor = article.querySelector(".placementEditor");
-                      editor.open = true;
-                      const telegram = editor.querySelector("fieldset");
-                      telegram.querySelector('input[type="checkbox"]').click();
-                      (await wait(() => telegram.querySelectorAll('input[type="checkbox"]')[1])).click();
-                      const time = telegram.querySelector('input[type="time"]');
+                      const article = await wait(() => [...document.querySelectorAll(".publicationCard")].find(node => node.querySelector("h3")?.textContent === topic));
+                      if (article.querySelectorAll(".slot").length !== 1) throw new Error("Unexpected platform list");
+                      article.querySelector(".readyToggle input").click();
+                      const telegram = article.querySelector(".slot");
+                      [...telegram.querySelectorAll("button")].find(button => button.textContent === "Изменить").click();
+                      const time = await wait(() => telegram.querySelector('input[type="time"]'));
                       Object.getOwnPropertyDescriptor(HTMLInputElement.prototype, "value").set.call(time, "11:42");
                       time.dispatchEvent(new Event("input", { bubbles: true }));
                       time.dispatchEvent(new Event("change", { bubbles: true }));
                       await wait(async () => checkPlan(await load()));
-                      if (getComputedStyle(article).display !== "grid" || !article.querySelector(".schedulePills").innerText.includes("11:42")) {
+                      if (getComputedStyle(article).display !== "grid" || !article.querySelector(".slotTime").innerText.includes("11:42")) {
                         throw new Error("Missing style or visible time");
                       }
                       const lead = telegram.querySelector('select:has(option[value="60"])');
