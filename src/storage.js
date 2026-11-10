@@ -1,10 +1,17 @@
-import { telegramPlan } from "./data/telegramPlan.js";
+import { telegramPlan, reviewWindows } from "./data/telegramPlan.js";
+import { SETTINGS_KEY } from "./publicationSchedule.js";
 
 export const STORAGE_KEY = "design4sales-telegram-calendar-v4";
 export const STORAGE_SCHEMA_VERSION = 5;
 export const LEGACY_STORAGE_KEYS = ["design4sales-telegram-calendar-v3", "design4sales-telegram-calendar-v2"];
 
 const idMigrations = { "2026-09-12-remove-first": "2026-09-11-remove-first" };
+const knownKeys = new Set([
+  ...telegramPlan.map((post) => post.id),
+  ...reviewWindows.map((window) => "note-" + window.id),
+  ...Object.keys(idMigrations),
+  SETTINGS_KEY,
+]);
 
 function phasesFromLegacy(status, defaults) {
   if (!status) return defaults;
@@ -41,7 +48,7 @@ export function normalizeState(value) {
   return next;
 }
 
-export function readBackup(value) {
+export function readBackup(value, { fromBrowser = false } = {}) {
   const raw = value && Object.hasOwn(value, "state") ? value.state : value;
   const version = value?.schemaVersion ?? value?.version;
   if (!raw || typeof raw !== "object" || Array.isArray(raw)
@@ -49,6 +56,12 @@ export function readBackup(value) {
     || Object.values(raw).some((record) => !record || typeof record !== "object" || Array.isArray(record))
     || (!Object.keys(raw).length && version == null)) {
     throw new Error("Неверный формат резервной копии");
+  }
+  const keys = Object.keys(raw);
+  if (!fromBrowser && keys.length && !keys.some((key) => knownKeys.has(key)
+    || /^20\d{2}-\d{2}-\d{2}-[a-z0-9-]+$/.test(key)
+    || (/^user-[a-f0-9]{32}$/.test(key) && raw[key].customPost))) {
+    throw new Error("В файле нет записей календаря Design4Sales");
   }
   return normalizeState(value);
 }
@@ -62,7 +75,7 @@ export function loadCalendarState(storage = window.localStorage) {
     const raw = storage.getItem(key);
     if (!raw) continue;
     try {
-      const state = readBackup(JSON.parse(raw));
+      const state = readBackup(JSON.parse(raw), { fromBrowser: true });
       if (key !== STORAGE_KEY && !storage.getItem(STORAGE_KEY)) {
         try { saveCalendarState(state, storage); } catch { /* The legacy copy is still readable. */ }
       }

@@ -1,14 +1,25 @@
 import AppKit
 import EventKit
+import Network
 import UniformTypeIdentifiers
 import WebKit
 
 @MainActor
 final class CalendarApp: NSObject, NSApplicationDelegate, WKScriptMessageHandlerWithReply, WKNavigationDelegate, WKUIDelegate {
     let preview = CommandLine.arguments.contains("--preview")
-    lazy var storage = StateFile(directory: preview
-        ? FileManager.default.temporaryDirectory.appendingPathComponent("d4s-preview-" + UUID().uuidString)
-        : FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask)[0].appendingPathComponent("Design4Sales Calendar"))
+    lazy var storage = StateFile(directory: storageDirectory())
+    private func storageDirectory() -> URL {
+        #if D4S_SMOKE
+        if preview, let path = ProcessInfo.processInfo.environment["D4S_SMOKE_STATE"] {
+            return URL(fileURLWithPath: path, isDirectory: true)
+        }
+        #endif
+        if preview {
+            return FileManager.default.temporaryDirectory.appendingPathComponent("d4s-preview-" + UUID().uuidString)
+        }
+        return FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask)[0]
+            .appendingPathComponent("Design4Sales Calendar")
+    }
     let apple = AppleReminders()
     var snapshot: Snapshot?
     var loadError: String?
@@ -23,13 +34,24 @@ final class CalendarApp: NSObject, NSApplicationDelegate, WKScriptMessageHandler
     var lastSuccess: String?
     var syncedRevision: Int?
     var retry: Timer?
+    var preparingQuit = false
+    var quitApproved = false
+    var binding: ReminderListBinding?
+    var listDescription: String?
+    var online: Bool?
+    let network = NWPathMonitor()
 
     func applicationDidFinishLaunching(_ notification: Notification) {
         do { snapshot = try storage.read() }
-        catch { loadError = "Локальная копия не открылась. Восстанови файл в Finder. " + error.localizedDescription }
+        catch { loadError = "Локальный план не открылся. Восстанови предыдущую версию или импортируй резервный JSON." }
         if !preview {
-            lastSuccess = UserDefaults.standard.string(forKey: "lastAppleWrite")
-            syncedRevision = UserDefaults.standard.object(forKey: "syncedRevision") as? Int
+            let defaults = UserDefaults.standard
+            if let calendarID = defaults.string(forKey: "reminderListID"),
+               let sourceID = defaults.string(forKey: "reminderSourceID") {
+                binding = ReminderListBinding(calendarID: calendarID, sourceID: sourceID)
+                lastSuccess = defaults.string(forKey: "lastAppleWrite")
+                syncedRevision = defaults.object(forKey: "syncedRevision") as? Int
+            }
         }
 
         let config = WKWebViewConfiguration()
@@ -65,10 +87,23 @@ final class CalendarApp: NSObject, NSApplicationDelegate, WKScriptMessageHandler
 
         entry = Bundle.main.resourceURL!.appendingPathComponent("Web/index.html")
         web.loadFileURL(entry, allowingReadAccessTo: entry.deletingLastPathComponent())
+        if !preview {
+            network.pathUpdateHandler = { [weak self] path in
+                let available = path.status == .satisfied
+                Task { @MainActor in
+                    guard let self else { return }
+                    let reconnected = self.online == false && available
+                    self.online = available
+                    self.sendStatus()
+                    if reconnected { self.schedule() }
+                }
+            }
+            network.start(queue: DispatchQueue(label: "studio.design4sales.network"))
+        }
         schedule()
         retry = Timer.scheduledTimer(withTimeInterval: 120, repeats: true) { [weak self] _ in
             Task { @MainActor in
-                guard let self, self.snapshot != nil, self.lastError != nil else { return }
+                guard let self, self.lastError != nil else { return }
                 self.schedule()
             }
         }
@@ -80,19 +115,53 @@ final class CalendarApp: NSObject, NSApplicationDelegate, WKScriptMessageHandler
     }
 
     func applicationShouldTerminate(_ sender: NSApplication) -> NSApplication.TerminateReply {
-        guard !preview, let snapshot, syncedRevision != snapshot.revision,
-              EKEventStore.authorizationStatus(for: .reminder) == .fullAccess else { return .terminateNow }
+        if quitApproved || web == nil { return .terminateNow }
+        guard !preparingQuit else { return .terminateCancel }
+        preparingQuit = true
+        // AppKit runs a nested modal loop for terminateLater. Keep the normal loop
+        // available for WebKit and EventKit, then issue a second terminate request.
         Task {
-            let until = Date().addingTimeInterval(4)
-            while busy && Date() < until { try? await Task.sleep(for: .milliseconds(100)) }
-            if !busy && syncedRevision != self.snapshot?.revision { await runSync() }
-            sender.reply(toApplicationShouldTerminate: true)
+            let script = """
+                if (!window.d4sFlush) return true;
+                return await Promise.race([window.d4sFlush(), new Promise(resolve => setTimeout(() => resolve(false), 2500))]);
+                """
+            let saved = try? await web.callAsyncJavaScript(script, arguments: [:], in: nil, contentWorld: .page)
+            guard saved as? Bool == true else {
+                let alert = NSAlert()
+                alert.messageText = "Не удалось подтвердить сохранение"
+                alert.informativeText = "Вернись в календарь, повтори сохранение или экспортируй прогресс в JSON."
+                alert.addButton(withTitle: "Вернуться в календарь")
+                alert.addButton(withTitle: "Выйти")
+                window.makeKeyAndOrderFront(nil)
+                alert.beginSheetModal(for: window) {
+                    self.preparingQuit = false
+                    if $0 == .alertSecondButtonReturn {
+                        self.quitApproved = true
+                        sender.terminate(nil)
+                    }
+                }
+                return
+            }
+            // A successful disk write is enough to close safely. Any pending Apple update
+            // will be retried on the next launch if this attempt cannot finish in time.
+            if !preview, let snapshot, syncedRevision != snapshot.revision,
+               binding != nil, EKEventStore.authorizationStatus(for: .reminder) == .fullAccess {
+                if !busy { schedule() }
+                let until = Date().addingTimeInterval(3)
+                while syncedRevision != self.snapshot?.revision && Date() < until {
+                    try? await Task.sleep(for: .milliseconds(100))
+                }
+            }
+            quitApproved = true
+            sender.terminate(nil)
         }
-        return .terminateLater
+        return .terminateCancel
     }
 
     func status() -> [String: Any] {
-        var info: [String: Any] = ["connected": isConnected]
+        var info: [String: Any] = ["connected": isConnected, "busy": busy, "configured": binding != nil]
+        if let listDescription { info["list"] = listDescription }
+        if let online { info["online"] = online }
         if let lastSuccess { info["lastSuccess"] = lastSuccess }
         if let syncedRevision { info["syncedRevision"] = syncedRevision }
         if let lastError { info["error"] = lastError }
@@ -106,37 +175,102 @@ final class CalendarApp: NSObject, NSApplicationDelegate, WKScriptMessageHandler
     }
 
     func schedule() {
-        guard snapshot != nil, loadError == nil, !preview,
-              EKEventStore.authorizationStatus(for: .reminder) != .notDetermined else { return }
+        guard binding != nil, loadError == nil, !preview else { return }
         work?.cancel()
         work = Task {
-            try? await Task.sleep(for: .milliseconds(400))
-            if !Task.isCancelled { await runSync() }
+            do { try await Task.sleep(for: .milliseconds(350)) }
+            catch { return }
+            work = nil
+            await runSync()
         }
     }
 
-    func runSync() async {
+    private func connectList() async throws -> EKCalendar? {
+        let choices = apple.candidates()
+        guard !choices.isEmpty else {
+            throw CalendarIssue("Список Design4Sales не найден. В «Напоминаниях» на Mac создай его в разделе iCloud и проверь, что iCloud для напоминаний включён.")
+        }
+        let sourceNames = choices.map { $0.source.title }
+        let picker = NSPopUpButton(frame: NSRect(x: 0, y: 0, width: 320, height: 28))
+        picker.addItem(withTitle: "Выбери список из раздела iCloud")
+        for (index, name) in sourceNames.enumerated() {
+            let label = name.isEmpty ? "Источник без названия" : name
+            picker.addItem(withTitle: "Design4Sales · \(label)")
+            picker.lastItem?.tag = index + 1
+        }
+        let knownICloud = choices.indices.filter { index in
+            sourceNames[index].localizedCaseInsensitiveContains("iCloud")
+        }
+        if knownICloud.count == 1 { picker.selectItem(at: knownICloud[0] + 1) }
+        let alert = NSAlert()
+        alert.messageText = "Подключить список Design4Sales"
+        alert.informativeText = "Сверь источник с разделом iCloud в приложении «Напоминания». Если два источника называются одинаково, переименуй одноимённый список в другом аккаунте."
+        alert.accessoryView = picker
+        alert.addButton(withTitle: "Подключить")
+        alert.addButton(withTitle: "Отмена")
+        let response = await withCheckedContinuation { continuation in
+            alert.beginSheetModal(for: window) { continuation.resume(returning: $0) }
+        }
+        guard response == .alertFirstButtonReturn else { return nil }
+        let index = (picker.selectedItem?.tag ?? 0) - 1
+        guard choices.indices.contains(index), sourceNames.filter({ $0 == sourceNames[index] }).count == 1 else {
+            throw CalendarIssue("Нужно однозначно выбрать список Design4Sales из iCloud. Проверь названия источников в «Напоминаниях».")
+        }
+        let chosenBinding = ReminderListBinding(choices[index])
+        let confirmed = try apple.list(for: chosenBinding)
+        binding = chosenBinding
+        lastSuccess = nil
+        syncedRevision = nil
+        let defaults = UserDefaults.standard
+        defaults.set(chosenBinding.calendarID, forKey: "reminderListID")
+        defaults.set(chosenBinding.sourceID, forKey: "reminderSourceID")
+        defaults.removeObject(forKey: "lastAppleWrite")
+        defaults.removeObject(forKey: "syncedRevision")
+        return confirmed
+    }
+
+    func runSync(setup: Bool = false) async {
         if busy { queued = true; return }
-        guard let snapshot, !preview, loadError == nil else { return }
+        guard !preview, loadError == nil else { return }
         busy = true
+        sendStatus()
         defer {
             busy = false
+            sendStatus()
             if queued { queued = false; schedule() }
         }
         do {
-            let list = try await apple.list(requestAccess: false)
+            try await apple.authorize(requestAccess: setup)
+            let list: EKCalendar
+            if let binding, let selected = try? apple.list(for: binding) {
+                list = selected
+            } else if setup {
+                guard let chosen = try await connectList() else { return }
+                list = chosen
+            } else if let binding {
+                list = try apple.list(for: binding)
+            } else {
+                throw CalendarIssue("Сначала подключи список Design4Sales в iCloud.")
+            }
             isConnected = true
-            _ = try await apple.sync(snapshot.manifest, in: list)
+            listDescription = list.title + " · " + list.source.title
+            if let snapshot {
+                guard try await apple.sync(snapshot.manifest, in: list, isCurrent: { self.snapshot?.revision == snapshot.revision }) else {
+                    queued = true
+                    return
+                }
+                lastSuccess = isoString(Date())
+                syncedRevision = snapshot.revision
+                UserDefaults.standard.set(lastSuccess, forKey: "lastAppleWrite")
+                UserDefaults.standard.set(syncedRevision, forKey: "syncedRevision")
+            }
             lastError = nil
-            lastSuccess = isoString(Date())
-            syncedRevision = snapshot.revision
-            UserDefaults.standard.set(lastSuccess, forKey: "lastAppleWrite")
-            UserDefaults.standard.set(syncedRevision, forKey: "syncedRevision")
         } catch {
-            lastError = error.localizedDescription
+            let reason = (error as? CalendarIssue)?.localizedDescription
+            lastError = reason ?? "Не удалось обновить задачи Apple. План сохранён на Mac. Проверь iCloud и повтори синхронизацию. (\(error.localizedDescription))"
             isConnected = false
+            listDescription = nil
         }
-        sendStatus()
     }
 
     func userContentController(_ userContentController: WKUserContentController, didReceive message: WKScriptMessage,
@@ -148,16 +282,25 @@ final class CalendarApp: NSObject, NSApplicationDelegate, WKScriptMessageHandler
         switch action {
         case "load":
             var info: [String: Any] = ["state": snapshot?.state ?? [:], "revision": snapshot?.revision ?? 0, "sync": status()]
-            if let loadError { info["error"] = loadError }
+            if let loadError {
+                info["error"] = loadError
+                info["canRecover"] = (try? storage.read(storage.lastGood)) != nil
+            }
             replyHandler(info, nil)
         case "status": replyHandler(status(), nil)
         case "save":
             do {
-                if let loadError { throw CalendarIssue(loadError) }
+                let recovering = loadError != nil && body["recover"] as? Bool == true
+                if let loadError, !recovering { throw CalendarIssue(loadError) }
                 let next = try Snapshot(body)
+                if let snapshot, next.revision == snapshot.revision, next.data == snapshot.data {
+                    replyHandler(true, nil)
+                    return
+                }
                 guard next.revision > (snapshot?.revision ?? 0) else { throw CalendarIssue("Устаревшая запись календаря.") }
-                try storage.write(next, backup: body["backup"] as? Bool == true ? snapshot : nil)
+                try storage.write(next, replacing: snapshot, backup: body["backup"] as? Bool == true, recovering: recovering)
                 snapshot = next
+                if recovering { recoveryCompleted() }
                 if preview {
                     isConnected = true
                     lastSuccess = isoString(Date())
@@ -168,20 +311,20 @@ final class CalendarApp: NSObject, NSApplicationDelegate, WKScriptMessageHandler
             } catch { replyHandler(nil, error.localizedDescription) }
         case "check", "sync":
             Task {
-                guard !preview else { replyHandler(status(), nil); return }
-                if busy { queued = true; replyHandler(status(), nil); return }
-                do {
-                    _ = try await apple.list(requestAccess: true)
-                    isConnected = true
-                    lastError = nil
-                    if action == "sync" { await runSync() }
-                    else { schedule() }
-                } catch {
-                    isConnected = false
-                    lastError = error.localizedDescription
-                }
+                await runSync(setup: action == "check")
                 replyHandler(status(), nil)
             }
+        case "restoreLastGood":
+            do {
+                guard loadError != nil, let previous = try storage.read(storage.lastGood) else {
+                    throw CalendarIssue("Предыдущая копия недоступна. Импортируй резервный JSON.")
+                }
+                try storage.write(previous, replacing: nil, backup: false, recovering: true)
+                snapshot = previous
+                recoveryCompleted()
+                schedule()
+                replyHandler(true, nil)
+            } catch { replyHandler(nil, error.localizedDescription) }
         case "export":
             guard let data = body["data"] as? [String: Any] else { replyHandler(nil, "Нет данных для экспорта."); return }
             let panel = NSSavePanel()
@@ -195,6 +338,16 @@ final class CalendarApp: NSObject, NSApplicationDelegate, WKScriptMessageHandler
                 } catch { replyHandler(nil, error.localizedDescription) }
             }
         default: replyHandler(nil, "Неизвестная команда.")
+        }
+    }
+
+    private func recoveryCompleted() {
+        loadError = nil
+        syncedRevision = nil
+        lastSuccess = nil
+        if !preview {
+            UserDefaults.standard.removeObject(forKey: "syncedRevision")
+            UserDefaults.standard.removeObject(forKey: "lastAppleWrite")
         }
     }
 

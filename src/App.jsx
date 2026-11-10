@@ -47,15 +47,25 @@ function App({ initial }) {
   const [revision, setRevision] = useState(initial?.revision || 0);
   const rev = useRef(revision);
   const queue = useRef(Promise.resolve());
+  const pendingSave = useRef(null);
   const blocked = Boolean(initial?.error);
+  const flush = () => queue.current.then(() => pendingSave.current === null);
   const syncText = saveError || (!mac ? "Apple: подключение доступно в приложении на Mac"
-    : sync.error || (sync.syncedRevision === revision && sync.lastSuccess ? "Apple: задачи обновлены"
-      : sync.connected ? "Apple: есть изменения для синхронизации" : "Apple: подключение не настроено"));
+    : sync.busy ? "Apple: проверяю список и обновляю задачи"
+      : sync.error || (sync.connected && sync.syncedRevision === revision && sync.lastSuccess ? "Apple: задачи обновлены на Mac"
+        : sync.connected ? "Apple: список подключён"
+          : sync.configured ? "Apple: проверка подключения ещё не завершена" : "Apple: подключение не настроено"));
   useEffect(() => {
     const onStatus = (event) => setSync(event.detail);
     window.addEventListener("d4s-sync", onStatus);
-    if (mac) nativeCall("status").then(setSync, () => {});
-    return () => window.removeEventListener("d4s-sync", onStatus);
+    if (mac) {
+      window.d4sFlush = flush;
+      nativeCall("status").then(setSync, () => {});
+    }
+    return () => {
+      window.removeEventListener("d4s-sync", onStatus);
+      if (mac) delete window.d4sFlush;
+    };
   }, []);
   const [typeFilter, setTypeFilter] = useState("all");
   const [publicationFilter, setPublicationFilter] = useState("all");
@@ -68,8 +78,27 @@ function App({ initial }) {
   const allPosts = useMemo(() => [...telegramPlan, ...userPosts(state)].sort((a, b) => a.date.localeCompare(b.date)), [state]);
   const settings = settingsFor(state);
 
-  const persist = (next, backup = false) => {
-    if (blocked) return;
+  const enqueueSave = (payload, retry = false) => {
+    queue.current = queue.current.then(async () => {
+      if (retry && (pendingSave.current?.revision !== payload.revision || payload.revision !== rev.current)) return false;
+      const save = { ...payload, backup: payload.backup || pendingSave.current?.backup === true };
+      try {
+        await nativeCall("save", save);
+        pendingSave.current = null;
+        setSaveError("");
+        return true;
+      } catch (error) {
+        pendingSave.current = save;
+        setSaveError("Изменения пока не записаны на Mac. " + error.message);
+        return false;
+      }
+    });
+    return queue.current;
+  };
+
+  const persist = (next, backup = false, recover = false) => {
+    if (blocked && !recover) return Promise.resolve(false);
+    let saved = Promise.resolve(true);
     if (!mac) {
       try {
         if (backup) localStorage.setItem(STORAGE_KEY + "-before-restore", JSON.stringify({ version: STORAGE_SCHEMA_VERSION, state: current.current }));
@@ -77,22 +106,23 @@ function App({ initial }) {
         setSaveError("");
       } catch {
         setSaveError("Не удалось сохранить изменения в браузере. Освободи место или разреши локальное хранилище.");
+        saved = Promise.resolve(false);
       }
     } else {
       const number = ++rev.current;
       setRevision(number);
       const manifest = makeManifest([...telegramPlan, ...userPosts(next)], next);
-      queue.current = queue.current.then(async () => {
-        try {
-          await nativeCall("save", { state: next, manifest, revision: number, backup });
-          setSaveError("");
-        } catch (error) {
-          setSaveError("Изменения не записаны на Mac: " + error.message + ". Повтори синхронизацию.");
-        }
-      });
+      saved = enqueueSave({ state: next, manifest, revision: number, backup, recover });
     }
     current.current = next;
     setState(next);
+    return saved;
+  };
+
+  const retrySave = async () => {
+    await queue.current;
+    const pending = pendingSave.current;
+    if (pending && await enqueueSave(pending, true) && pending.recover) window.location.reload();
   };
 
   const update = (post, patch) => {
@@ -131,13 +161,10 @@ function App({ initial }) {
     return "";
   };
 
-  const syncAction = (action) => {
-    if (blocked) return;
-    if (action === "sync") persist(current.current);
-    queue.current = queue.current.then(async () => {
-      try { setSync(await nativeCall(action)); }
-      catch (error) { setSync((old) => ({ ...old, error: error.message })); }
-    });
+  const syncAction = async (action) => {
+    if (blocked || !await flush()) return;
+    try { setSync(await nativeCall(action)); }
+    catch (error) { setSync((old) => ({ ...old, error: error.message })); }
   };
 
   const activeEntries = allPosts.filter((post) => post.cycle === "oct-dec");
@@ -172,9 +199,22 @@ function App({ initial }) {
     if (!file) return;
     try {
       const next = readBackup(JSON.parse(await file.text()));
-      if (window.confirm("Восстановить прогресс из этого файла? Текущее состояние будет сохранено отдельно.")) persist(next, true);
+      if (window.confirm("Восстановить прогресс из этого файла? Текущее состояние будет сохранено отдельно.")) {
+        const saved = await persist(next, true, blocked);
+        if (blocked && saved) window.location.reload();
+      }
     } catch {
       alert("Не удалось прочитать файл прогресса.");
+    }
+  };
+
+  const restoreLastGood = async () => {
+    if (!window.confirm("Восстановить предыдущую сохранённую версию плана? Повреждённый файл будет сохранён отдельно.")) return;
+    try {
+      await nativeCall("restoreLastGood");
+      window.location.reload();
+    } catch (error) {
+      setSaveError(error.message);
     }
   };
 
@@ -209,7 +249,14 @@ function App({ initial }) {
         </div>
       </header>
 
-      {saveError && <p className="schedulePanel" role="alert">{saveError}</p>}
+      {saveError && <section className="schedulePanel">
+        <p role="alert">{saveError}</p>
+        <div className="scheduleActions">
+          {mac && pendingSave.current && <button className="scheduleButton" onClick={retrySave}>Повторить сохранение</button>}
+          {blocked && initial?.canRecover && <button className="scheduleButton" onClick={restoreLastGood}>Восстановить предыдущую версию</button>}
+          {blocked && <button className="scheduleButton" onClick={() => importRef.current?.click()}>Импортировать резервный JSON</button>}
+        </div>
+      </section>}
       <nav className="viewTabs" aria-label="Разделы календаря">
         <button className={view === "calendar" ? "active" : ""} onClick={() => setView("calendar")}>Календарь</button>
         <button className={view === "schedule" ? "active" : ""} onClick={() => setView("schedule")}>Расписание публикаций</button>
@@ -255,9 +302,9 @@ function App({ initial }) {
       <footer className="footer">
         <div><strong>{mac ? "Прогресс хранится на этом Mac." : "Прогресс хранится в этом браузере."}</strong><span>Экспорт включает статусы, результаты и настройки расписания.</span></div>
         <div className="footerActions">
-          <button onClick={exportProgress}>Экспорт прогресса</button>
+          <button onClick={exportProgress} disabled={blocked && !pendingSave.current}>Экспорт прогресса</button>
           <button onClick={() => importRef.current?.click()}>Импорт</button>
-          <button className="danger" onClick={resetProgress}>Сбросить</button>
+          <button className="danger" onClick={resetProgress} disabled={blocked}>Сбросить</button>
           <input ref={importRef} type="file" accept="application/json" onChange={importProgress} hidden />
         </div>
       </footer>

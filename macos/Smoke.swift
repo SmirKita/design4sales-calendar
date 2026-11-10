@@ -6,43 +6,87 @@ extension CalendarApp {
     func runSmoke() {
         guard preview else { return }
         smokePass += 1
-        let step = smokePass
+        guard smokePass == 1 else { return }
+        let stage = ProcessInfo.processInfo.environment["D4S_SMOKE_STAGE"] ?? "create"
         Task {
             do {
                 let result = try await web.callAsyncJavaScript("""
                     const wait = async (get) => {
                       for (let i = 0; i < 100; i++) {
-                        const value = get();
+                        const value = await get();
                         if (value) return value;
                         await new Promise(resolve => setTimeout(resolve, 30));
                       }
                       throw new Error("Not found: " + get);
                     };
-                    const article = await wait(() => document.querySelector("#post-2026-11-11-packaging-shelf"));
-                    const editor = article.querySelector(".placementEditor");
-                    editor.open = true;
-                    const telegram = editor.querySelector("fieldset");
-                    if (step === 1) {
-                      telegram.querySelector('input[type=checkbox]').click();
-                      const next = await wait(() => telegram.querySelectorAll('input[type=checkbox]')[1]);
-                      next.click();
-                      await wait(() => editor.innerText.includes("Apple: задачи обновлены"));
+                    const bridge = window.webkit.messageHandlers.calendar;
+                    const load = () => bridge.postMessage({ action: "load" });
+                    const archiveID = "2026-08-22-channel-reset";
+                    const topic = "Проверка WebKit";
+                    const checkPlan = (saved, expectLead) => {
+                      const entry = Object.entries(saved.state).find(([id, row]) => row.customPost?.title === topic);
+                      if (!entry) return false;
+                      const [id, row] = entry;
+                      const archive = saved.state[archiveID];
+                      return archive?.metrics?.v72 === 52 && archive.resultNote === "Архивная заметка"
+                        && row.placements?.tg?.time === "11:42" && row.placements.tg.reminder === true
+                        && (expectLead === undefined || row.placements.tg.lead === expectLead)
+                        && id.startsWith("user-");
+                    };
+                    await wait(() => document.querySelector(".viewTabs"));
+                    if (stage === "create") {
+                      const source = { schemaVersion: 4, state: {
+                        [archiveID]: { metrics: { v72: 52 }, resultNote: "Архивная заметка", phases: { publication: "published" } }
+                      }};
+                      const transfer = new DataTransfer();
+                      transfer.items.add(new File([JSON.stringify(source)], "legacy-v4.json", { type: "application/json" }));
+                      const input = document.querySelector('input[type="file"]');
+                      window.confirm = () => true;
+                      input.files = transfer.files;
+                      input.dispatchEvent(new Event("change", { bubbles: true }));
+                      await wait(async () => (await load()).state[archiveID]?.metrics?.v72 === 52);
+                      const form = document.querySelector(".newPublication form");
+                      form.closest("details").open = true;
+                      form.elements.title.value = topic;
+                      form.elements.date.value = "2027-02-20";
+                      form.requestSubmit();
+                      const article = await wait(() => [...document.querySelectorAll(".postCard")].find(node => node.querySelector("h2")?.textContent === topic));
+                      const editor = article.querySelector(".placementEditor");
+                      editor.open = true;
+                      const telegram = editor.querySelector("fieldset");
+                      telegram.querySelector('input[type="checkbox"]').click();
+                      (await wait(() => telegram.querySelectorAll('input[type="checkbox"]')[1])).click();
+                      const time = telegram.querySelector('input[type="time"]');
+                      Object.getOwnPropertyDescriptor(HTMLInputElement.prototype, "value").set.call(time, "11:42");
+                      time.dispatchEvent(new Event("input", { bubbles: true }));
+                      time.dispatchEvent(new Event("change", { bubbles: true }));
+                      await wait(async () => checkPlan(await load()));
+                      if (getComputedStyle(article).display !== "grid" || !article.querySelector(".schedulePills").innerText.includes("11:42")) {
+                        throw new Error("Missing style or visible time");
+                      }
+                      const lead = telegram.querySelector('select:has(option[value="60"])');
+                      lead.value = "30";
+                      lead.dispatchEvent(new Event("change", { bubbles: true }));
+                      return true;
                     }
-                    const active = [...telegram.querySelectorAll('input[type=checkbox]')].slice(0, 2).every(box => box.checked);
-                    return { active, display: getComputedStyle(article).display, pills: article.querySelector(".schedulePills")?.innerText || "", status: editor.innerText.split("\\n").slice(-3) };
-                    """, arguments: ["step": step], in: nil, contentWorld: .page)
-                let details = result as? [String: Any] ?? [:]
-                let saved = try storage.read()
-                let ids = saved?.manifest.reminders.map(\.id) ?? []
-                guard details["active"] as? Bool == true, details["display"] as? String == "grid",
-                      (details["pills"] as? String)?.contains("10:30") == true,
-                      ids.contains("2026-11-11-packaging-shelf:tg"), ids.contains("morning:2026-11-11") else {
-                    throw CalendarIssue("UI and persisted manifest did not agree. Step \(step), UI \(details), tasks \(ids).")
+                    if (stage === "reopen") return checkPlan(await load(), 30);
+                    const damaged = await load();
+                    if (!damaged.error || !damaged.canRecover || !document.querySelector('[role="alert"]')) return false;
+                    await bridge.postMessage({ action: "restoreLastGood" });
+                    return checkPlan(await load());
+                    """, arguments: ["stage": stage], in: nil, contentWorld: .page)
+                guard result as? Bool == true else { throw CalendarIssue("Unexpected UI or saved state in stage \(stage).") }
+                if stage != "create" {
+                    let saved = try storage.read()
+                    let ids = saved?.manifest.reminders.map(\.id) ?? []
+                    guard ids.contains(where: { $0.hasPrefix("user-") && $0.hasSuffix(":tg") }),
+                          ids.contains("morning:2027-02-20") else {
+                        throw CalendarIssue("The saved Apple manifest did not match the plan.")
+                    }
                 }
-                if step == 1 { web.reload(); return }
-                try? FileManager.default.removeItem(at: storage.directory)
-                print("WKWebView smoke passed: bundled styles, edit → native save → persisted manifest → reload.")
-                exit(0)
+                print("WKWebView smoke passed: \(stage)")
+                if stage == "create" { NSApp.terminate(nil) }
+                else { exit(0) }
             } catch {
                 print("WKWebView smoke failed: \(error)")
                 exit(1)

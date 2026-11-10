@@ -2,7 +2,7 @@ import assert from "node:assert/strict";
 import test from "node:test";
 import { telegramPlan } from "../src/data/telegramPlan.js";
 import { loadCalendarState, normalizeState, readBackup, saveCalendarState, STORAGE_KEY } from "../src/storage.js";
-import { makeManifest, moscowInstant, todayInMoscow, SETTINGS_KEY, userPosts } from "../src/publicationSchedule.js";
+import { makeManifest, moscowInstant, todayInMoscow, PLATFORMS, SETTINGS_KEY, userPosts } from "../src/publicationSchedule.js";
 
 const post = telegramPlan.find((row) => row.id === "2026-11-11-packaging-shelf");
 const id = (platform) => post.id + ":" + platform;
@@ -76,5 +76,33 @@ test("custom publication, preferences and existing notes survive backup/import a
   assert.equal(restored[key].placements.ig.format, "Reels");
   assert.equal(rows(restored, userPosts(restored)).get(key + ":ig").alarm, "2026-11-14T08:42:00.000Z");
   assert.throws(() => readBackup({ message: "not a backup" }));
+  assert.throws(() => readBackup({ schemaVersion: 4, state: { unrelated: {} } }));
+  const archived = telegramPlan.find((row) => row.cycle === "archive");
+  const legacy = readBackup({ schemaVersion: 4, state: {
+    [archived.id]: { phases: { publication: "published", distribution: "done" }, metrics: { v24: 41, v72: 52 },
+      resultNote: "итог", links: { post: "https://example.com" } },
+    "2026-10-02-author-answer": { resultNote: "история" },
+  } });
+  assert.equal(legacy[archived.id].metrics.v72, 52);
+  assert.equal(legacy[archived.id].phases.distribution, "done");
+  assert.equal(legacy[archived.id].resultNote, "итог");
+  assert.equal(legacy["2026-10-02-author-answer"].resultNote, "история");
+  assert.equal(rows(legacy).size, 0);
   assert.throws(() => readBackup({ schemaVersion: 99, state: {} }));
+});
+
+test("all eight placements keep separate hours and switches after reopening the saved plan", () => {
+  const placements = Object.fromEntries(PLATFORMS.map((platform, index) => [
+    platform.id, { ...enabled, mode: "custom", time: `1${index}:42`, reminder: index % 2 === 0 },
+  ]));
+  const state = plan(placements, { morning: false, lead: 30 });
+  const values = new Map();
+  const storage = { getItem: (k) => values.get(k), setItem: (k, v) => values.set(k, v) };
+  saveCalendarState(state, storage);
+  const reloaded = loadCalendarState(storage);
+  assert.deepEqual(reloaded[post.id].placements, placements);
+  assert.equal(reloaded[SETTINGS_KEY].lead, 30);
+  const actual = rows(reloaded);
+  assert.deepEqual([...actual.keys()], PLATFORMS.filter((_, index) => index % 2 === 0).map((platform) => id(platform.id)));
+  assert.equal(actual.get(id("tg")).alarm, "2026-11-11T07:12:00.000Z");
 });

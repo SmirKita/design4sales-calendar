@@ -84,12 +84,14 @@ export function ScheduleSettings({ settings, change, native, sync, syncText, syn
       <label className="checkLabel"><input type="checkbox" checked={settings.morning} onChange={(e) => change({ morning: e.target.checked })} /> Сводка в 08:30 МСК в дни выходов с напоминаниями</label>
       <label className="defaultLead">Предупреждение по умолчанию<select value={settings.lead} onChange={(e) => change({ lead: Number(e.target.value) })}><LeadOptions /></select></label>
       <p role="status">{syncText}</p>
-      {sync?.lastSuccess && <p className="scheduleHint">Последняя успешная запись в Apple: {new Intl.DateTimeFormat("ru-RU", { timeZone: "Europe/Moscow", dateStyle: "short", timeStyle: "short" }).format(new Date(sync.lastSuccess))} МСК.</p>}
+      {sync?.list && <p className="scheduleHint">Подключённый список · {sync.list}</p>}
+      {sync?.online === false && <p className="scheduleHint">Сейчас нет подключения к сети. План сохраняется на Mac. iCloud сможет доставить изменения после подключения.</p>}
+      {sync?.lastSuccess && <p className="scheduleHint">Последняя успешная сверка на Mac: {new Intl.DateTimeFormat("ru-RU", { timeZone: "Europe/Moscow", dateStyle: "short", timeStyle: "short" }).format(new Date(sync.lastSuccess))} МСК.</p>}
       {native ? <>
-        <p className="scheduleHint">Создай список Design4Sales в разделе iCloud на Mac. Подключение и обновление задач выполняются из этого приложения. В Apple время задачи — это время сигнала; время выхода указано в заметке.</p>
+        <p className="scheduleHint">Создай список Design4Sales в разделе iCloud на Mac и подключи его один раз. В заметке задачи видны время выхода и время сигнала. Доставку на iPhone выполняет iCloud.</p>
         <div className="scheduleActions">
-          <button className="scheduleButton" onClick={() => syncAction("check")}>Проверить подключение</button>
-          <button className="scheduleButton" onClick={() => syncAction("sync")}>Синхронизировать сейчас</button>
+          <button className="scheduleButton" disabled={sync?.busy} onClick={() => syncAction("check")}>{sync?.connected ? "Проверить подключение" : "Подключить список"}</button>
+          <button className="scheduleButton" disabled={sync?.busy || !sync?.configured} onClick={() => syncAction("sync")}>Синхронизировать сейчас</button>
         </div>
       </> : <p className="scheduleHint">Веб-версия хранит свой план в этом браузере. Для автоматической записи в Apple перенеси прогресс через JSON в приложение календаря на Mac.</p>}
     </div>
