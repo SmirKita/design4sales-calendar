@@ -6,7 +6,9 @@
   "homepage": "./",
   "scripts": {
     "dev": "vite",
-    "check": "node scripts/check-data.mjs",
+    "check": "node scripts/check-data.mjs && node --test scripts/schedule.test.mjs",
+    "build:mac": "bash macos/build.sh",
+    "check:mac": "bash macos/check.sh",
     "build": "vite build",
     "preview": "vite preview",
     "deploy": "npm run build && gh-pages -d dist"

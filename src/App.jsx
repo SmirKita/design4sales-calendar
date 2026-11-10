@@ -1,7 +1,11 @@
-import React, { useMemo, useRef, useState } from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import { contentTypes, phaseOptions, reviewWindows, telegramPlan } from "./data/telegramPlan.js";
 import { telegramBacklog } from "./data/telegramBacklog.js";
-import { loadCalendarState, normalizeState, saveCalendarState, STORAGE_SCHEMA_VERSION } from "./storage.js";
+import { loadCalendarState, normalizeState, readBackup, saveCalendarState, STORAGE_KEY, STORAGE_SCHEMA_VERSION } from "./storage.js";
+
+import { makeManifest, isDate, isSchedulable, SETTINGS_KEY, settingsFor, userPosts } from "./publicationSchedule.js";
+import { DaySchedule, NewPublication, PlacementEditor, SchedulePills, ScheduleSettings } from "./Schedule.jsx";
+import { mac, nativeCall, downloadJSON } from "./macBridge.js";
 
 const emptyMetrics = { v24: "", v72: "", replies: "", subscriptions: "", workRequests: "", minutes: "", clicks: "" };
 const phaseLabels = { preparation: "Подготовка", publication: "Публикация", distribution: "Распространение", measurement: "Проверка" };
@@ -35,8 +39,24 @@ function getRecord(state, post) {
   };
 }
 
-function App() {
-  const [state, setState] = useState(loadCalendarState);
+function App({ initial }) {
+  const [state, setState] = useState(() => mac ? normalizeState(initial?.state) : loadCalendarState());
+  const current = useRef(state);
+  const [sync, setSync] = useState(initial?.sync || {});
+  const [saveError, setSaveError] = useState(initial?.error || "");
+  const [revision, setRevision] = useState(initial?.revision || 0);
+  const rev = useRef(revision);
+  const queue = useRef(Promise.resolve());
+  const blocked = Boolean(initial?.error);
+  const syncText = saveError || (!mac ? "Apple: подключение доступно в приложении на Mac"
+    : sync.error || (sync.syncedRevision === revision && sync.lastSuccess ? "Apple: задачи обновлены"
+      : sync.connected ? "Apple: есть изменения для синхронизации" : "Apple: подключение не настроено"));
+  useEffect(() => {
+    const onStatus = (event) => setSync(event.detail);
+    window.addEventListener("d4s-sync", onStatus);
+    if (mac) nativeCall("status").then(setSync, () => {});
+    return () => window.removeEventListener("d4s-sync", onStatus);
+  }, []);
   const [typeFilter, setTypeFilter] = useState("all");
   const [publicationFilter, setPublicationFilter] = useState("all");
   const [weekFilter, setWeekFilter] = useState("all");
@@ -45,22 +65,89 @@ function App() {
   const [view, setView] = useState("calendar");
   const importRef = useRef(null);
 
+  const allPosts = useMemo(() => [...telegramPlan, ...userPosts(state)].sort((a, b) => a.date.localeCompare(b.date)), [state]);
+  const settings = settingsFor(state);
+
+  const persist = (next, backup = false) => {
+    if (blocked) return;
+    if (!mac) {
+      try {
+        if (backup) localStorage.setItem(STORAGE_KEY + "-before-restore", JSON.stringify({ version: STORAGE_SCHEMA_VERSION, state: current.current }));
+        saveCalendarState(next);
+        setSaveError("");
+      } catch {
+        setSaveError("Не удалось сохранить изменения в браузере. Освободи место или разреши локальное хранилище.");
+      }
+    } else {
+      const number = ++rev.current;
+      setRevision(number);
+      const manifest = makeManifest([...telegramPlan, ...userPosts(next)], next);
+      queue.current = queue.current.then(async () => {
+        try {
+          await nativeCall("save", { state: next, manifest, revision: number, backup });
+          setSaveError("");
+        } catch (error) {
+          setSaveError("Изменения не записаны на Mac: " + error.message + ". Повтори синхронизацию.");
+        }
+      });
+    }
+    current.current = next;
+    setState(next);
+  };
+
   const update = (post, patch) => {
-    setState((current) => {
-      const next = { ...current, [post.id]: { ...getRecord(current, post), ...patch } };
-      saveCalendarState(next);
-      return next;
+    const record = getRecord(current.current, post);
+    const next = { ...record, ...patch };
+    // The existing publication stage tracks the main Telegram post; other placements are independent.
+    if (patch.phases && patch.phases.publication !== record.phases.publication && record.placements?.tg?.enabled) {
+      const status = patch.phases.publication === "skip" ? "cancelled" : patch.phases.publication;
+      next.placements = { ...record.placements, tg: { ...record.placements.tg, status,
+        publishedAt: status === "published" ? new Date().toISOString() : null } };
+    }
+    persist({ ...current.current, [post.id]: next });
+  };
+
+  const changePlacement = (post, platform, patch) => {
+    const record = getRecord(current.current, post);
+    const placements = { ...record.placements, [platform]: { ...record.placements?.[platform], ...patch } };
+    const phases = platform === "tg" && patch.status && placements.tg.enabled
+      ? { ...record.phases, publication: patch.status === "cancelled" ? "skip" : patch.status } : record.phases;
+    persist({ ...current.current, [post.id]: { ...record, phases, placements } });
+  };
+
+  const create = ({ title, date }) => {
+    if (blocked) return "Хранилище недоступно.";
+    if (!title || !isDate(date)) return "Укажи тему и корректную дату.";
+    const clean = (value) => value.trim().replace(/\s+/g, " ").toLocaleLowerCase("ru");
+    if (allPosts.some((post) => post.date === date && clean(post.title) === clean(title))) return "Такая тема уже есть на эту дату.";
+    const id = "user-" + [...crypto.getRandomValues(new Uint8Array(16))].map((n) => n.toString(16).padStart(2, "0")).join("");
+    persist({ ...current.current, [id]: { customPost: { title, date } } });
+    setCycleFilter("active");
+    setTypeFilter("all");
+    setWeekFilter("all");
+    setPublicationFilter("all");
+    setQuery("");
+    requestAnimationFrame(() => document.getElementById("post-" + id)?.scrollIntoView({ block: "center" }));
+    return "";
+  };
+
+  const syncAction = (action) => {
+    if (blocked) return;
+    if (action === "sync") persist(current.current);
+    queue.current = queue.current.then(async () => {
+      try { setSync(await nativeCall(action)); }
+      catch (error) { setSync((old) => ({ ...old, error: error.message })); }
     });
   };
 
-  const activeEntries = telegramPlan.filter((post) => post.cycle === "oct-dec");
+  const activeEntries = allPosts.filter((post) => post.cycle === "oct-dec");
   const activePublications = activeEntries.filter((post) => post.kind === "publication");
   const published = activePublications.filter((post) => getRecord(state, post).phases.publication === "published").length;
   const prepared = activeEntries.filter((post) => ["ready", "skip"].includes(getRecord(state, post).phases.preparation)).length;
   const measured = activeEntries.filter((post) => ["done", "na"].includes(getRecord(state, post).phases.measurement)).length;
   const progress = Math.round((measured / activeEntries.length) * 100);
 
-  const filtered = useMemo(() => telegramPlan.filter((post) => {
+  const filtered = useMemo(() => allPosts.filter((post) => {
     const record = getRecord(state, post);
     const haystack = `${post.title} ${post.thought} ${post.audience} ${post.mainPlatform} ${post.format}`.toLowerCase();
     return (cycleFilter === "all" || (cycleFilter === "active" ? post.cycle === "oct-dec" : post.cycle === "archive"))
@@ -68,35 +155,38 @@ function App() {
       && (publicationFilter === "all" || record.phases.publication === publicationFilter)
       && (weekFilter === "all" || String(post.week) === weekFilter)
       && (!query.trim() || haystack.includes(query.trim().toLowerCase()));
-  }), [cycleFilter, publicationFilter, query, state, typeFilter, weekFilter]);
+  }), [allPosts, cycleFilter, publicationFilter, query, state, typeFilter, weekFilter]);
 
-  const exportProgress = () => {
-    const blob = new Blob([JSON.stringify({ exportedAt: new Date().toISOString(), schemaVersion: STORAGE_SCHEMA_VERSION, state }, null, 2)], { type: "application/json" });
-    const link = document.createElement("a");
-    link.href = URL.createObjectURL(blob);
-    link.download = "Design4Sales_calendar_progress.json";
-    link.click();
-    URL.revokeObjectURL(link.href);
+  const exportProgress = async () => {
+    const data = { exportedAt: new Date().toISOString(), schemaVersion: STORAGE_SCHEMA_VERSION, state };
+    if (!mac) downloadJSON(data);
+    else {
+      try { await nativeCall("export", { data }); }
+      catch (error) { alert(error.message); }
+    }
   };
 
   const importProgress = async (event) => {
     const file = event.target.files?.[0];
+    event.target.value = "";
     if (!file) return;
     try {
-      const next = normalizeState(JSON.parse(await file.text()));
-      setState(next);
-      saveCalendarState(next);
+      const next = readBackup(JSON.parse(await file.text()));
+      if (window.confirm("Восстановить прогресс из этого файла? Текущее состояние будет сохранено отдельно.")) persist(next, true);
     } catch {
       alert("Не удалось прочитать файл прогресса.");
     }
-    event.target.value = "";
   };
 
   const resetProgress = () => {
-    if (!window.confirm("Сбросить все статусы, результаты и заметки?")) return;
-    const next = normalizeState({});
-    setState(next);
-    saveCalendarState(next);
+    if (!window.confirm("Сбросить рабочий прогресс и расписание? Архив и копия текущего состояния сохранятся.")) return;
+    const archive = Object.fromEntries(telegramPlan.filter((post) => post.cycle === "archive").map((post) => [post.id, current.current[post.id]]));
+    persist(normalizeState(archive), true);
+  };
+
+  const manage = () => {
+    setView("schedule");
+    requestAnimationFrame(() => document.getElementById("apple-settings")?.scrollIntoView({ block: "start" }));
   };
 
   return (
@@ -119,8 +209,10 @@ function App() {
         </div>
       </header>
 
+      {saveError && <p className="schedulePanel" role="alert">{saveError}</p>}
       <nav className="viewTabs" aria-label="Разделы календаря">
         <button className={view === "calendar" ? "active" : ""} onClick={() => setView("calendar")}>Календарь</button>
+        <button className={view === "schedule" ? "active" : ""} onClick={() => setView("schedule")}>Расписание публикаций</button>
         <button className={view === "reviews" ? "active" : ""} onClick={() => setView("reviews")}>Контрольные срезы</button>
         <button className={view === "principles" ? "active" : ""} onClick={() => setView("principles")}>Редакционный компас</button>
         <button className={view === "backlog" ? "active" : ""} onClick={() => setView("backlog")}>Архив тем</button>
@@ -128,6 +220,8 @@ function App() {
 
       {view === "calendar" && (
         <>
+          <NewPublication create={create} />
+          <DaySchedule posts={filtered} state={state} settings={settings} />
           <section className="toolbar">
             <input className="search" value={query} onChange={(event) => setQuery(event.target.value)} placeholder="Найти тему, аудиторию или площадку" aria-label="Поиск по календарю" />
             <select value={cycleFilter} onChange={(event) => setCycleFilter(event.target.value)} aria-label="Фильтр по циклу">
@@ -146,18 +240,20 @@ function App() {
           </section>
           <div className="resultLine"><span>{filtered.length} записей</span><span>Подробности и действия открываются внутри карточки</span></div>
           <section className="calendarList">
-            {filtered.map((post) => <PostCard key={post.id} post={post} record={getRecord(state, post)} update={update} />)}
+            {filtered.map((post) => <PostCard key={post.id} post={post} record={getRecord(state, post)} update={update} settings={settings} changePlacement={changePlacement} sync={syncText} manage={manage} />)}
           </section>
           {!filtered.length && <div className="empty">По этим фильтрам записей нет.</div>}
         </>
       )}
 
+      {view === "schedule" && <ScheduleSettings settings={settings} change={(patch) => persist({ ...current.current, [SETTINGS_KEY]: { ...settings, ...patch } })}
+        native={Boolean(mac)} sync={sync} syncText={syncText} syncAction={syncAction} />}
       {view === "reviews" && <Reviews state={state} update={update} />}
       {view === "principles" && <Principles />}
       {view === "backlog" && <Backlog />}
 
       <footer className="footer">
-        <div><strong>Прогресс хранится в этом браузере.</strong><span>Старые записи и данные v3 сохраняются при переходе на новую схему.</span></div>
+        <div><strong>{mac ? "Прогресс хранится на этом Mac." : "Прогресс хранится в этом браузере."}</strong><span>Экспорт включает статусы, результаты и настройки расписания.</span></div>
         <div className="footerActions">
           <button onClick={exportProgress}>Экспорт прогресса</button>
           <button onClick={() => importRef.current?.click()}>Импорт</button>
@@ -183,11 +279,11 @@ function PhaseSelect({ phase, value, onChange }) {
   );
 }
 
-function PostCard({ post, record, update }) {
+function PostCard({ post, record, update, settings, changePlacement, sync, manage }) {
   const [open, setOpen] = useState(false);
   const toggleAction = (index) => update(post, { actionChecks: { ...record.actionChecks, [index]: !record.actionChecks[index] } });
   return (
-    <article className={`postCard type-${post.type} ${record.phases.publication === "published" ? "isPublished" : ""}`}>
+    <article id={`post-${post.id}`} className={`postCard type-${post.type} ${record.phases.publication === "published" ? "isPublished" : ""}`}>
       <div className="postStripe" />
       <div className="postMain">
         <div className="postMeta">
@@ -205,6 +301,9 @@ function PostCard({ post, record, update }) {
           <div><span>Основной выход</span><strong>{post.mainPlatform}</strong></div>
           <div><span>Лимит</span><strong>{post.timeBudget}</strong></div>
         </div>
+        <SchedulePills post={post} record={record} settings={settings} />
+        {isSchedulable(post) && <PlacementEditor post={post} record={record} settings={settings}
+          change={(platform, patch) => changePlacement(post, platform, patch)} sync={sync} manage={manage} />}
         <button className="detailsButton" onClick={() => setOpen((value) => !value)} aria-expanded={open}>{open ? "Свернуть" : "Открыть план и «После публикации»"}</button>
       </div>
       <aside className="postControls">
@@ -262,7 +361,7 @@ function Reviews({ state, update }) {
     <section className="reviews">
       <div className="sectionIntro"><span>Контрольные срезы</span><h2>Решения по фактам, а не по ощущению</h2><p>Сравнивайте V72 только у публикаций с завершённым окном. Подписки, ответы и рабочие обращения остаются разными результатами.</p></div>
       {reviewWindows.map((window) => {
-        const posts = telegramPlan.filter((post) => post.kind === "publication" && post.date >= window.start && post.date <= window.end);
+        const posts = [...telegramPlan, ...userPosts(state)].filter((post) => post.kind === "publication" && post.date >= window.start && post.date <= window.end);
         const v72 = posts.filter((post) => isValue(getRecord(state, post).metrics.v72));
         const replies = posts.reduce((sum, post) => sum + Number(getRecord(state, post).metrics.replies || 0), 0);
         const subscriptions = posts.reduce((sum, post) => sum + Number(getRecord(state, post).metrics.subscriptions || 0), 0);
