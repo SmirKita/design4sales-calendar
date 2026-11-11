@@ -10,6 +10,7 @@ mkdir -p "$app/Contents/MacOS" "$app/Contents/Resources"
 cp macos/Info.plist "$app/Contents/Info.plist"
 rm -rf "$app/Contents/Resources/Web"
 ditto dist-mac "$app/Contents/Resources/Web"
+cp macos/AppIcon.icns "$app/Contents/Resources/AppIcon.icns"
 flags=()
 if [[ "${D4S_SMOKE:-0}" == 1 ]]; then flags=(-D D4S_SMOKE); fi
 xcrun swiftc -target arm64-apple-macos14.0 -O ${flags[@]+"${flags[@]}"} macos/main.swift macos/Reminders.swift macos/StateFile.swift macos/Smoke.swift -o "$app/Contents/MacOS/Design4SalesCalendar"
