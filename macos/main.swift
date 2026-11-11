@@ -34,6 +34,7 @@ final class CalendarApp: NSObject, NSApplicationDelegate, WKScriptMessageHandler
     var lastSuccess: String?
     var syncedRevision: Int?
     var retry: Timer?
+    var preparedToSync = false
     var preparingQuit = false
     var quitApproved = false
     var binding: ReminderListBinding?
@@ -175,7 +176,7 @@ final class CalendarApp: NSObject, NSApplicationDelegate, WKScriptMessageHandler
     }
 
     func schedule() {
-        guard binding != nil, loadError == nil, !preview else { return }
+        guard preparedToSync, binding != nil, loadError == nil, !preview else { return }
         work?.cancel()
         work = Task {
             do { try await Task.sleep(for: .milliseconds(350)) }
@@ -231,7 +232,7 @@ final class CalendarApp: NSObject, NSApplicationDelegate, WKScriptMessageHandler
 
     func runSync(setup: Bool = false) async {
         if busy { queued = true; return }
-        guard !preview, loadError == nil else { return }
+        guard preparedToSync, !preview, loadError == nil else { return }
         busy = true
         sendStatus()
         defer {
@@ -287,6 +288,22 @@ final class CalendarApp: NSObject, NSApplicationDelegate, WKScriptMessageHandler
                 info["canRecover"] = (try? storage.read(storage.lastGood)) != nil
             }
             replyHandler(info, nil)
+        case "prepare":
+            do {
+                if let loadError { throw CalendarIssue(loadError) }
+                guard let expected = body["expectedRevision"] as? Int, expected == (snapshot?.revision ?? 0) else {
+                    throw CalendarIssue("План изменился во время открытия. Открой приложение ещё раз.")
+                }
+                let next = try Snapshot(body)
+                if let current = snapshot, current.manifest != next.manifest || !NSDictionary(dictionary: current.state).isEqual(to: next.state) {
+                    try storage.backupBeforeUpdate(current)
+                    try storage.write(next, replacing: current, backup: false)
+                    snapshot = next
+                }
+                preparedToSync = true
+                schedule()
+                replyHandler(["revision": snapshot?.revision ?? 0, "sync": status()], nil)
+            } catch { replyHandler(nil, error.localizedDescription) }
         case "status": replyHandler(status(), nil)
         case "save":
             do {

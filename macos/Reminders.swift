@@ -7,7 +7,7 @@ struct CalendarIssue: LocalizedError {
     init(_ message: String) { errorDescription = message }
 }
 
-struct Manifest: Decodable {
+struct Manifest: Decodable, Equatable {
     let version: Int
     let reminders: [DesiredReminder]
 
@@ -16,7 +16,7 @@ struct Manifest: Decodable {
     }
 }
 
-struct DesiredReminder: Decodable {
+struct DesiredReminder: Decodable, Equatable {
     let id: String
     let title: String
     let notes: String

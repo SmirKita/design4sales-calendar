@@ -69,12 +69,30 @@ extension CalendarApp {
                       return true;
                     }
                     if (stage === "reopen") return checkPlan(await load(), 30);
+                    if (stage === "upgrade") {
+                      const saved = await load();
+                      const photoID = "2026-10-27-photo-photoshop-ai";
+                      const row = saved.state[photoID];
+                      return row.phases.publication === "published"
+                        && row.resultNote === "Keep during update"
+                        && Object.values(row.placements).every(slot => !slot.enabled)
+                        && checkPlan(saved, 30);
+                    }
                     const damaged = await load();
                     if (!damaged.error || !damaged.canRecover || !document.querySelector('[role="alert"]')) return false;
                     await bridge.postMessage({ action: "restoreLastGood" });
                     return checkPlan(await load());
                     """, arguments: ["stage": stage], in: nil, contentWorld: .page)
                 guard result as? Bool == true else { throw CalendarIssue("Unexpected UI or saved state in stage \(stage).") }
+                if stage == "upgrade" {
+                    let original = try JSONSerialization.jsonObject(with: Data(contentsOf: storage.beforeUpdate)) as? [String: Any]
+                    let oldState = original?["state"] as? [String: Any]
+                    let photo = oldState?["2026-10-27-photo-photoshop-ai"] as? [String: Any]
+                    guard photo?["resultNote"] as? String == "Keep during update",
+                          snapshot?.manifest.reminders.contains(where: { $0.id.hasPrefix("2026-10-27-photo-photoshop-ai:") }) == false else {
+                        throw CalendarIssue("The update backup or refreshed reminder manifest was missing.")
+                    }
+                }
                 if stage != "create" {
                     let saved = try storage.read()
                     let ids = saved?.manifest.reminders.map(\.id) ?? []

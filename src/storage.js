@@ -5,12 +5,17 @@ export const STORAGE_KEY = "design4sales-telegram-calendar-v4";
 export const STORAGE_SCHEMA_VERSION = 5;
 export const LEGACY_STORAGE_KEYS = ["design4sales-telegram-calendar-v3", "design4sales-telegram-calendar-v2"];
 
+const DATA_UPDATES_KEY = "@design4sales/data-updates";
+const COMPLETED_PHOTO_UPDATE = "2026-11-11-photo-post-completed";
+const CONFIRMED_PHOTO_ID = "2026-10-27-photo-photoshop-ai";
+
 const idMigrations = { "2026-09-12-remove-first": "2026-09-11-remove-first" };
 const knownKeys = new Set([
   ...telegramPlan.map((post) => post.id),
   ...reviewWindows.map((window) => "note-" + window.id),
   ...Object.keys(idMigrations),
   SETTINGS_KEY,
+  DATA_UPDATES_KEY,
 ]);
 
 function phasesFromLegacy(status, defaults) {
@@ -45,6 +50,21 @@ export function normalizeState(value) {
       },
     };
   });
+  if (!next[DATA_UPDATES_KEY]?.[COMPLETED_PHOTO_UPDATE]) {
+    const post = next[CONFIRMED_PHOTO_ID];
+    const placements = Object.fromEntries(Object.entries(post.placements || {}).map(([id, slot]) => {
+      if (slot.status === "published") return [id, slot];
+      return [id, { ...slot, enabled: false, reminder: false,
+        status: id === "tg" ? "published" : "cancelled" }];
+    }));
+    next[CONFIRMED_PHOTO_ID] = {
+      ...post,
+      phases: { ...post.phases, preparation: "ready", publication: "published" },
+      placements,
+      publicationConfirmation: { confirmedOn: "2026-11-11", source: "user", allPlacementsClosed: true },
+    };
+    next[DATA_UPDATES_KEY] = { ...next[DATA_UPDATES_KEY], [COMPLETED_PHOTO_UPDATE]: true };
+  }
   return next;
 }
 

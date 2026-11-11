@@ -81,3 +81,33 @@ input:not([type="checkbox"]):not([type="file"]), select { width: 100%; min-width
   .listHeader input { max-width: none; }
   .viewTabs .button { padding-inline: 5px; font-size: 13px; }
 }
+
+.planningTimeline { margin-bottom: 20px; padding: 8px 14px; }
+.timelineHint { margin: 4px 0 8px; font-size: 13px; }
+.planningTimeline ol { padding: 0; margin: 0; list-style: none; }
+.planningTimeline li + li { border-top: 1px solid var(--line); }
+.timelineRow { display: flex; align-items: center; gap: 15px; width: 100%; padding: 14px 4px; border: 0; text-align: left; color: var(--ink); background: transparent; border-radius: 6px; }
+.timelineRow:hover { background: #f0f5ff; }
+.timelineDate { display: grid; gap: 4px; flex: 0 0 112px; font-size: 14px; font-weight: 750; }
+.timelineTopic { display: grid; gap: 4px; flex: 1; font-size: 14px; }
+.timelineRow small { color: var(--muted); font-size: 12px; font-weight: 500; }
+.timelineArrow { font-size: 20px; color: var(--blue); }
+.scheduledHeading { margin-bottom: 12px; }
+.topicTitle { padding: 0; border: 0; text-align: left; font: inherit; color: var(--ink); background: transparent; line-height: inherit; }
+.topicTitle:hover { color: var(--blue); text-decoration: underline; text-underline-offset: 3px; }
+.topicDate { margin-bottom: 7px; font-size: 13px; font-weight: 650; color: #526a94; }
+.briefToggle { justify-self: start; padding-left: 0; min-height: 34px; }
+.editorialBrief { background: #f7f9fd; padding: 14px; border-radius: 10px; }
+.briefFields { display: grid; gap: 14px; margin: 0; }
+.briefFields dt { margin-bottom: 4px; font-size: 13px; font-weight: 750; color: #365076; }
+.briefFields dd { margin: 0; font-size: 14px; line-height: 1.6; color: #283950; white-space: pre-line; }
+.targetDate { display: flex; align-items: end; gap: 12px; padding-bottom: 14px; margin-bottom: 14px; border-bottom: 1px solid var(--line); }
+.targetDate label { max-width: 180px; }
+.targetDate p { padding-bottom: 8px; font-size: 13px; }
+.topicSchedule h4 { margin: 0 0 10px; font-size: 14px; }
+@media (max-width: 570px) {
+  .timelineRow { gap: 10px; align-items: start; }
+  .timelineDate { flex-basis: 86px; font-size: 13px; }
+  .timelineTopic { font-size: 13px; }
+  .targetDate { flex-direction: column; align-items: start; gap: 6px; }
+}

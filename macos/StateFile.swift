@@ -23,6 +23,7 @@ struct StateFile {
     var file: URL { directory.appendingPathComponent("calendar-state.json") }
     var previous: URL { directory.appendingPathComponent("before-restore.json") }
 
+    var beforeUpdate: URL { directory.appendingPathComponent("before-update.json") }
     var lastGood: URL { directory.appendingPathComponent("last-good.json") }
 
     func read(_ source: URL? = nil) throws -> Snapshot? {
@@ -34,6 +35,12 @@ struct StateFile {
             throw CalendarIssue("Повреждена локальная копия календаря.")
         }
         return try Snapshot(json)
+    }
+
+    func backupBeforeUpdate(_ current: Snapshot) throws {
+        let export: [String: Any] = ["schemaVersion": 5, "state": current.state]
+        let data = try JSONSerialization.data(withJSONObject: export, options: [.prettyPrinted, .sortedKeys])
+        try data.write(to: beforeUpdate, options: [.atomic])
     }
 
     func write(_ snapshot: Snapshot, replacing current: Snapshot?, backup: Bool, recovering: Bool = false) throws {

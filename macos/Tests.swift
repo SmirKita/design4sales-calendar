@@ -67,6 +67,9 @@ enum Tests {
         let reloaded = try file.read()
         precondition(reloaded?.manifest.reminders.first?.fingerprint == first.fingerprint)
         precondition(reloaded?.revision == 1)
+        try file.backupBeforeUpdate(snapshot)
+        let updateBackup = try JSONSerialization.jsonObject(with: Data(contentsOf: file.beforeUpdate)) as? [String: Any]
+        precondition(((updateBackup?["state"] as? [String: Any])?["test"] as? [String: String])?["note"] == "копия")
         let reset = try Snapshot(["state": [:], "revision": 2, "manifest": ["version": 1, "reminders": []]])
         try file.write(reset, replacing: reloaded, backup: true)
         let previous = try JSONSerialization.jsonObject(with: Data(contentsOf: file.previous)) as? [String: Any]

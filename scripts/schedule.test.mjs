@@ -105,3 +105,49 @@ test("all eight placements keep separate hours and switches after reopening the 
   assert.deepEqual([...actual.keys()], PLATFORMS.filter((_, index) => index % 2 === 0).map((platform) => id(platform.id)));
   assert.equal(actual.get(id("tg")).alarm, "2026-11-11T07:12:00.000Z");
 });
+
+test("user-confirmed photo publication is closed once, preserving notes and later deliberate replanning", () => {
+  const photoID = "2026-10-27-photo-photoshop-ai";
+  const original = {
+    [photoID]: {
+      resultNote: "Подтверждённый материал",
+      metrics: { v72: 81 },
+      links: { post: "https://example.com/published" },
+      placements: {
+        tg: { enabled: true, reminder: true, status: "moved", date: "2026-11-10" },
+        vk: { enabled: true, reminder: true, status: "planned", date: "2026-11-11" },
+      },
+    },
+  };
+  const migrated = normalizeState(original);
+  assert.equal(migrated[photoID].phases.publication, "published");
+  assert.equal(migrated[photoID].resultNote, "Подтверждённый материал");
+  assert.equal(migrated[photoID].metrics.v72, 81);
+  assert.equal(migrated[photoID].links.post, original[photoID].links.post);
+  assert.equal(migrated[photoID].placements.tg.status, "published");
+  assert.equal(migrated[photoID].placements.vk.status, "cancelled");
+  assert.equal(rows(migrated).size, 0);
+  assert.equal(original[photoID].placements.tg.enabled, true);
+  const reopened = structuredClone(migrated);
+  reopened[photoID].placements.vk = { enabled: true, reminder: true, status: "planned", date: "2027-02-20" };
+  assert.equal(normalizeState(reopened)[photoID].placements.vk.enabled, true);
+  assert.ok(rows(normalizeState(reopened)).has(photoID + ":vk"));
+});
+
+test("editorial target dates order tentative topics without creating reminders", async () => {
+  const { publicationEntry, planningTimeline } = await import("../src/editorialPlan.js");
+  const state = normalizeState({});
+  const settings = (await import("../src/publicationSchedule.js")).settingsFor(state);
+  const now = Date.parse("2026-11-11T10:00:00+03:00");
+  const target = "2026-11-18-before-final";
+  state[target].targetDate = "2026-11-12";
+  const entries = telegramPlan.filter((row) => row.kind === "publication")
+    .map((row) => publicationEntry(row, state[row.id], settings, now));
+  const timeline = planningTimeline(entries, "2026-11-11");
+  assert.equal(timeline[0].post.id, "2026-11-11-packaging-shelf");
+  assert.equal(timeline[1].post.id, target);
+  assert.equal(timeline[1].date, "2026-11-12");
+  assert.ok(timeline.every((item) => item.tentative));
+  assert.equal(rows(state).size, 0);
+  assert.ok(entries.find((entry) => entry.post.id === target).post.materials);
+});

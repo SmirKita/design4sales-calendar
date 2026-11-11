@@ -1,8 +1,9 @@
 import React, { useEffect, useMemo, useRef, useState } from "react";
 import { telegramPlan } from "./data/telegramPlan.js";
 import { loadCalendarState, normalizeState, readBackup, saveCalendarState, STORAGE_KEY, STORAGE_SCHEMA_VERSION } from "./storage.js";
-import { makeManifest, isDate, isSchedulable, moscowInstant, PLATFORMS, SETTINGS_KEY, scheduledSlots, settingsFor, userPosts } from "./publicationSchedule.js";
+import { makeManifest, isDate, isSchedulable, moscowInstant, PLATFORMS, SETTINGS_KEY, scheduledSlots, settingsFor, todayInMoscow, userPosts } from "./publicationSchedule.js";
 import { dateLabel, NewPublication, PlacementEditor, ScheduleSettings } from "./Schedule.jsx";
+import { planningTimeline, publicationEntry } from "./editorialPlan.js";
 import { mac, nativeCall, downloadJSON } from "./macBridge.js";
 
 function getRecord(state, post) {
@@ -45,6 +46,7 @@ function App({ initial }) {
   const [creating, setCreating] = useState(false);
   const [query, setQuery] = useState("");
   const [notice, setNotice] = useState("");
+  const [selectedTopic, setSelectedTopic] = useState("");
   const [now, setNow] = useState(Date.now);
   const importRef = useRef(null);
   useEffect(() => {
@@ -114,7 +116,13 @@ function App({ initial }) {
     const phases = platform === "tg" && patch.status && placements.tg.enabled
       ? { ...record.phases, publication: patch.status === "cancelled" ? "skip" : patch.status } : record.phases;
     persist({ ...current.current, [post.id]: { ...record, phases, placements } });
-    if (patch.status === "published" || patch.status === "cancelled") {
+    if (patch.enabled === true && tab === "ideas") {
+      setTab("plan");
+      setQuery("");
+      setSelectedTopic(post.id);
+      setNotice("Выход запланирован");
+      requestAnimationFrame(() => document.getElementById("post-" + post.id)?.scrollIntoView({ block: "start", behavior: "smooth" }));
+    } else if (patch.status === "published" || patch.status === "cancelled") {
       const name = PLATFORMS.find((entry) => entry.id === platform).name;
       setNotice(patch.status === "published" ? `${name} · выход отмечен` : `${name} · выход отменён`);
     } else setNotice("");
@@ -145,21 +153,15 @@ function App({ initial }) {
     catch (error) { setSync((old) => ({ ...old, error: error.message })); }
   };
 
-  const entries = allPosts.filter((post) => post.kind === "publication").map((post) => {
-    const record = getRecord(state, post);
-    const slots = scheduledSlots(post, record, settings);
-    const active = slots.filter((slot) => !["published", "cancelled"].includes(slot.status));
-    const section = active.length ? "plan"
-      : slots.length || post.cycle === "archive" || record.phases.publication === "published" ? "archive" : "ideas";
-    const future = active.map((slot) => moscowInstant(slot.date, slot.time)).filter((time) => time > now);
-    return { post, record, section, next: future.length ? Math.min(...future) : Infinity };
-  });
+  const entries = allPosts.filter((post) => post.kind === "publication").map((post) =>
+    publicationEntry(post, getRecord(state, post), settings, now));
+  const agenda = planningTimeline(entries, todayInMoscow(new Date(now)))
+    .filter((entry) => entry.post.title.toLocaleLowerCase("ru").includes(query.trim().toLocaleLowerCase("ru")));
   const visible = entries.filter(({ post, section }) => section === tab && post.title.toLocaleLowerCase("ru").includes(query.trim().toLocaleLowerCase("ru")));
   if (tab === "plan") visible.sort((a, b) => a.next - b.next || a.post.date.localeCompare(b.post.date));
+  if (tab === "ideas") visible.sort((a, b) => (a.targetDate < todayInMoscow(new Date(now))) - (b.targetDate < todayInMoscow(new Date(now))) || a.targetDate.localeCompare(b.targetDate));
   if (tab === "archive") visible.sort((a, b) => b.post.date.localeCompare(a.post.date));
-  const upcoming = entries.filter((item) => item.section === "plan" && Number.isFinite(item.next)).length;
 
-  const planTitle = upcoming || !visible.length ? "Ближайшие выходы" : "Выходы, требующие внимания";
 
   const exportProgress = async () => {
     const data = { exportedAt: new Date().toISOString(), schemaVersion: STORAGE_SCHEMA_VERSION, state };
@@ -200,6 +202,20 @@ function App({ initial }) {
     setCreating(false);
     setQuery("");
     setNotice("");
+    setSelectedTopic("");
+  };
+
+  const openFromAgenda = (entry) => {
+    setTab(entry.tentative ? "ideas" : "plan");
+    setCreating(false);
+    setQuery("");
+    setSelectedTopic(entry.post.id);
+    requestAnimationFrame(() => document.getElementById("post-" + entry.post.id)?.scrollIntoView({ block: "start", behavior: "smooth" }));
+  };
+
+  const changeTargetDate = (post, targetDate) => {
+    if (!isDate(targetDate)) return;
+    persist({ ...current.current, [post.id]: { ...getRecord(current.current, post), targetDate } });
   };
 
   return <main>
@@ -242,18 +258,20 @@ function App({ initial }) {
       </div>}
       <div className="listHeader">
         <div>
-          <h2>{tab === "plan" ? planTitle : tab === "ideas" ? "Темы без расписания" : "История выходов"}</h2>
-          <p className="muted">{tab === "plan" ? (upcoming ? "Ближайшие сначала · время по Москве" : "Время по Москве")
-            : tab === "ideas" ? "Выбери тему и добавь площадку, когда определишься с выходом." : "Опубликованные и отменённые выходы."}</p>
+          <h2>{tab === "plan" ? "График публикаций" : tab === "ideas" ? "Темы и подсказки" : "История выходов"}</h2>
+          <p className="muted">{tab === "plan" ? "Ближайшие темы и выходы · время по Москве"
+            : tab === "ideas" ? "Открой тему, чтобы прочитать замысел и план подготовки." : "Опубликованные и отменённые выходы."}</p>
         </div>
-        {entries.some(({ section }) => section === tab) && <input type="search" value={query} onChange={(e) => setQuery(e.target.value)} aria-label="Поиск по темам" placeholder="Найти тему" />}
+        {(entries.some(({ section }) => section === tab) || (tab === "plan" && agenda.length > 0)) && <input type="search" value={query} onChange={(e) => setQuery(e.target.value)} aria-label="Поиск по темам" placeholder="Найти тему" />}
       </div>
 
+      {tab === "plan" && <PlanningTimeline items={agenda.slice(0, 8)} open={openFromAgenda} all={() => openTab("ideas")} />}
+      {tab === "plan" && visible.length > 0 && <h2 className="scheduledHeading">Выходы по площадкам</h2>}
       <div className="calendarList">
-        {visible.map(({ post, record, section }) => <PublicationCard key={post.id} post={post} record={record} section={section} settings={settings}
-          now={now} disabled={blocked} prepare={(ready) => changePreparation(post, ready)} change={(platform, patch) => changePlacement(post, platform, patch)} />)}
+        {visible.map(({ post, record, section, targetDate }) => <PublicationCard key={post.id} post={post} record={record} section={section} settings={settings}
+          now={now} targetDate={targetDate} selected={selectedTopic === post.id} changeTarget={(date) => changeTargetDate(post, date)} disabled={blocked} prepare={(ready) => changePreparation(post, ready)} change={(platform, patch) => changePlacement(post, platform, patch)} />)}
       </div>
-      {!visible.length && <div className="panel empty">
+      {!visible.length && !(tab === "plan" && agenda.length) && <div className="panel empty">
         <h3>{query ? "Темы не найдены" : tab === "plan" ? "Пока нет запланированных выходов" : "Здесь пока пусто"}</h3>
         {!query && tab === "plan" && <p className="muted">Создай публикацию или выбери готовую идею во вкладке «Темы».</p>}
         {!query && tab === "plan" && <button className="button secondary" onClick={() => openTab("ideas")}>Открыть темы</button>}
@@ -263,30 +281,77 @@ function App({ initial }) {
   </main>;
 }
 
-function PublicationCard({ post, record, section, settings, now, disabled, prepare, change }) {
-  const [expanded, setExpanded] = useState(section === "plan");
+function PlanningTimeline({ items, open, all }) {
+  if (!items.length) return null;
+  return <section className="panel planningTimeline" aria-label="Ближайший график">
+    <p className="muted timelineHint">Дата-ориентир помогает спланировать подготовку. Напоминание появится после выбора площадки и времени.</p>
+    <ol>{items.map((entry) => <li key={entry.id}><button className="timelineRow" onClick={() => open(entry)}>
+      <span className="timelineDate">{dateLabel(entry.date)}{entry.time && <small>{entry.time} МСК</small>}</span>
+      <span className="timelineTopic"><strong>{entry.post.title}</strong><small>{entry.tentative ? "Дата-ориентир · открыть тему" : entry.platform + " · запланировано"}</small></span>
+      <span aria-hidden="true" className="timelineArrow">→</span>
+    </button></li>)}</ol>
+    <button className="button quiet" onClick={all}>Все темы и даты</button>
+  </section>;
+}
+
+function PublicationCard({ post, record, section, targetDate, selected, changeTarget, settings, now, disabled, prepare, change }) {
+  const [detailsOpen, setDetailsOpen] = useState(false);
+  const [placementsOpen, setPlacementsOpen] = useState(section === "plan");
+  useEffect(() => {
+    if (selected) setDetailsOpen(true);
+  }, [selected]);
   const historical = section === "archive" && !scheduledSlots(post, record, settings).length;
   const ready = ["ready", "skip"].includes(record.phases.preparation);
   return <article className="panel publicationCard" id={"post-" + post.id}>
     <div className="cardHeader">
       <div>
-        {historical && <p className="muted archiveDate">{dateLabel(post.date)} · {post.date.slice(0, 4)} · Опубликовано</p>}
-        <h3>{post.title}</h3>
-        {section === "ideas" && post.thought && <p className="muted ideaDescription">{post.thought}</p>}
+        {historical && <p className="muted archiveDate">{record.publicationConfirmation ? "Опубликовано · подтверждено тобой" : dateLabel(post.date) + " · " + post.date.slice(0, 4) + " · Опубликовано"}</p>}
+        {section === "ideas" && <p className="topicDate">{dateLabel(targetDate)} · дата-ориентир{targetDate < todayInMoscow(new Date(now)) ? " прошла" : ""}</p>}
+        <h3><button className="topicTitle" aria-expanded={detailsOpen} aria-controls={"brief-" + post.id} onClick={() => setDetailsOpen(!detailsOpen)}>{post.title}</button></h3>
+        {section === "ideas" && post.thought && !detailsOpen && <p className="muted ideaDescription">{post.thought}</p>}
       </div>
-      {section !== "archive" && <label className="checkbox readyToggle">
+      {section !== "archive" && (section === "plan" || detailsOpen) && <label className="checkbox readyToggle">
         <input type="checkbox" checked={ready} disabled={disabled} onChange={(e) => prepare(e.target.checked)} /> Готово к выходу
       </label>}
     </div>
+    <button className="button quiet briefToggle" aria-expanded={detailsOpen} aria-controls={"brief-" + post.id} onClick={() => setDetailsOpen(!detailsOpen)}>
+      {detailsOpen ? "Свернуть подсказки" : "О чём пост и как подготовить"}
+    </button>
+    {detailsOpen && <section className="editorialBrief" id={"brief-" + post.id}>
+      {section === "ideas" && <div className="targetDate">
+        <label>Ориентир выхода<input type="date" value={targetDate} disabled={disabled} onChange={(event) => changeTarget(event.target.value)} /></label>
+        <p className="muted">Можно менять по ходу подготовки.</p>
+      </div>}
+      <EditorialBrief post={post} />
+    </section>}
     {section === "plan" && <PlacementEditor post={post} record={record} settings={settings} change={change} now={now} disabled={disabled} />}
-    {section !== "plan" && !historical && isSchedulable(post) && <>
-      <button className="button secondary" aria-expanded={expanded} onClick={() => setExpanded(!expanded)}>
-        {expanded ? "Свернуть" : section === "ideas" ? "Запланировать" : "Открыть выходы"}
+    {section === "ideas" && detailsOpen && isSchedulable(post) && <div className="topicSchedule">
+      <h4>Запланировать выход</h4>
+      <PlacementEditor post={{ ...post, date: targetDate }} record={record} settings={settings} change={change} now={now} disabled={disabled} />
+    </div>}
+    {section === "archive" && !historical && isSchedulable(post) && <>
+      <button className="button secondary" aria-expanded={placementsOpen} onClick={() => setPlacementsOpen(!placementsOpen)}>
+        {placementsOpen ? "Свернуть выходы" : "Открыть выходы"}
       </button>
-      {expanded && <PlacementEditor post={post} record={record} settings={settings} change={change} now={now} disabled={disabled} />}
+      {placementsOpen && <PlacementEditor post={post} record={record} settings={settings} change={change} now={now} disabled={disabled} />}
     </>}
     {section === "archive" && <ArchiveDetails record={record} />}
   </article>;
+}
+
+function EditorialBrief({ post }) {
+  const fields = [
+    ["Главная мысль", post.thought],
+    ["Для кого", post.audience],
+    ["Как раскрыть тему", post.textVisual],
+    ["Что показать", post.visual],
+    ["План подготовки", post.scenario],
+    ["Что подготовить", post.materials],
+    ["Действие читателя", post.engagement || post.cta],
+    ["Формат", post.format],
+  ].filter(([, text]) => text && text !== "—" && text !== "Не требуется.");
+  return fields.length ? <dl className="briefFields">{fields.map(([label, text]) => <div key={label}><dt>{label}</dt><dd>{text}</dd></div>)}</dl>
+    : <p className="muted">Описание этой темы пока не заполнено.</p>;
 }
 
 function ArchiveDetails({ record }) {
