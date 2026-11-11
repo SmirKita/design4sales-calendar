@@ -108,7 +108,7 @@ export function makeManifest(posts, state) {
     });
   };
   for (const post of posts) {
-    if (!validId.test(post.id)) continue;
+    if (!validId.test(post.id) || state[post.id]?.trackingExcluded) continue;
     for (const slot of scheduledSlots(post, state[post.id] || {}, settings)) {
       if (!slot.reminder || ["cancelled", "published"].includes(slot.status)) continue;
       const platform = slot.platform.name;

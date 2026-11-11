@@ -188,3 +188,27 @@ test("stages, overdue topics, the topic bank and the next free Wednesday", async
   assert.equal(build().find((entry) => entry.post.id === "2026-10-06-photo-not-ready-for-ads").section, "archive");
   assert.equal(rows(state).size, 0);
 });
+
+test("old empty published rows leave tracking, preserving zero values, links and future results", () => {
+  const ids = ["2026-10-06-photo-not-ready-for-ads", "2026-10-20-specific-feedback", "2026-10-30-how-many-variants"];
+  const published = { phases: { publication: "published" } };
+  const input = {
+    [ids[0]]: { ...published, metrics: { v24: "", v72: "" }, resultNote: "Keep historical note" },
+    [ids[1]]: { ...published, metrics: { v24: 0 } },
+    [ids[2]]: { ...published, links: { post: "https://t.me/example/1" } },
+  };
+  const migrated = normalizeState(input);
+  assert.ok(migrated[ids[0]].trackingExcluded);
+  assert.equal(migrated[ids[0]].resultNote, "Keep historical note");
+  assert.equal(input[ids[0]].trackingExcluded, undefined);
+  assert.equal(migrated[ids[1]].trackingExcluded, undefined);
+  assert.equal(migrated[ids[2]].trackingExcluded, undefined);
+  const later = structuredClone(migrated);
+  later[ids[1]].metrics.v24 = "";
+  assert.equal(normalizeState(later)[ids[1]].trackingExcluded, undefined);
+  const another = normalizeState({ [post.id]: { ...published } });
+  assert.equal(another[post.id].trackingExcluded, undefined);
+  const hiddenScheduled = structuredClone(migrated);
+  hiddenScheduled[ids[0]].placements = { tg: { enabled: true, reminder: true, status: "planned", date: "2027-02-21" } };
+  assert.equal(makeManifest(telegramPlan, hiddenScheduled).reminders.some((row) => row.id.startsWith(ids[0])), false);
+});

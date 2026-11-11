@@ -211,7 +211,7 @@ function App({ initial }) {
     catch (error) { setSync((old) => ({ ...old, error: error.message })); }
   };
 
-  const entries = allPosts.filter((post) => post.kind === "publication").map((post) =>
+  const entries = allPosts.filter((post) => post.kind === "publication" && !state[post.id]?.trackingExcluded).map((post) =>
     publicationEntry(post, getRecord(state, post), settings, now));
   const workItems = allPosts.filter((post) => post.kind !== "publication");
   const matches = (post) => !query.trim() || post.title.toLocaleLowerCase("ru").includes(lower(query));

@@ -7,6 +7,14 @@ export const LEGACY_STORAGE_KEYS = ["design4sales-telegram-calendar-v3", "design
 
 const DATA_UPDATES_KEY = "@design4sales/data-updates";
 const COMPLETED_PHOTO_UPDATE = "2026-11-11-photo-post-completed";
+const EMPTY_RESULTS_UPDATE = "2026-11-11-remove-old-empty-results";
+const OLD_EMPTY_RESULT_IDS = [
+  "2026-10-06-photo-not-ready-for-ads",
+  "2026-10-20-specific-feedback",
+  "2026-10-30-how-many-variants",
+];
+const hasStoredValue = (value) => value !== null && value !== undefined && String(value).trim() !== "";
+
 const CONFIRMED_PHOTO_ID = "2026-10-27-photo-photoshop-ai";
 
 const idMigrations = { "2026-09-12-remove-first": "2026-09-11-remove-first" };
@@ -64,6 +72,19 @@ export function normalizeState(value) {
       publicationConfirmation: { confirmedOn: "2026-11-11", source: "user", allPlacementsClosed: true },
     };
     next[DATA_UPDATES_KEY] = { ...next[DATA_UPDATES_KEY], [COMPLETED_PHOTO_UPDATE]: true };
+  }
+  if (!next[DATA_UPDATES_KEY]?.[EMPTY_RESULTS_UPDATE]) {
+    for (const id of OLD_EMPTY_RESULT_IDS) {
+      const record = next[id];
+      const published = record.phases?.publication === "published"
+        || Object.values(record.placements || {}).some((slot) => slot.status === "published");
+      const hasResults = Object.values(record.metrics || {}).some(hasStoredValue)
+        || Object.values(record.links || {}).some(hasStoredValue);
+      if (published && !hasResults) {
+        next[id] = { ...record, trackingExcluded: { on: "2026-11-11", reason: "old-without-results" } };
+      }
+    }
+    next[DATA_UPDATES_KEY] = { ...next[DATA_UPDATES_KEY], [EMPTY_RESULTS_UPDATE]: true };
   }
   return next;
 }
