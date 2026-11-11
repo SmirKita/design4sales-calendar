@@ -1,10 +1,22 @@
-import { telegramPlan } from "./data/telegramPlan.js";
+import { telegramPlan, reviewWindows } from "./data/telegramPlan.js";
+import { SETTINGS_KEY } from "./publicationSchedule.js";
 
 export const STORAGE_KEY = "design4sales-telegram-calendar-v4";
-export const STORAGE_SCHEMA_VERSION = 4;
+export const STORAGE_SCHEMA_VERSION = 5;
 export const LEGACY_STORAGE_KEYS = ["design4sales-telegram-calendar-v3", "design4sales-telegram-calendar-v2"];
 
+const DATA_UPDATES_KEY = "@design4sales/data-updates";
+const COMPLETED_PHOTO_UPDATE = "2026-11-11-photo-post-completed";
+const CONFIRMED_PHOTO_ID = "2026-10-27-photo-photoshop-ai";
+
 const idMigrations = { "2026-09-12-remove-first": "2026-09-11-remove-first" };
+const knownKeys = new Set([
+  ...telegramPlan.map((post) => post.id),
+  ...reviewWindows.map((window) => "note-" + window.id),
+  ...Object.keys(idMigrations),
+  SETTINGS_KEY,
+  DATA_UPDATES_KEY,
+]);
 
 function phasesFromLegacy(status, defaults) {
   if (!status) return defaults;
@@ -38,7 +50,40 @@ export function normalizeState(value) {
       },
     };
   });
+  if (!next[DATA_UPDATES_KEY]?.[COMPLETED_PHOTO_UPDATE]) {
+    const post = next[CONFIRMED_PHOTO_ID];
+    const placements = Object.fromEntries(Object.entries(post.placements || {}).map(([id, slot]) => {
+      if (slot.status === "published") return [id, slot];
+      return [id, { ...slot, enabled: false, reminder: false,
+        status: id === "tg" ? "published" : "cancelled" }];
+    }));
+    next[CONFIRMED_PHOTO_ID] = {
+      ...post,
+      phases: { ...post.phases, preparation: "ready", publication: "published" },
+      placements,
+      publicationConfirmation: { confirmedOn: "2026-11-11", source: "user", allPlacementsClosed: true },
+    };
+    next[DATA_UPDATES_KEY] = { ...next[DATA_UPDATES_KEY], [COMPLETED_PHOTO_UPDATE]: true };
+  }
   return next;
+}
+
+export function readBackup(value, { fromBrowser = false } = {}) {
+  const raw = value && Object.hasOwn(value, "state") ? value.state : value;
+  const version = value?.schemaVersion ?? value?.version;
+  if (!raw || typeof raw !== "object" || Array.isArray(raw)
+    || (version != null && (![2, 3, 4, 5].includes(version)))
+    || Object.values(raw).some((record) => !record || typeof record !== "object" || Array.isArray(record))
+    || (!Object.keys(raw).length && version == null)) {
+    throw new Error("Неверный формат резервной копии");
+  }
+  const keys = Object.keys(raw);
+  if (!fromBrowser && keys.length && !keys.some((key) => knownKeys.has(key)
+    || /^20\d{2}-\d{2}-\d{2}-[a-z0-9-]+$/.test(key)
+    || (/^user-[a-f0-9]{32}$/.test(key) && raw[key].customPost))) {
+    throw new Error("В файле нет записей календаря Design4Sales");
+  }
+  return normalizeState(value);
 }
 
 export function saveCalendarState(state, storage = window.localStorage) {
@@ -50,14 +95,14 @@ export function loadCalendarState(storage = window.localStorage) {
     const raw = storage.getItem(key);
     if (!raw) continue;
     try {
-      const state = normalizeState(JSON.parse(raw));
-      saveCalendarState(state, storage);
+      const state = readBackup(JSON.parse(raw), { fromBrowser: true });
+      if (key !== STORAGE_KEY && !storage.getItem(STORAGE_KEY)) {
+        try { saveCalendarState(state, storage); } catch { /* The legacy copy is still readable. */ }
+      }
       return state;
     } catch {
       // Повреждённый ключ не должен блокировать предыдущую версию данных.
     }
   }
-  const state = normalizeState({});
-  saveCalendarState(state, storage);
-  return state;
+  return normalizeState({});
 }

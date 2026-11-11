@@ -1,314 +1,370 @@
-import React, { useMemo, useRef, useState } from "react";
-import { contentTypes, phaseOptions, reviewWindows, telegramPlan } from "./data/telegramPlan.js";
-import { telegramBacklog } from "./data/telegramBacklog.js";
-import { loadCalendarState, normalizeState, saveCalendarState, STORAGE_SCHEMA_VERSION } from "./storage.js";
-
-const emptyMetrics = { v24: "", v72: "", replies: "", subscriptions: "", workRequests: "", minutes: "", clicks: "" };
-const phaseLabels = { preparation: "Подготовка", publication: "Публикация", distribution: "Распространение", measurement: "Проверка" };
-
-function dateLabel(iso) {
-  return new Intl.DateTimeFormat("ru-RU", { day: "2-digit", month: "long", weekday: "short" })
-    .format(new Date(`${iso}T12:00:00`)).replace(" г.", "");
-}
-
-function shortDate(iso) {
-  return new Intl.DateTimeFormat("ru-RU", { day: "2-digit", month: "2-digit" }).format(new Date(`${iso}T12:00:00`));
-}
-
-function isValue(value) {
-  return value !== "" && value !== null && value !== undefined;
-}
-
-function metric(value) {
-  return isValue(value) ? Number(value).toLocaleString("ru-RU") : "н/д";
-}
+import React, { useEffect, useMemo, useRef, useState } from "react";
+import { telegramPlan } from "./data/telegramPlan.js";
+import { loadCalendarState, normalizeState, readBackup, saveCalendarState, STORAGE_KEY, STORAGE_SCHEMA_VERSION } from "./storage.js";
+import { makeManifest, isDate, isSchedulable, moscowInstant, PLATFORMS, SETTINGS_KEY, scheduledSlots, settingsFor, todayInMoscow, userPosts } from "./publicationSchedule.js";
+import { dateLabel, NewPublication, PlacementEditor, ScheduleSettings } from "./Schedule.jsx";
+import { planningTimeline, publicationEntry } from "./editorialPlan.js";
+import { mac, nativeCall, downloadJSON } from "./macBridge.js";
 
 function getRecord(state, post) {
   const saved = state[post.id] || {};
-  return {
-    ...saved,
-    phases: { ...post.defaultPhases, ...(saved.phases || {}) },
-    metrics: { ...emptyMetrics, ...(saved.metrics || {}) },
-    links: { post: "", external: "", invite: "", ...(saved.links || {}) },
-    actionChecks: saved.actionChecks || {},
-    resultNote: saved.resultNote || saved.note || "",
-  };
+  return { ...saved, phases: { ...post.defaultPhases, ...saved.phases } };
 }
 
-function App() {
-  const [state, setState] = useState(loadCalendarState);
-  const [typeFilter, setTypeFilter] = useState("all");
-  const [publicationFilter, setPublicationFilter] = useState("all");
-  const [weekFilter, setWeekFilter] = useState("all");
-  const [cycleFilter, setCycleFilter] = useState("active");
-  const [query, setQuery] = useState("");
-  const [view, setView] = useState("calendar");
-  const importRef = useRef(null);
+const tabs = [["plan", "План"], ["ideas", "Темы"], ["archive", "Архив"], ["settings", "Настройки"]];
+const metricLabels = { v24: "Просмотры · 24 ч", v72: "Просмотры · 72 ч", replies: "Ответы", subscriptions: "Подписки", workRequests: "Обращения", minutes: "Минуты", clicks: "Клики" };
 
-  const update = (post, patch) => {
-    setState((current) => {
-      const next = { ...current, [post.id]: { ...getRecord(current, post), ...patch } };
-      saveCalendarState(next);
-      return next;
+function App({ initial }) {
+  const [state, setState] = useState(() => mac ? normalizeState(initial?.state) : loadCalendarState());
+  const current = useRef(state);
+  const [sync, setSync] = useState(initial?.sync || {});
+  const [saveError, setSaveError] = useState(initial?.error || "");
+  const [revision, setRevision] = useState(initial?.revision || 0);
+  const rev = useRef(revision);
+  const queue = useRef(Promise.resolve());
+  const pendingSave = useRef(null);
+  const blocked = Boolean(initial?.error);
+  const flush = () => queue.current.then(() => pendingSave.current === null);
+  const syncText = saveError || (!mac ? "Apple: подключение доступно в приложении на Mac"
+    : sync.busy ? "Apple: проверяю список и обновляю задачи"
+      : sync.error || (sync.connected && sync.syncedRevision === revision && sync.lastSuccess ? "Apple: задачи обновлены на Mac"
+        : sync.connected ? "Apple: список подключён"
+          : sync.configured ? "Apple: проверка подключения ещё не завершена" : "Apple: подключение не настроено"));
+  useEffect(() => {
+    const onStatus = (event) => setSync(event.detail);
+    window.addEventListener("d4s-sync", onStatus);
+    if (mac) {
+      window.d4sFlush = flush;
+      nativeCall("status").then(setSync, () => {});
+    }
+    return () => {
+      window.removeEventListener("d4s-sync", onStatus);
+      if (mac) delete window.d4sFlush;
+    };
+  }, []);
+  const [tab, setTab] = useState("plan");
+  const [creating, setCreating] = useState(false);
+  const [query, setQuery] = useState("");
+  const [notice, setNotice] = useState("");
+  const [selectedTopic, setSelectedTopic] = useState("");
+  const [now, setNow] = useState(Date.now);
+  const importRef = useRef(null);
+  useEffect(() => {
+    const timer = setInterval(() => setNow(Date.now()), 30_000);
+    return () => clearInterval(timer);
+  }, []);
+
+  const allPosts = useMemo(() => [...telegramPlan, ...userPosts(state)].sort((a, b) => a.date.localeCompare(b.date)), [state]);
+  const settings = settingsFor(state);
+
+  const enqueueSave = (payload, retry = false) => {
+    queue.current = queue.current.then(async () => {
+      if (retry && (pendingSave.current?.revision !== payload.revision || payload.revision !== rev.current)) return false;
+      const save = { ...payload, backup: payload.backup || pendingSave.current?.backup === true };
+      try {
+        await nativeCall("save", save);
+        pendingSave.current = null;
+        setSaveError("");
+        return true;
+      } catch (error) {
+        pendingSave.current = save;
+        setSaveError("Изменения пока не записаны на Mac. " + error.message);
+        return false;
+      }
     });
+    return queue.current;
   };
 
-  const activeEntries = telegramPlan.filter((post) => post.cycle === "oct-dec");
-  const activePublications = activeEntries.filter((post) => post.kind === "publication");
-  const published = activePublications.filter((post) => getRecord(state, post).phases.publication === "published").length;
-  const prepared = activeEntries.filter((post) => ["ready", "skip"].includes(getRecord(state, post).phases.preparation)).length;
-  const measured = activeEntries.filter((post) => ["done", "na"].includes(getRecord(state, post).phases.measurement)).length;
-  const progress = Math.round((measured / activeEntries.length) * 100);
+  const persist = (next, backup = false, recover = false) => {
+    if (blocked && !recover) return Promise.resolve(false);
+    let saved = Promise.resolve(true);
+    if (!mac) {
+      try {
+        if (backup) localStorage.setItem(STORAGE_KEY + "-before-restore", JSON.stringify({ version: STORAGE_SCHEMA_VERSION, state: current.current }));
+        saveCalendarState(next);
+        setSaveError("");
+      } catch {
+        setSaveError("Не удалось сохранить изменения в браузере. Освободи место или разреши локальное хранилище.");
+        saved = Promise.resolve(false);
+      }
+    } else {
+      const number = ++rev.current;
+      setRevision(number);
+      const manifest = makeManifest([...telegramPlan, ...userPosts(next)], next);
+      saved = enqueueSave({ state: next, manifest, revision: number, backup, recover });
+    }
+    current.current = next;
+    setState(next);
+    return saved;
+  };
 
-  const filtered = useMemo(() => telegramPlan.filter((post) => {
-    const record = getRecord(state, post);
-    const haystack = `${post.title} ${post.thought} ${post.audience} ${post.mainPlatform} ${post.format}`.toLowerCase();
-    return (cycleFilter === "all" || (cycleFilter === "active" ? post.cycle === "oct-dec" : post.cycle === "archive"))
-      && (typeFilter === "all" || post.type === typeFilter)
-      && (publicationFilter === "all" || record.phases.publication === publicationFilter)
-      && (weekFilter === "all" || String(post.week) === weekFilter)
-      && (!query.trim() || haystack.includes(query.trim().toLowerCase()));
-  }), [cycleFilter, publicationFilter, query, state, typeFilter, weekFilter]);
+  const retrySave = async () => {
+    await queue.current;
+    const pending = pendingSave.current;
+    if (pending && await enqueueSave(pending, true) && pending.recover) window.location.reload();
+  };
 
-  const exportProgress = () => {
-    const blob = new Blob([JSON.stringify({ exportedAt: new Date().toISOString(), schemaVersion: STORAGE_SCHEMA_VERSION, state }, null, 2)], { type: "application/json" });
-    const link = document.createElement("a");
-    link.href = URL.createObjectURL(blob);
-    link.download = "Design4Sales_calendar_progress.json";
-    link.click();
-    URL.revokeObjectURL(link.href);
+  const changePreparation = (post, ready) => {
+    const record = getRecord(current.current, post);
+    const phases = { ...record.phases, preparation: ready ? "ready" : "planned" };
+    persist({ ...current.current, [post.id]: { ...record, phases } });
+  };
+
+  const changePlacement = (post, platform, patch) => {
+    const record = getRecord(current.current, post);
+    const placements = { ...record.placements, [platform]: { ...record.placements?.[platform], ...patch } };
+    const phases = platform === "tg" && patch.status && placements.tg.enabled
+      ? { ...record.phases, publication: patch.status === "cancelled" ? "skip" : patch.status } : record.phases;
+    persist({ ...current.current, [post.id]: { ...record, phases, placements } });
+    if (patch.enabled === true && tab === "ideas") {
+      setTab("plan");
+      setQuery("");
+      setSelectedTopic(post.id);
+      setNotice("Выход запланирован");
+      requestAnimationFrame(() => document.getElementById("post-" + post.id)?.scrollIntoView({ block: "start", behavior: "smooth" }));
+    } else if (patch.status === "published" || patch.status === "cancelled") {
+      const name = PLATFORMS.find((entry) => entry.id === platform).name;
+      setNotice(patch.status === "published" ? `${name} · выход отмечен` : `${name} · выход отменён`);
+    } else setNotice("");
+  };
+
+  const create = ({ title, date, platform, time, usesDefault, reminder }) => {
+    if (blocked) return "Хранилище недоступно.";
+    if (!title || !isDate(date)) return "Укажи тему и корректную дату.";
+    if (!Number.isFinite(moscowInstant(date, time)) || moscowInstant(date, time) <= Date.now()) return "Это время уже прошло. Выбери будущий выход.";
+    const clean = (value) => value.trim().replace(/\s+/g, " ").toLocaleLowerCase("ru");
+    if (allPosts.some((post) => post.date === date && clean(post.title) === clean(title))) return "Такая тема уже есть на эту дату.";
+    const id = "user-" + [...crypto.getRandomValues(new Uint8Array(16))].map((n) => n.toString(16).padStart(2, "0")).join("");
+    persist({ ...current.current, [id]: {
+      customPost: { title, date },
+      placements: { [platform]: { enabled: true, date, reminder, ...(usesDefault ? {} : { mode: "custom", time }) } },
+    } });
+    setTab("plan");
+    setCreating(false);
+    setQuery("");
+    setNotice("Публикация запланирована");
+    requestAnimationFrame(() => document.getElementById("post-" + id)?.scrollIntoView({ block: "nearest" }));
+    return "";
+  };
+
+  const syncAction = async (action) => {
+    if (blocked || !await flush()) return;
+    try { setSync(await nativeCall(action)); }
+    catch (error) { setSync((old) => ({ ...old, error: error.message })); }
+  };
+
+  const entries = allPosts.filter((post) => post.kind === "publication").map((post) =>
+    publicationEntry(post, getRecord(state, post), settings, now));
+  const agenda = planningTimeline(entries, todayInMoscow(new Date(now)))
+    .filter((entry) => entry.post.title.toLocaleLowerCase("ru").includes(query.trim().toLocaleLowerCase("ru")));
+  const visible = entries.filter(({ post, section }) => section === tab && post.title.toLocaleLowerCase("ru").includes(query.trim().toLocaleLowerCase("ru")));
+  if (tab === "plan") visible.sort((a, b) => a.next - b.next || a.post.date.localeCompare(b.post.date));
+  if (tab === "ideas") visible.sort((a, b) => (a.targetDate < todayInMoscow(new Date(now))) - (b.targetDate < todayInMoscow(new Date(now))) || a.targetDate.localeCompare(b.targetDate));
+  if (tab === "archive") visible.sort((a, b) => b.post.date.localeCompare(a.post.date));
+
+
+  const exportProgress = async () => {
+    const data = { exportedAt: new Date().toISOString(), schemaVersion: STORAGE_SCHEMA_VERSION, state };
+    if (!mac) downloadJSON(data);
+    else {
+      try { await nativeCall("export", { data }); }
+      catch (error) { alert(error.message); }
+    }
   };
 
   const importProgress = async (event) => {
     const file = event.target.files?.[0];
+    event.target.value = "";
     if (!file) return;
     try {
-      const next = normalizeState(JSON.parse(await file.text()));
-      setState(next);
-      saveCalendarState(next);
+      const next = readBackup(JSON.parse(await file.text()));
+      if (window.confirm("Восстановить прогресс из этого файла? Текущее состояние будет сохранено отдельно.")) {
+        const saved = await persist(next, true, blocked);
+        if (blocked && saved) window.location.reload();
+      }
     } catch {
       alert("Не удалось прочитать файл прогресса.");
     }
-    event.target.value = "";
   };
 
-  const resetProgress = () => {
-    if (!window.confirm("Сбросить все статусы, результаты и заметки?")) return;
-    const next = normalizeState({});
-    setState(next);
-    saveCalendarState(next);
+  const restoreLastGood = async () => {
+    if (!window.confirm("Восстановить предыдущую сохранённую версию плана? Повреждённый файл будет сохранён отдельно.")) return;
+    try {
+      await nativeCall("restoreLastGood");
+      window.location.reload();
+    } catch (error) {
+      setSaveError(error.message);
+    }
   };
 
-  return (
-    <main>
-      <header className="hero">
-        <div className="heroTop">
-          <div>
-            <div className="eyebrow"><span className="telegramDot" /> Design4Sales · Telegram в центре</div>
-            <h1>Живой контент-календарь</h1>
-            <p className="heroText">Новый цикл с 1 октября 2026 · подготовка поста, публикация, распространение и проверка результата в одной карточке.</p>
-          </div>
-          <div className="cycleBadge"><strong>Октябрь → декабрь</strong><span>{activeEntries.length} рабочих записей · до часа в день</span></div>
-        </div>
-        <div className="progressRail"><span style={{ width: `${progress}%` }} /></div>
-        <div className="summaryGrid">
-          <Summary value={published} label="новых публикаций вышло" accent />
-          <Summary value={prepared} label="записей подготовлено / не требует подготовки" />
-          <Summary value={measured} label="проверено / не требует замера" />
-          <Summary value={`${progress}%`} label="цикла закрыто по результату" />
-        </div>
-      </header>
+  const openTab = (value) => {
+    setTab(value);
+    setCreating(false);
+    setQuery("");
+    setNotice("");
+    setSelectedTopic("");
+  };
 
-      <nav className="viewTabs" aria-label="Разделы календаря">
-        <button className={view === "calendar" ? "active" : ""} onClick={() => setView("calendar")}>Календарь</button>
-        <button className={view === "reviews" ? "active" : ""} onClick={() => setView("reviews")}>Контрольные срезы</button>
-        <button className={view === "principles" ? "active" : ""} onClick={() => setView("principles")}>Редакционный компас</button>
-        <button className={view === "backlog" ? "active" : ""} onClick={() => setView("backlog")}>Архив тем</button>
-      </nav>
+  const openFromAgenda = (entry) => {
+    setTab(entry.tentative ? "ideas" : "plan");
+    setCreating(false);
+    setQuery("");
+    setSelectedTopic(entry.post.id);
+    requestAnimationFrame(() => document.getElementById("post-" + entry.post.id)?.scrollIntoView({ block: "start", behavior: "smooth" }));
+  };
 
-      {view === "calendar" && (
-        <>
-          <section className="toolbar">
-            <input className="search" value={query} onChange={(event) => setQuery(event.target.value)} placeholder="Найти тему, аудиторию или площадку" aria-label="Поиск по календарю" />
-            <select value={cycleFilter} onChange={(event) => setCycleFilter(event.target.value)} aria-label="Фильтр по циклу">
-              <option value="active">Новый цикл</option><option value="archive">Опубликованный архив</option><option value="all">Всё</option>
-            </select>
-            <select value={weekFilter} onChange={(event) => setWeekFilter(event.target.value)} aria-label="Фильтр по неделе">
-              <option value="all">Все недели</option>
-              {[...new Set(telegramPlan.filter((post) => post.week > 0).map((post) => post.week))].map((week) => <option key={week} value={week}>Неделя {week}</option>)}
-            </select>
-            <select value={typeFilter} onChange={(event) => setTypeFilter(event.target.value)} aria-label="Фильтр по типу">
-              <option value="all">Все типы</option>{Object.entries(contentTypes).map(([key, label]) => <option key={key} value={key}>{label}</option>)}
-            </select>
-            <select value={publicationFilter} onChange={(event) => setPublicationFilter(event.target.value)} aria-label="Фильтр по статусу публикации">
-              <option value="all">Любой статус публикации</option>{phaseOptions.publication.map(([key, label]) => <option key={key} value={key}>{label}</option>)}
-            </select>
-          </section>
-          <div className="resultLine"><span>{filtered.length} записей</span><span>Подробности и действия открываются внутри карточки</span></div>
-          <section className="calendarList">
-            {filtered.map((post) => <PostCard key={post.id} post={post} record={getRecord(state, post)} update={update} />)}
-          </section>
-          {!filtered.length && <div className="empty">По этим фильтрам записей нет.</div>}
-        </>
-      )}
+  const changeTargetDate = (post, targetDate) => {
+    if (!isDate(targetDate)) return;
+    persist({ ...current.current, [post.id]: { ...getRecord(current.current, post), targetDate } });
+  };
 
-      {view === "reviews" && <Reviews state={state} update={update} />}
-      {view === "principles" && <Principles />}
-      {view === "backlog" && <Backlog />}
+  return <main>
+    <header className="appHeader">
+      <div><p className="brand">DESIGN4SALES</p><h1>Публикации</h1><p className="muted">План, готовность и напоминания</p></div>
+      <button className="button primary" disabled={blocked} onClick={() => {
+        openTab("plan");
+        setCreating(true);
+      }}>＋ Новая публикация</button>
+    </header>
 
-      <footer className="footer">
-        <div><strong>Прогресс хранится в этом браузере.</strong><span>Старые записи и данные v3 сохраняются при переходе на новую схему.</span></div>
-        <div className="footerActions">
-          <button onClick={exportProgress}>Экспорт прогресса</button>
-          <button onClick={() => importRef.current?.click()}>Импорт</button>
-          <button className="danger" onClick={resetProgress}>Сбросить</button>
-          <input ref={importRef} type="file" accept="application/json" onChange={importProgress} hidden />
-        </div>
-      </footer>
-    </main>
-  );
-}
-
-function Summary({ value, label, accent = false }) {
-  return <div className={`summary ${accent ? "accent" : ""}`}><strong>{value}</strong><span>{label}</span></div>;
-}
-
-function PhaseSelect({ phase, value, onChange }) {
-  const label = phaseOptions[phase].find(([key]) => key === value)?.[1] || value;
-  return (
-    <label className="phaseSelect"><span>{phaseLabels[phase]}</span>
-      <select value={value} onChange={(event) => onChange(event.target.value)}>{phaseOptions[phase].map(([key, text]) => <option key={key} value={key}>{text}</option>)}</select>
-      <em className={`phase phase-${value}`}>{label}</em>
-    </label>
-  );
-}
-
-function PostCard({ post, record, update }) {
-  const [open, setOpen] = useState(false);
-  const toggleAction = (index) => update(post, { actionChecks: { ...record.actionChecks, [index]: !record.actionChecks[index] } });
-  return (
-    <article className={`postCard type-${post.type} ${record.phases.publication === "published" ? "isPublished" : ""}`}>
-      <div className="postStripe" />
-      <div className="postMain">
-        <div className="postMeta">
-          <span className="date">{dateLabel(post.date)}</span>
-          {post.week > 0 && <span>Неделя {post.week}</span>}
-          <span className="typePill">{contentTypes[post.type]}</span>
-          {post.kind === "work" && <span className="checkpoint">рабочая запись</span>}
-          {post.cycle === "archive" && <span className="archivePill">опубликованный архив</span>}
-        </div>
-        <h2>{post.title}</h2>
-        {post.subtitle && <p className="subtitle">{post.subtitle}</p>}
-        <p className="thought">{post.thought}</p>
-        <div className="quickFacts">
-          <div><span>Аудитория</span><strong>{post.audience}</strong></div>
-          <div><span>Основной выход</span><strong>{post.mainPlatform}</strong></div>
-          <div><span>Лимит</span><strong>{post.timeBudget}</strong></div>
-        </div>
-        <button className="detailsButton" onClick={() => setOpen((value) => !value)} aria-expanded={open}>{open ? "Свернуть" : "Открыть план и «После публикации»"}</button>
+    {saveError && <section className="panel errorPanel">
+      <p role="alert">{saveError}</p>
+      <div className="slotTools">
+        {mac && pendingSave.current && <button className="button secondary" onClick={retrySave}>Повторить сохранение</button>}
+        {blocked && initial?.canRecover && <button className="button secondary" onClick={restoreLastGood}>Восстановить предыдущую версию</button>}
+        {blocked && <button className="button secondary" onClick={() => importRef.current?.click()}>Импортировать резервный JSON</button>}
       </div>
-      <aside className="postControls">
-        {Object.keys(phaseLabels).map((phase) => <PhaseSelect key={phase} phase={phase} value={record.phases[phase]} onChange={(value) => update(post, { phases: { ...record.phases, [phase]: value } })} />)}
-        <div className="miniMetric"><strong>{metric(record.metrics.v24)}</strong><span>V24</span></div>
-        <div className="miniMetric"><strong>{metric(record.metrics.v72)}</strong><span>V72</span></div>
-      </aside>
+    </section>}
 
-      {open && (
-        <div className="postDetails">
-          <Detail title="Что взять для текста и визуала" text={post.textVisual} />
-          <Detail title="Что показываем визуально" text={post.visual} />
-          <Detail title="Порядок работы" text={post.scenario} />
-          <Detail title="Что подготовить" text={post.materials} />
-          <Detail title="Действие читателя" text={post.engagement || post.cta} />
-          <Detail title="Сроки проверки" text={post.checks} />
+    <nav className="viewTabs" aria-label="Разделы календаря">
+      {tabs.map(([value, label]) => <button key={value} className="button" aria-current={tab === value ? "page" : undefined} onClick={() => openTab(value)}>{label}</button>)}
+    </nav>
+    {notice && <p className="notice" role="status">{notice}</p>}
+    {creating && <NewPublication settings={settings} create={create} close={() => setCreating(false)} />}
 
-          <section className="afterBlock">
-            <div className="sectionTitle"><div><span>После публикации</span><small>Действия выполняются по порядку</small></div><em>{Object.values(record.actionChecks).filter(Boolean).length}/{post.afterPublication.length} выполнено</em></div>
-            <ol className="actionList">
-              {post.afterPublication.map((action, index) => (
-                <li key={action} className={record.actionChecks[index] ? "done" : ""}>
-                  <label><input type="checkbox" checked={Boolean(record.actionChecks[index])} onChange={() => toggleAction(index)} /><span>{action}</span></label>
-                </li>
-              ))}
-            </ol>
-            <div className="linkInputs">
-              <label>URL основной публикации<input type="url" value={record.links.post} onChange={(event) => update(post, { links: { ...record.links, post: event.target.value } })} placeholder="https://t.me/... или н/д" /></label>
-              <label>URL внешнего размещения<input type="url" value={record.links.external} onChange={(event) => update(post, { links: { ...record.links, external: event.target.value } })} placeholder="Сетка / VK / н/д" /></label>
-              <label>Пригласительная ссылка / источник<input type="text" value={record.links.invite} onChange={(event) => update(post, { links: { ...record.links, invite: event.target.value } })} placeholder="setka_oct26, vk_oct26 или н/д" /></label>
-            </div>
-          </section>
-
-          <section className="metricsBlock">
-            <div className="sectionTitle"><div><span>Результат</span><small>Пустое поле показывается как «н/д», ноль вводится только после измерения</small></div></div>
-            <div className="metricInputs">
-              {[["v24", "Просмотры TG · 24 ч"], ["v72", "Просмотры TG · 72 ч"], ["replies", "Ответы"], ["subscriptions", "Подписки по ссылкам"], ["workRequests", "Рабочие обращения"], ["minutes", "Затрачено, мин"], ["clicks", "Клики, если доступны"]].map(([key, label]) => (
-                <label key={key}>{label}<input inputMode="numeric" min="0" type="number" value={record.metrics[key]} onChange={(event) => update(post, { metrics: { ...record.metrics, [key]: event.target.value } })} placeholder="н/д" /></label>
-              ))}
-            </div>
-            <label className="noteField">Что повторить / изменить / остановить<textarea value={record.resultNote} onChange={(event) => update(post, { resultNote: event.target.value })} placeholder="Фактический вывод, выбранный адресат и повод, статус правил сообщества или следующий шаг" /></label>
-          </section>
+    {tab === "settings" ? <>
+      <ScheduleSettings settings={settings} change={(patch) => persist({ ...current.current, [SETTINGS_KEY]: { ...settings, ...patch } })}
+        native={Boolean(mac)} sync={sync} syncText={syncText} syncAction={syncAction} />
+      <section className="panel settingsPanel">
+        <h2>Резервная копия</h2>
+        <p className="muted">{mac ? "План хранится на этом Mac." : "План хранится в этом браузере."} JSON включает расписание и сохранённую историю.</p>
+        <div className="slotTools"><button className="button secondary" onClick={exportProgress} disabled={blocked && !pendingSave.current}>Экспорт прогресса</button>
+          <button className="button secondary" onClick={() => importRef.current?.click()}>Импорт JSON</button></div>
+      </section>
+    </> : <>
+      {tab === "plan" && mac && settings.enabled && !sync.connected && <div className="connectionBanner">
+        <span>Для сигналов на Mac и iPhone подключи Apple «Напоминания».</span>
+        <button className="button secondary" onClick={() => openTab("settings")}>Настроить</button>
+      </div>}
+      <div className="listHeader">
+        <div>
+          <h2>{tab === "plan" ? "График публикаций" : tab === "ideas" ? "Темы и подсказки" : "История выходов"}</h2>
+          <p className="muted">{tab === "plan" ? "Ближайшие темы и выходы · время по Москве"
+            : tab === "ideas" ? "Открой тему, чтобы прочитать замысел и план подготовки." : "Опубликованные и отменённые выходы."}</p>
         </div>
-      )}
-    </article>
-  );
-}
-
-function Detail({ title, text }) {
-  return <section className="detail"><h3>{title}</h3><p>{text}</p></section>;
-}
-
-function Reviews({ state, update }) {
-  return (
-    <section className="reviews">
-      <div className="sectionIntro"><span>Контрольные срезы</span><h2>Решения по фактам, а не по ощущению</h2><p>Сравнивайте V72 только у публикаций с завершённым окном. Подписки, ответы и рабочие обращения остаются разными результатами.</p></div>
-      {reviewWindows.map((window) => {
-        const posts = telegramPlan.filter((post) => post.kind === "publication" && post.date >= window.start && post.date <= window.end);
-        const v72 = posts.filter((post) => isValue(getRecord(state, post).metrics.v72));
-        const replies = posts.reduce((sum, post) => sum + Number(getRecord(state, post).metrics.replies || 0), 0);
-        const subscriptions = posts.reduce((sum, post) => sum + Number(getRecord(state, post).metrics.subscriptions || 0), 0);
-        const workRequests = posts.reduce((sum, post) => sum + Number(getRecord(state, post).metrics.workRequests || 0), 0);
-        const reviewPost = { id: `note-${window.id}`, defaultPhases: {}, afterPublication: [] };
-        const reviewRecord = getRecord(state, reviewPost);
-        return (
-          <article className="reviewCard" key={window.id}>
-            <div className="reviewHeader"><div><span>{window.label}</span><h3>{shortDate(window.start)} — {shortDate(window.end)}</h3></div><strong>Решение с {window.decisionFrom}</strong></div>
-            <div className="reviewStats">
-              <Summary value={`${v72.length}/${posts.length}`} label="публикаций с V72" />
-              <Summary value={replies} label="содержательных ответов" />
-              <Summary value={subscriptions} label="вступлений по ссылкам" />
-              <Summary value={workRequests} label="рабочих обращений" />
-            </div>
-            <label className="decision">Решение на следующий отрезок<textarea value={reviewRecord.resultNote} onChange={(event) => update(reviewPost, { resultNote: event.target.value })} placeholder="Что продолжить, изменить и остановить; какие данные пока н/д" /></label>
-          </article>
-        );
-      })}
-    </section>
-  );
-}
-
-function Principles() {
-  return (
-    <section className="principles">
-      <div className="sectionIntro"><span>Редакционный компас</span><h2>Telegram — центр, а не единственная точка</h2><p>Каждая площадка получает только тот формат, который можно сделать полезным в рамках дневного лимита.</p></div>
-      <div className="principleGrid">
-        <article><span>01</span><h3>До часа в день</h3><p>Клиентская работа важнее заполнения календаря. Не готов исходник — запись переносится.</p></article>
-        <article><span>02</span><h3>Сетка — отдельная мысль</h3><p>700–1200 знаков с законченным выводом внутри площадки, а не тизер со спрятанным ответом.</p></article>
-        <article><span>03</span><h3>VK — быстрая адаптация</h3><p>Использовать готовые кадры и законченный короткий текст. Не делать новый сложный материал ради дублирования.</p></article>
-        <article><span>04</span><h3>Контакт только по поводу</h3><p>Нужны имя/публичный ID и реальный контекст. Нет контакта — сначала выбрать адресата.</p></article>
-        <article><span>05</span><h3>Сообщество сначала проверить</h3><p>Описание, закреп, правила и бесплатность. До проверки это кандидат, не место публикации.</p></article>
-        <article><span>06</span><h3>Неизвестное — «н/д»</h3><p>Ноль означает измеренное отсутствие события. Недоступные клики и пересылки не угадываются.</p></article>
+        {(entries.some(({ section }) => section === tab) || (tab === "plan" && agenda.length > 0)) && <input type="search" value={query} onChange={(e) => setQuery(e.target.value)} aria-label="Поиск по темам" placeholder="Найти тему" />}
       </div>
-    </section>
-  );
+
+      {tab === "plan" && <PlanningTimeline items={agenda.slice(0, 8)} open={openFromAgenda} all={() => openTab("ideas")} />}
+      {tab === "plan" && visible.length > 0 && <h2 className="scheduledHeading">Выходы по площадкам</h2>}
+      <div className="calendarList">
+        {visible.map(({ post, record, section, targetDate }) => <PublicationCard key={post.id} post={post} record={record} section={section} settings={settings}
+          now={now} targetDate={targetDate} selected={selectedTopic === post.id} changeTarget={(date) => changeTargetDate(post, date)} disabled={blocked} prepare={(ready) => changePreparation(post, ready)} change={(platform, patch) => changePlacement(post, platform, patch)} />)}
+      </div>
+      {!visible.length && !(tab === "plan" && agenda.length) && <div className="panel empty">
+        <h3>{query ? "Темы не найдены" : tab === "plan" ? "Пока нет запланированных выходов" : "Здесь пока пусто"}</h3>
+        {!query && tab === "plan" && <p className="muted">Создай публикацию или выбери готовую идею во вкладке «Темы».</p>}
+        {!query && tab === "plan" && <button className="button secondary" onClick={() => openTab("ideas")}>Открыть темы</button>}
+      </div>}
+    </>}
+    <input ref={importRef} type="file" accept="application/json,.json" onChange={importProgress} hidden />
+  </main>;
 }
 
-function Backlog() {
-  return (
-    <section className="backlog">
-      <div className="sectionIntro"><span>Архив тем</span><h2>Идеи без обязательных дат и площадок</h2><p>Старый план используется только как архив. Тема возвращается в календарь, когда есть исходник, право на показ и время.</p></div>
-      <div className="backlogGrid">{telegramBacklog.map((item) => <article key={item.title}><span>{item.source}</span><h3>{item.title}</h3></article>)}</div>
-    </section>
-  );
+function PlanningTimeline({ items, open, all }) {
+  if (!items.length) return null;
+  return <section className="panel planningTimeline" aria-label="Ближайший график">
+    <p className="muted timelineHint">Дата-ориентир помогает спланировать подготовку. Напоминание появится после выбора площадки и времени.</p>
+    <ol>{items.map((entry) => <li key={entry.id}><button className="timelineRow" onClick={() => open(entry)}>
+      <span className="timelineDate">{dateLabel(entry.date)}{entry.time && <small>{entry.time} МСК</small>}</span>
+      <span className="timelineTopic"><strong>{entry.post.title}</strong><small>{entry.tentative ? "Дата-ориентир · открыть тему" : entry.platform + " · запланировано"}</small></span>
+      <span aria-hidden="true" className="timelineArrow">→</span>
+    </button></li>)}</ol>
+    <button className="button quiet" onClick={all}>Все темы и даты</button>
+  </section>;
+}
+
+function PublicationCard({ post, record, section, targetDate, selected, changeTarget, settings, now, disabled, prepare, change }) {
+  const [detailsOpen, setDetailsOpen] = useState(false);
+  const [placementsOpen, setPlacementsOpen] = useState(section === "plan");
+  useEffect(() => {
+    if (selected) setDetailsOpen(true);
+  }, [selected]);
+  const historical = section === "archive" && !scheduledSlots(post, record, settings).length;
+  const ready = ["ready", "skip"].includes(record.phases.preparation);
+  return <article className="panel publicationCard" id={"post-" + post.id}>
+    <div className="cardHeader">
+      <div>
+        {historical && <p className="muted archiveDate">{record.publicationConfirmation ? "Опубликовано · подтверждено тобой" : dateLabel(post.date) + " · " + post.date.slice(0, 4) + " · Опубликовано"}</p>}
+        {section === "ideas" && <p className="topicDate">{dateLabel(targetDate)} · дата-ориентир{targetDate < todayInMoscow(new Date(now)) ? " прошла" : ""}</p>}
+        <h3><button className="topicTitle" aria-expanded={detailsOpen} aria-controls={"brief-" + post.id} onClick={() => setDetailsOpen(!detailsOpen)}>{post.title}</button></h3>
+        {section === "ideas" && post.thought && !detailsOpen && <p className="muted ideaDescription">{post.thought}</p>}
+      </div>
+      {section !== "archive" && (section === "plan" || detailsOpen) && <label className="checkbox readyToggle">
+        <input type="checkbox" checked={ready} disabled={disabled} onChange={(e) => prepare(e.target.checked)} /> Готово к выходу
+      </label>}
+    </div>
+    <button className="button quiet briefToggle" aria-expanded={detailsOpen} aria-controls={"brief-" + post.id} onClick={() => setDetailsOpen(!detailsOpen)}>
+      {detailsOpen ? "Свернуть подсказки" : "О чём пост и как подготовить"}
+    </button>
+    {detailsOpen && <section className="editorialBrief" id={"brief-" + post.id}>
+      {section === "ideas" && <div className="targetDate">
+        <label>Ориентир выхода<input type="date" value={targetDate} disabled={disabled} onChange={(event) => changeTarget(event.target.value)} /></label>
+        <p className="muted">Можно менять по ходу подготовки.</p>
+      </div>}
+      <EditorialBrief post={post} />
+    </section>}
+    {section === "plan" && <PlacementEditor post={post} record={record} settings={settings} change={change} now={now} disabled={disabled} />}
+    {section === "ideas" && detailsOpen && isSchedulable(post) && <div className="topicSchedule">
+      <h4>Запланировать выход</h4>
+      <PlacementEditor post={{ ...post, date: targetDate }} record={record} settings={settings} change={change} now={now} disabled={disabled} />
+    </div>}
+    {section === "archive" && !historical && isSchedulable(post) && <>
+      <button className="button secondary" aria-expanded={placementsOpen} onClick={() => setPlacementsOpen(!placementsOpen)}>
+        {placementsOpen ? "Свернуть выходы" : "Открыть выходы"}
+      </button>
+      {placementsOpen && <PlacementEditor post={post} record={record} settings={settings} change={change} now={now} disabled={disabled} />}
+    </>}
+    {section === "archive" && <ArchiveDetails record={record} />}
+  </article>;
+}
+
+function EditorialBrief({ post }) {
+  const fields = [
+    ["Главная мысль", post.thought],
+    ["Для кого", post.audience],
+    ["Как раскрыть тему", post.textVisual],
+    ["Что показать", post.visual],
+    ["План подготовки", post.scenario],
+    ["Что подготовить", post.materials],
+    ["Действие читателя", post.engagement || post.cta],
+    ["Формат", post.format],
+  ].filter(([, text]) => text && text !== "—" && text !== "Не требуется.");
+  return fields.length ? <dl className="briefFields">{fields.map(([label, text]) => <div key={label}><dt>{label}</dt><dd>{text}</dd></div>)}</dl>
+    : <p className="muted">Описание этой темы пока не заполнено.</p>;
+}
+
+function ArchiveDetails({ record }) {
+  const metrics = Object.entries(metricLabels).filter(([key]) => record.metrics?.[key] !== undefined && record.metrics[key] !== "");
+  const note = record.resultNote || record.note;
+  const link = record.links?.post;
+  if (!metrics.length && !note && !link) return null;
+  return <details className="archiveDetails">
+    <summary>Сохранённые данные</summary>
+    {note && <p>{note}</p>}
+    {link && <p className="muted archiveLink">{link}</p>}
+    {metrics.length > 0 && <dl>{metrics.map(([key, label]) => <div key={key}><dt>{label}</dt><dd>{record.metrics[key]}</dd></div>)}</dl>}
+  </details>;
 }
 
 export default App;
