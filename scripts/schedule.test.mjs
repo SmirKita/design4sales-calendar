@@ -151,3 +151,40 @@ test("editorial target dates order tentative topics without creating reminders",
   assert.equal(rows(state).size, 0);
   assert.ok(entries.find((entry) => entry.post.id === target).post.materials);
 });
+
+test("stages, overdue topics, the topic bank and the next free Wednesday", async () => {
+  const { publicationEntry, nextFreeWednesday, preparationFor, stageOf, weeksCovered } = await import("../src/editorialPlan.js");
+  const { settingsFor } = await import("../src/publicationSchedule.js");
+  const now = Date.parse("2026-11-11T10:00:00+03:00");
+  const today = "2026-11-11";
+  const state = normalizeState({});
+  const settings = settingsFor(state);
+  const build = () => telegramPlan.filter((row) => row.kind === "publication").map((row) => publicationEntry(row, state[row.id], settings, now));
+
+  let entries = build();
+  const overdue = entries.filter((entry) => entry.overdue).map((entry) => entry.post.id);
+  assert.equal(overdue.length, 10);
+  assert.ok(overdue.includes("2026-10-01-three-second-test"));
+  assert.ok(!overdue.includes("2026-10-27-photo-photoshop-ai"));
+  assert.ok(!overdue.includes(post.id));
+  assert.equal(nextFreeWednesday(entries, today), "2026-12-16");
+  assert.deepEqual(weeksCovered(entries, today), [true, true, true, true]);
+
+  for (const stage of ["idea", "text", "visual", "ready"]) {
+    state[post.id].phases.preparation = preparationFor(stage);
+    assert.equal(stageOf(build().find((entry) => entry.post.id === post.id)), stage);
+  }
+  assert.equal(stageOf(entries.find((entry) => entry.post.id === "2026-10-27-photo-photoshop-ai")), "published");
+
+  state["2026-10-01-three-second-test"].shelved = true;
+  state["2026-12-09-half-space"] = { ...state["2026-12-09-half-space"], shelved: true };
+  entries = build();
+  const shelved = entries.find((entry) => entry.post.id === "2026-10-01-three-second-test");
+  assert.equal(shelved.shelved, true);
+  assert.equal(shelved.overdue, false);
+  assert.equal(nextFreeWednesday(entries, today), "2026-12-09");
+
+  state["2026-10-06-photo-not-ready-for-ads"].phases.publication = "published";
+  assert.equal(build().find((entry) => entry.post.id === "2026-10-06-photo-not-ready-for-ads").section, "archive");
+  assert.equal(rows(state).size, 0);
+});

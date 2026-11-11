@@ -16,8 +16,10 @@ function nextDate(date, time, now) {
 const leadLabel = (lead) => lead === 0 ? "В момент выхода" : `За ${lead} мин`;
 const terminal = (slot) => ["published", "cancelled"].includes(slot.status);
 
+const platformColors = { tg: "#229ED9", vk: "#0A6CE8", setka: "#D9384A", ig: "#C2306A", dzen: "#6E6577", "tg-story": "#229ED9", "vk-story": "#0A6CE8", "ig-story": "#C2306A" };
+
 function PlatformName({ platform }) {
-  return <span className="platformName"><span aria-hidden="true" className="platformIcon">{platform.icon}</span>{platform.name}</span>;
+  return <span className="platformName"><span aria-hidden="true" className="platformDot" style={{ background: platformColors[platform.id] }} />{platform.name}</span>;
 }
 
 export function PlacementEditor({ post, record, settings, change, now, disabled }) {
