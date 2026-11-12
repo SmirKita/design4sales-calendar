@@ -28,10 +28,11 @@ export function publicationEntry(post, record, settings, now) {
   const active = slots.filter((slot) => !["published", "cancelled"].includes(slot.status));
   let section = "ideas";
   if (active.length) section = "plan";
-  else if (slots.length || post.cycle === "archive" || record.phases.publication === "published") section = "archive";
+  else if (slots.some((slot) => slot.status === "published") || post.cycle === "archive" || record.phases.publication === "published") section = "archive";
   const future = active.map((slot) => moscowInstant(slot.date, slot.time)).filter((time) => time > now);
   const targetDate = isDate(record.targetDate) ? record.targetDate : post.date;
-  const shelved = section === "ideas" && record.shelved === true;
+  const cancelled = slots.length > 0 && slots.every((slot) => slot.status === "cancelled");
+  const shelved = section === "ideas" && (record.shelved === true || cancelled);
   const today = todayInMoscow(new Date(now));
   const overdue = section === "ideas" && !shelved && post.kind === "publication" && targetDate < today;
   const entry = { post, record, slots, active, section, targetDate, shelved, overdue, next: future.length ? Math.min(...future) : Infinity };

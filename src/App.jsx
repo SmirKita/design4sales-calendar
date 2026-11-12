@@ -2,10 +2,11 @@ import React, { useEffect, useMemo, useRef, useState } from "react";
 import { contentTypes, telegramPlan } from "./data/telegramPlan.js";
 import { telegramBacklog } from "./data/telegramBacklog.js";
 import { loadCalendarState, normalizeState, readBackup, saveCalendarState, STORAGE_KEY, STORAGE_SCHEMA_VERSION } from "./storage.js";
-import { makeManifest, isDate, isSchedulable, moscowInstant, PLATFORMS, SETTINGS_KEY, settingsFor, todayInMoscow, userPosts } from "./publicationSchedule.js";
+import { makeManifest, isDate, isSchedulable, moscowInstant, PLATFORMS, SETTINGS_KEY, platformSlot, settingsFor, todayInMoscow, userPosts } from "./publicationSchedule.js";
 import { dateLabel, NewPublication, PlacementEditor, ScheduleSettings } from "./Schedule.jsx";
-import { addDays, nextFreeWednesday, planningTimeline, preparationFor, publicationEntry, STAGES, weekday, weekStart, weeksCovered } from "./editorialPlan.js";
+import { addDays, nextFreeWednesday, planningTimeline, publicationEntry, weekday, weekStart, weeksCovered } from "./editorialPlan.js";
 import { mac, nativeCall, downloadJSON } from "./macBridge.js";
+import { changePlacementRecord, restorePlannedPlacements, undoRecordChanges } from "./publicationActions.js";
 import { Icon } from "./icons.jsx";
 
 function getRecord(state, post) {
@@ -14,7 +15,7 @@ function getRecord(state, post) {
 }
 
 const tabs = [
-  ["plan", "Сегодня", "rocket"], ["calendar", "Календарь", "calendar"], ["board", "Подготовка", "text"],
+  ["plan", "Сегодня", "rocket"], ["calendar", "Календарь", "calendar"], ["board", "Готовность", "ready"],
   ["ideas", "Банк тем", "bank"], ["archive", "Итоги", "chart"], ["settings", "Настройки", "gear"],
 ];
 const metricFields = [["v24", "24 часа"], ["v72", "72 часа"], ["replies", "Ответы"], ["workRequests", "Обращения"]];
@@ -75,7 +76,7 @@ function App({ initial }) {
     return () => clearInterval(timer);
   }, []);
   useEffect(() => {
-    if (!notice) return undefined;
+    if (!notice || notice.undo) return undefined;
     const timer = setTimeout(() => setNotice(null), 6000);
     return () => clearTimeout(timer);
   }, [notice]);
@@ -125,13 +126,21 @@ function App({ initial }) {
     return saved;
   };
 
-  // Правка одной записи с возможностью отменить её из уведомления.
   const update = (post, change, message) => {
     if (blocked) return;
-    const before = current.current;
-    const record = getRecord(before, post);
-    persist({ ...before, [post.id]: change(record) });
-    if (message) setNotice({ text: message, undo: () => persist(before) });
+    const before = getRecord(current.current, post);
+    const after = change(before);
+    persist({ ...current.current, [post.id]: after });
+    if (message) setNotice({ text: message, undo: () => {
+      const latest = getRecord(current.current, post);
+      const restored = undoRecordChanges(before, after, latest);
+      if (JSON.stringify(restored) === JSON.stringify(latest)) {
+        setNotice({ text: "Эти поля уже изменены позже. Проверь текущее состояние в карточке." });
+        return;
+      }
+      persist({ ...current.current, [post.id]: restored });
+      setNotice({ text: "Действие отменено. Расписание и статус обновлены." });
+    } });
   };
 
   const retrySave = async () => {
@@ -140,33 +149,36 @@ function App({ initial }) {
     if (pending && await enqueueSave(pending, true) && pending.recover) window.location.reload();
   };
 
-  const changePreparation = (post, ready) => update(post, (record) => ({ ...record, phases: { ...record.phases, preparation: ready ? "ready" : "planned" } }));
+  const changePreparation = (post, ready) => update(post,
+    (record) => ({ ...record, phases: { ...record.phases, preparation: ready ? "ready" : "planned" } }),
+    ready ? "Материалы готовы к публикации" : "Материалы требуют доработки");
 
   const changePlacement = (post, platform, patch) => {
+    const selectedPlatform = PLATFORMS.find((entry) => entry.id === platform);
+    const name = selectedPlatform.name;
+    const slot = platformSlot(post, getRecord(current.current, post), selectedPlatform, settings);
+    if (patch.status === "published" && !window.confirm(`Пост уже размещён в ${name}?\nВ расписании: ${dateLabel(slot.date)}, ${slot.time} МСК.\nПодтвердить фактический выход только на этой площадке?`)) return;
+    const message = patch.status === "published" ? `${name} · опубликовано`
+      : patch.status === "cancelled" ? `${name} · выход отменён`
+        : patch.status === "planned" ? `${name} · выход возвращён в план`
+          : patch.enabled ? `${name} · выход запланирован` : null;
+    update(post, (record) => changePlacementRecord(record, platform, patch), message);
+  };
+
+  const markPublished = (post) => {
     const record = getRecord(current.current, post);
-    const placements = { ...record.placements, [platform]: { ...record.placements?.[platform], ...patch } };
-    const phases = platform === "tg" && patch.status && placements.tg.enabled
-      ? { ...record.phases, publication: patch.status === "cancelled" ? "skip" : patch.status } : record.phases;
-    persist({ ...current.current, [post.id]: { ...record, phases, placements, shelved: false } });
-    if (patch.status === "published" || patch.status === "cancelled") {
-      const name = PLATFORMS.find((entry) => entry.id === platform).name;
-      setNotice({ text: patch.status === "published" ? `${name} · выход отмечен` : `${name} · выход отменён` });
-    } else if (patch.enabled === true) setNotice({ text: "Выход запланирован" });
+    if (Object.values(record.placements || {}).some((slot) => slot.enabled)) {
+      openTopic(post.id);
+      setNotice({ text: "Отметь фактический выход в строке нужной площадки." });
+      return;
+    }
+    if (!window.confirm("Этот пост уже опубликован? Подтверди отметку для темы без назначенных площадок.")) return;
+    update(post, (record) => ({ ...record, shelved: false,
+      phases: { ...record.phases, preparation: "ready", publication: "published" },
+      publicationConfirmation: { confirmedOn: today, source: "user" } }), "Публикация подтверждена");
   };
 
-  const markPublished = (post) => update(post, (record) => {
-    const placements = Object.fromEntries(Object.entries(record.placements || {}).map(([id, slot]) => [id,
-      slot.enabled && !["published", "cancelled"].includes(slot.status) ? { ...slot, status: "published", publishedAt: new Date().toISOString() } : slot]));
-    return { ...record, placements, shelved: false, phases: { ...record.phases, preparation: "ready", publication: "published" },
-      publicationConfirmation: { confirmedOn: today, source: "user" } };
-  }, "Выход отмечен. Цифры можно внести в «Итогах»");
-
-  const setStage = (post, stage) => {
-    if (stage === "published") return markPublished(post);
-    const name = STAGES.find((row) => row.id === stage).name;
-    update(post, (record) => ({ ...record, phases: { ...record.phases, preparation: preparationFor(stage),
-      ...(record.phases.publication === "published" && !isArchiveTopic(post) ? { publication: "planned" } : {}) } }), "Этап: " + name);
-  };
+  const restoreTopic = (post) => update(post, restorePlannedPlacements, "Выходы возвращены в план. Проверь даты и напоминания.");
 
   const reschedule = (post, date) => {
     if (!isDate(date)) return;
@@ -200,9 +212,20 @@ function App({ initial }) {
 
   const adoptIdea = (title, date) => {
     if (blocked) return;
-    const before = current.current;
-    persist({ ...before, [newId()]: { customPost: { title, date } } });
-    setNotice({ text: "Тема поставлена на " + dateLabel(date), undo: () => persist(before) });
+    const id = newId();
+    const created = { customPost: { title, date } };
+    persist({ ...current.current, [id]: created });
+    setNotice({ text: "Тема поставлена на " + dateLabel(date), undo: () => {
+      const latest = current.current;
+      if (JSON.stringify(latest[id]) !== JSON.stringify(created)) {
+        setNotice({ text: "Тема уже изменена. Проверь её в банке тем." });
+        return;
+      }
+      const next = { ...latest };
+      delete next[id];
+      persist(next);
+      setNotice({ text: "Добавление темы отменено" });
+    } });
   };
 
   const syncAction = async (action) => {
@@ -270,7 +293,7 @@ function App({ initial }) {
     document.querySelector(".workspace")?.scrollTo?.(0, 0);
   };
 
-  const actions = { openTopic, openTab, setStage, reschedule, shelve, markPublished, changeMetric, changeLink, changeRecord, toggleCheck,
+  const actions = { openTopic, openTab, restoreTopic, reschedule, shelve, markPublished, changeMetric, changeLink, changeRecord, toggleCheck,
     adoptIdea, change: changePlacement, prepare: changePreparation };
   const common = { entries, today, settings, now, disabled: blocked, freeWednesday, actions };
   const counts = { plan: overdue.length, ideas: entries.filter((entry) => entry.section === "ideas").length };
@@ -337,7 +360,7 @@ function App({ initial }) {
       </div>}
       {body}
     </main>
-    {notice && <div className="toast" role="status">{notice.text}{notice.undo && <button onClick={() => { notice.undo(); setNotice(null); }}>Отменить</button>}</div>}
+    {notice && <div className="toast" role="status">{notice.text}{notice.undo && <button onClick={notice.undo}>Отменить действие</button>}<button aria-label="Закрыть сообщение" onClick={() => setNotice(null)}>×</button></div>}
     <input ref={importRef} type="file" accept="application/json,.json" onChange={importProgress} hidden />
   </div>;
 }
@@ -370,11 +393,8 @@ function Search({ query, setQuery }) {
 }
 
 function StageBar({ stage, light }) {
-  const index = STAGES.findIndex((row) => row.id === stage);
-  return <div className={"stageBar" + (light ? " light" : "")} aria-label={"Этап: " + STAGES[index].name}>
-    <div className="stageTrack">{STAGES.map((row, i) => <span key={row.id} className={i <= index ? "on" : ""} />)}</div>
-    <div className="stageNames">{STAGES.map((row, i) => <span key={row.id} className={i === index ? "current" : ""}>{row.name}</span>)}</div>
-  </div>;
+  const label = stage === "published" ? "Опубликовано" : stage === "ready" ? "Материалы готовы" : "Ожидается готовый комплект";
+  return <p className={"readinessLabel" + (light ? " light" : "")}><Icon name={stage === "ready" ? "ready" : stage === "published" ? "rocket" : "bank"} size={28} />{label}</p>;
 }
 
 function TodayView({ entries, today, agenda, overdue, published, scheduled, creating, closeCreate, create, settings, now, disabled, freeWednesday, actions, query, setQuery }) {
@@ -401,10 +421,8 @@ function TodayView({ entries, today, agenda, overdue, published, scheduled, crea
           <StageBar stage={hero.entry.stage} light />
           <div className="slotTools">
             <button className="button accent" onClick={() => actions.openTopic(hero.post.id)}>Открыть бриф</button>
-            {hero.entry.stage !== "ready" && hero.entry.stage !== "published"
-              ? <button className="button ghostLight" disabled={disabled} onClick={() => actions.setStage(hero.post, STAGES[STAGES.findIndex((row) => row.id === hero.entry.stage) + 1].id)}>
-                Дальше: {STAGES[STAGES.findIndex((row) => row.id === hero.entry.stage) + 1].name.toLowerCase()}</button>
-              : <button className="button ghostLight" disabled={disabled} onClick={() => actions.markPublished(hero.post)}>Отметить выход</button>}
+            {hero.entry.stage !== "ready" && <button className="button ghostLight" disabled={disabled} onClick={() => actions.prepare(hero.post, true)}>Комплект готов</button>}
+            <button className="button ghostLight" onClick={() => actions.openTopic(hero.post.id)}>Расписание площадок</button>
           </div>
         </div>
       </section> : <section className="tile hero empty">
@@ -501,7 +519,7 @@ function TopicView({ entry, today, settings, now, disabled, freeWednesday, actio
       <div className="headerActions">
         {!archive && section === "ideas" && !entry.shelved && <button className="button secondary" disabled={disabled} onClick={() => actions.shelve(post, true)}>Убрать в банк</button>}
         {!archive && entry.shelved && <button className="button secondary" disabled={disabled} onClick={() => actions.reschedule(post, freeDate)}>Поставить на {dateLabel(freeDate)}</button>}
-        {!archive && <button className="button primary" disabled={disabled} onClick={() => actions.markPublished(post)}>Отметить выход</button>}
+        {archive && !isArchiveTopic(post) && <button className="button secondary" disabled={disabled} onClick={() => actions.restoreTopic(post)}>Вернуть выходы в план</button>}
       </div>
     </div>
 
@@ -526,11 +544,16 @@ function TopicView({ entry, today, settings, now, disabled, freeWednesday, actio
           : <p className="muted">Выходы этой темы не планируются.</p>}
       </section>
 
-      <section className="tile stages" aria-label="Этап подготовки">
-        <p className="tileLabel muted">Этап · нажми, чтобы продвинуть</p>
-        <div className="stageButtons">{STAGES.map((row) => <button key={row.id} className={entry.stage === row.id ? "current" : ""} disabled={disabled}
-          aria-pressed={entry.stage === row.id} onClick={() => actions.setStage(post, row.id)} title={row.hint}>
-          <Icon name={row.id} size={46} />{row.name}</button>)}</div>
+      <section className="tile stages" aria-label="Готовность поста">
+        <p className="tileLabel muted">Готовность поста</p>
+        {archive ? <p className="tileText">Выходы отмечены опубликованными. При ошибке используй «Вернуть выходы в план» вверху карточки.</p>
+          : <>
+            <label className={"checkbox readinessChoice " + (entry.stage === "ready" ? "checked" : "")}>
+              <input type="checkbox" checked={entry.stage === "ready"} disabled={disabled} onChange={(event) => actions.prepare(post, event.target.checked)} />
+              {entry.stage === "ready" ? "Готовый комплект получен" : "Жду готовый комплект"}
+            </label>
+            <p className="muted">Текст и картинки согласованы — отметь готовность. После размещения отмечай выход отдельно у каждой площадки.</p>
+          </>}
       </section>
 
       {archive ? <section className="tile ask results" aria-label="Цифры">
@@ -656,42 +679,18 @@ function CalendarView({ entries, today, month, setMonth, workItems, disabled, ac
   </>;
 }
 
-function BoardView({ entries, today, overdue, published, disabled, actions }) {
-  const [dropStage, setDropStage] = useState("");
-  const active = entries.filter((entry) => !entry.shelved && !entry.overdue && entry.section !== "archive")
-    .sort((a, b) => (a.section === "plan" ? a.next : Date.parse(a.targetDate)) - (b.section === "plan" ? b.next : Date.parse(b.targetDate)));
-  const recent = published.filter((entry) => daysBetween(publishedOn(entry), today) <= 31);
-  const hints = { text: "Перетащи сюда тему, когда начнёшь писать", visual: "Здесь темы, для которых готовится картинка", ready: "Готовые к выходу. Календарь напомнит о времени" };
-  const drop = (event, stage) => {
-    event.preventDefault();
-    setDropStage("");
-    const entry = entries.find((row) => row.post.id === event.dataTransfer.getData("text/plain"));
-    if (entry && !disabled) actions.setStage(entry.post, stage);
-  };
+function BoardView({ entries, disabled, actions }) {
+  const active = entries.filter((entry) => !entry.shelved && entry.section !== "archive");
   return <>
-    <PageHead eyebrow="Перетаскивай карточки, когда тема продвигается" title="Подготовка">
-      {overdue.length > 0 && <div className="pillNotice"><span>{overdue.length} тем с прошедшей датой не на доске</span>
-        <button className="button dark small" onClick={() => actions.openTab("ideas", "late")}>Разобрать</button></div>}
-    </PageHead>
-    <div className="board">
-      {STAGES.map((stage) => {
-        const items = stage.id === "published" ? recent : active.filter((entry) => entry.stage === stage.id);
-        return <section key={stage.id} className={"tile column" + (stage.id === "published" ? " doneColumn" : "") + (dropStage === stage.id ? " drop" : "")} aria-label={stage.name}
-          onDragOver={(e) => { e.preventDefault(); setDropStage(stage.id); }} onDragLeave={() => setDropStage("")} onDrop={(e) => drop(e, stage.id)}>
-          <div className="columnHead"><Icon name={stage.id} size={42} /><b>{stage.name}</b><span className={"count" + (items.length ? "" : " dim")}>{items.length}</span></div>
-          {items.map((entry) => {
-            const date = entry.section === "plan" ? entry.active[0]?.date : stage.id === "published" ? publishedOn(entry) : entry.targetDate;
-            const isToday = date === today && stage.id !== "published";
-            return <button key={entry.post.id} className={"card" + (isToday ? " hot" : "")} draggable={!disabled}
-              onDragStart={(e) => e.dataTransfer.setData("text/plain", entry.post.id)} onClick={() => actions.openTopic(entry.post.id)}>
-              <small>{stage.id === "published" ? publishedCaption(entry) : isToday ? "Сегодня" : date ? dateLabel(date) : ""}{entry.section === "plan" ? " · " + entry.active.map((slot) => slot.platform.name).join(", ") : ""}</small>
-              <b>{entry.post.title}</b>
-            </button>;
-          })}
-          {!items.length && stage.id !== "published" && stage.id !== "idea" && <p className="dropHint">{hints[stage.id]}</p>}
-          {stage.id === "published" && <p className="dropHint soft">Вышедшие темы через месяц остаются только в «Итогах»</p>}
-        </section>;
-      })}
+    <PageHead eyebrow="Готовые материалы и посты, которые ждём" title="Готовность" />
+    <div className="readinessBoard">
+      {[false, true].map((ready) => <section className="tile column" key={String(ready)} aria-label={ready ? "Комплект готов" : "Ждём материалы"}>
+        <div className="columnHead"><Icon name={ready ? "ready" : "bank"} size={42} /><b>{ready ? "Комплект готов" : "Ждём материалы"}</b></div>
+        {active.filter((entry) => (entry.stage === "ready") === ready).map((entry) => <div className="readinessCard" key={entry.post.id}>
+          <button className="bankText" onClick={() => actions.openTopic(entry.post.id)}><b>{entry.post.title}</b></button>
+          <button className="button secondary small" disabled={disabled} onClick={() => actions.prepare(entry.post, !ready)}>{ready ? "Нужна доработка" : "Комплект получен"}</button>
+        </div>)}
+      </section>)}
     </div>
   </>;
 }

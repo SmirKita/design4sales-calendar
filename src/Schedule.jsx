@@ -53,6 +53,7 @@ export function PlacementEditor({ post, record, settings, change, now, disabled 
               patch({ status: "published", publishedAt: new Date().toISOString() });
               setEditing("");
             }}>Отметить выход</button>}
+            {slot.status === "published" && <button className="button secondary" disabled={disabled} onClick={() => patch({ status: "planned", publishedAt: null })}>Вернуть в план</button>}
             <button className="button quiet" disabled={disabled} aria-expanded={editing === platform.id} onClick={() => {
               setAdding(false);
               setEditing(editing === platform.id ? "" : platform.id);
@@ -79,7 +80,7 @@ export function PlacementEditor({ post, record, settings, change, now, disabled 
           </div>
           <div className="slotTools">
             {slot.mode !== "default" && <button className="button quiet" onClick={() => patch({ mode: "default" })}>Вернуть обычное время</button>}
-            {terminal(slot) ? <button className="button secondary" onClick={() => patch({ status: "planned", publishedAt: null })}>Вернуть в план</button>
+            {slot.status === "cancelled" ? <button className="button secondary" onClick={() => patch({ status: "planned", publishedAt: null })}>Вернуть в план</button>
               : <button className="button quiet danger" onClick={() => {
                 patch({ status: "cancelled", publishedAt: null });
                 setEditing("");
