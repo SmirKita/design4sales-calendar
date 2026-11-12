@@ -16,8 +16,10 @@ function nextDate(date, time, now) {
 const leadLabel = (lead) => lead === 0 ? "В момент выхода" : `За ${lead} мин`;
 const terminal = (slot) => ["published", "cancelled"].includes(slot.status);
 
+const platformColors = { tg: "#229ED9", vk: "#0A6CE8", setka: "#D9384A", ig: "#C2306A", dzen: "#6E6577", "tg-story": "#229ED9", "vk-story": "#0A6CE8", "ig-story": "#C2306A" };
+
 function PlatformName({ platform }) {
-  return <span className="platformName"><span aria-hidden="true" className="platformIcon">{platform.icon}</span>{platform.name}</span>;
+  return <span className="platformName"><span aria-hidden="true" className="platformDot" style={{ background: platformColors[platform.id] }} />{platform.name}</span>;
 }
 
 export function PlacementEditor({ post, record, settings, change, now, disabled }) {
@@ -51,6 +53,7 @@ export function PlacementEditor({ post, record, settings, change, now, disabled 
               patch({ status: "published", publishedAt: new Date().toISOString() });
               setEditing("");
             }}>Отметить выход</button>}
+            {slot.status === "published" && <button className="button secondary" disabled={disabled} onClick={() => patch({ status: "planned", publishedAt: null })}>Вернуть в план</button>}
             <button className="button quiet" disabled={disabled} aria-expanded={editing === platform.id} onClick={() => {
               setAdding(false);
               setEditing(editing === platform.id ? "" : platform.id);
@@ -77,7 +80,7 @@ export function PlacementEditor({ post, record, settings, change, now, disabled 
           </div>
           <div className="slotTools">
             {slot.mode !== "default" && <button className="button quiet" onClick={() => patch({ mode: "default" })}>Вернуть обычное время</button>}
-            {terminal(slot) ? <button className="button secondary" onClick={() => patch({ status: "planned", publishedAt: null })}>Вернуть в план</button>
+            {slot.status === "cancelled" ? <button className="button secondary" onClick={() => patch({ status: "planned", publishedAt: null })}>Вернуть в план</button>
               : <button className="button quiet danger" onClick={() => {
                 patch({ status: "cancelled", publishedAt: null });
                 setEditing("");

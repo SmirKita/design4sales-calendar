@@ -151,3 +151,117 @@ test("editorial target dates order tentative topics without creating reminders",
   assert.equal(rows(state).size, 0);
   assert.ok(entries.find((entry) => entry.post.id === target).post.materials);
 });
+
+test("stages, overdue topics, the topic bank and the next free Wednesday", async () => {
+  const { publicationEntry, nextFreeWednesday, preparationFor, stageOf, weeksCovered } = await import("../src/editorialPlan.js");
+  const { settingsFor } = await import("../src/publicationSchedule.js");
+  const now = Date.parse("2026-11-11T10:00:00+03:00");
+  const today = "2026-11-11";
+  const state = normalizeState({});
+  const settings = settingsFor(state);
+  const build = () => telegramPlan.filter((row) => row.kind === "publication").map((row) => publicationEntry(row, state[row.id], settings, now));
+
+  let entries = build();
+  const overdue = entries.filter((entry) => entry.overdue).map((entry) => entry.post.id);
+  assert.equal(overdue.length, 10);
+  assert.ok(overdue.includes("2026-10-01-three-second-test"));
+  assert.ok(!overdue.includes("2026-10-27-photo-photoshop-ai"));
+  assert.ok(!overdue.includes(post.id));
+  assert.equal(nextFreeWednesday(entries, today), "2026-12-16");
+  assert.deepEqual(weeksCovered(entries, today), [true, true, true, true]);
+
+  for (const stage of ["idea", "text", "visual", "ready"]) {
+    state[post.id].phases.preparation = preparationFor(stage);
+    assert.equal(stageOf(build().find((entry) => entry.post.id === post.id)), stage);
+  }
+  assert.equal(stageOf(entries.find((entry) => entry.post.id === "2026-10-27-photo-photoshop-ai")), "published");
+
+  state["2026-10-01-three-second-test"].shelved = true;
+  state["2026-12-09-half-space"] = { ...state["2026-12-09-half-space"], shelved: true };
+  entries = build();
+  const shelved = entries.find((entry) => entry.post.id === "2026-10-01-three-second-test");
+  assert.equal(shelved.shelved, true);
+  assert.equal(shelved.overdue, false);
+  assert.equal(nextFreeWednesday(entries, today), "2026-12-09");
+
+  state["2026-10-06-photo-not-ready-for-ads"].phases.publication = "published";
+  assert.equal(build().find((entry) => entry.post.id === "2026-10-06-photo-not-ready-for-ads").section, "archive");
+  assert.equal(rows(state).size, 0);
+});
+
+test("old empty published rows leave tracking, preserving zero values, links and future results", () => {
+  const ids = ["2026-10-06-photo-not-ready-for-ads", "2026-10-20-specific-feedback", "2026-10-30-how-many-variants"];
+  const published = { phases: { publication: "published" } };
+  const input = {
+    [ids[0]]: { ...published, metrics: { v24: "", v72: "" }, resultNote: "Keep historical note" },
+    [ids[1]]: { ...published, metrics: { v24: 0 } },
+    [ids[2]]: { ...published, links: { post: "https://t.me/example/1" } },
+  };
+  const migrated = normalizeState(input);
+  assert.ok(migrated[ids[0]].trackingExcluded);
+  assert.equal(migrated[ids[0]].resultNote, "Keep historical note");
+  assert.equal(input[ids[0]].trackingExcluded, undefined);
+  assert.equal(migrated[ids[1]].trackingExcluded, undefined);
+  assert.equal(migrated[ids[2]].trackingExcluded, undefined);
+  const later = structuredClone(migrated);
+  later[ids[1]].metrics.v24 = "";
+  assert.equal(normalizeState(later)[ids[1]].trackingExcluded, undefined);
+  const another = normalizeState({ [post.id]: { ...published } });
+  assert.equal(another[post.id].trackingExcluded, undefined);
+  const hiddenScheduled = structuredClone(migrated);
+  hiddenScheduled[ids[0]].placements = { tg: { enabled: true, reminder: true, status: "planned", date: "2027-02-21" } };
+  assert.equal(makeManifest(telegramPlan, hiddenScheduled).reminders.some((row) => row.id.startsWith(ids[0])), false);
+});
+
+test("publication reversal restores reminders and preserves later edits on other fields", async () => {
+  const { changePlacementRecord, restorePlannedPlacements, undoRecordChanges } = await import("../src/publicationActions.js");
+  const original = { phases: { preparation: "ready", publication: "planned" },
+    placements: { tg: { ...enabled, date: "2027-02-20", status: "planned" }, vk: { ...enabled, date: "2027-02-21", status: "planned" } },
+    metrics: { v72: "" } };
+  const published = changePlacementRecord(original, "tg", { status: "published", publishedAt: "2027-02-20T08:00:00.000Z" });
+  assert.equal(published.placements.vk.status, "planned");
+  const later = structuredClone(published);
+  later.metrics.v72 = "37";
+  later.placements.vk.date = "2027-02-25";
+  const undone = undoRecordChanges(original, published, later);
+  assert.equal(undone.metrics.v72, "37");
+  assert.equal(undone.placements.vk.date, "2027-02-25");
+  assert.equal(undone.placements.tg.status, "planned");
+  const allPublished = changePlacementRecord(published, "vk", { status: "published", publishedAt: "2027-02-21T08:00:00.000Z" });
+  assert.equal(allPublished.phases.publication, "published");
+  const restored = restorePlannedPlacements(allPublished);
+  assert.equal(restored.placements.tg.date, "2027-02-20");
+  assert.equal(restored.placements.vk.date, "2027-02-21");
+  assert.equal(restored.phases.preparation, "ready");
+  assert.equal(restored.placements.tg.reminder, true);
+  assert.equal(rows({ [post.id]: restored }).size, 4);
+});
+
+test("exact accidental bulk publication is repaired once without changing schedule", () => {
+  const id = "2026-11-11-packaging-shelf";
+  const placements = Object.fromEntries(["tg", "vk", "tg-story", "vk-story"].map((platform, i) => [platform, {
+    ...enabled, status: "published", date: platform === "vk" ? "2026-11-12" : "2026-11-13", time: "19:00", mode: "custom",
+    publishedAt: "2026-11-12T13:15:27.030Z",
+  }]));
+  const fixed = normalizeState({ [id]: { placements, metrics: { v24: "7" }, phases: { preparation: "ready", publication: "planned" } } });
+  assert.ok(Object.values(fixed[id].placements).every(slot => slot.status === "planned" && slot.publishedAt === null));
+  assert.equal(fixed[id].placements.tg.date, "2026-11-13");
+  assert.equal(fixed[id].placements.vk.date, "2026-11-13");
+  assert.equal(fixed[id].placements.vk.time, "19:00");
+  assert.equal(fixed[id].metrics.v24, "7");
+  const genuine = structuredClone(placements);
+  genuine.tg.publishedAt = "2026-11-13T08:00:00.000Z";
+  assert.equal(normalizeState({ [id]: { placements: genuine } })[id].placements.tg.status, "published");
+});
+
+test("cancelling the last placement never counts as publication", async () => {
+  const { publicationEntry } = await import("../src/editorialPlan.js");
+  const { settingsFor } = await import("../src/publicationSchedule.js");
+  const record = { phases: { preparation: "ready", publication: "planned" }, placements: {
+    tg: { ...enabled, date: "2027-02-21", status: "cancelled" },
+  } };
+  const entry = publicationEntry(post, record, settingsFor({}), Date.now());
+  assert.equal(entry.section, "ideas");
+  assert.equal(entry.shelved, true);
+  assert.notEqual(entry.stage, "published");
+});
